@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.1.0...shopping-app-frontend-v0.2.0) (2023-08-31)
+
+
+### Features
+
+* **Production:** Setup all apps in production fashion ([ab1ef61](https://github.com/Evanlab02/ShoppingListApp/commit/ab1ef61f1fc5fdda69a09ae52b83b4625b23cacf))
+
 ## 0.1.0 (2023-08-31)
 
 
