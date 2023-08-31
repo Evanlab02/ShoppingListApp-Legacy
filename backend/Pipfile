@@ -7,6 +7,9 @@ name = "pypi"
 django = "==4.2.4"
 
 [dev-packages]
+black = "==23.7.0"
+flake8 = "==6.1.0"
+pydocstyle = "==6.3.0"
 
 [requires]
 python_version = "3.10"
