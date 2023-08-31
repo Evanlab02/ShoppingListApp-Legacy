@@ -1,1 +1,0 @@
-"""Contains all the routes for the shoppingapp."""

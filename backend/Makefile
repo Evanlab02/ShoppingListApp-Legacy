@@ -14,3 +14,9 @@ lint:
 
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
+
+dev:
+	python manage.py runserver localhost:7000 --settings=shoppingapp.settings.local_settings
+
+migrate:
+	python manage.py migrate --settings=shoppingapp.settings.local_settings
