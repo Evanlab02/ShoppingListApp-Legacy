@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==4.2.4"
 python-dotenv = "==1.0.0"
+uvicorn = "*"
 
 [dev-packages]
 black = "==23.7.0"

@@ -1,0 +1,10 @@
+CHANGELOG.md
+LICENSE
+Makefile
+README.md
+Pipfile
+Pipfile.lock
+version.txt
+.env.local
+.gitignore
+dev-requirements.txt
