@@ -2,6 +2,9 @@
     "packages": {
         "backend": {
             "release-type": "simple"
+        },
+        "frontend": {
+            "release-type": "node"
         }
     }
 }
