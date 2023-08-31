@@ -9,7 +9,7 @@
             "component": "shopping-app-frontend"
         },
         "server": {
-            "release-type": "shopping-app",
+            "release-type": "simple",
             "component": "shopping-app-server"
         }
     }
