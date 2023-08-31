@@ -22,11 +22,13 @@ jobs:
         with:
           python-version: "3.10"
       - name: Setup
+        working-directory: ./backend
         run: |
           pip install --upgrade pip
           pip install pipenv
           pipenv install --dev
       - name: Lint and Docs Styling
+        working-directory: ./backend
         run: |
           pipenv run black . --check
           pipenv run flake8 . --max-line-length=100
