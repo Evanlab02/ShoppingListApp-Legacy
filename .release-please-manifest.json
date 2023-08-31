@@ -1,4 +1,5 @@
 {
     "backend": "0.1.0",
-    "frontend": "0.1.0"
+    "frontend": "0.1.0",
+    "server": "0.1.0"
 }
