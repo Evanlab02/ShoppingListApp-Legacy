@@ -1,0 +1,7 @@
+{
+    "packages": {
+        "backend": {
+            "release-type": "simple"
+        }
+    }
+}
