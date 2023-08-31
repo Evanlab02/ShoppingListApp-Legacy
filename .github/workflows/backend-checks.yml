@@ -33,3 +33,7 @@ jobs:
           pipenv run black . --check
           pipenv run flake8 . --max-line-length=100
           pipenv run pydocstyle .
+      - name: Docker build
+        working-directory: ./backend
+        run: |
+          docker build -t backend:latest .
