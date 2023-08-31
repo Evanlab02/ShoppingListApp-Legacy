@@ -6,10 +6,11 @@
         },
         "frontend": {
             "release-type": "node",
-            "front-end": "shopping-app-frontend"
+            "component": "shopping-app-frontend"
         },
         "server": {
-            "release-type": "shopping-app"
+            "release-type": "shopping-app",
+            "component": "shopping-app-server"
         }
     }
 }
