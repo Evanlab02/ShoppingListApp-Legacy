@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
+
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fs(5xkon+9mniu_o5t^ueo7b)7s+1sv$!(j)iba#bykcpjo7rc"
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environ.get("DJANGO_DEBUG", "0") == "1"
 
 ALLOWED_HOSTS = []
 
@@ -49,7 +54,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "shoppingapp.urls"
+ROOT_URLCONF = "shoppingapp.routes.urls"
 
 TEMPLATES = [
     {
@@ -67,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "shoppingapp.wsgi.application"
+WSGI_APPLICATION = "shoppingapp.configs.wsgi.application"
 
 
 # Database
@@ -75,8 +80,12 @@ WSGI_APPLICATION = "shoppingapp.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": environ.get("DJANGO_DATABASE_NAME"),
+        "USER": environ.get("DJANGO_DATABASE_USER"),
+        "PASSWORD": environ.get("DJANGO_DATABASE_PASSWORD"),
+        "HOST": "shopping-app-django-postgres-db",
+        "PORT": "5432",
     }
 }
 
@@ -114,7 +123,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+STATIC_ROOT = "shoppingapp/static/"
 STATIC_URL = "static/"
 
 # Default primary key field type
