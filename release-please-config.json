@@ -1,10 +1,16 @@
 {
     "packages": {
         "backend": {
-            "release-type": "simple"
+            "release-type": "simple",
+            "component": "shopping-app-backend"
         },
         "frontend": {
-            "release-type": "node"
+            "release-type": "node",
+            "component": "shopping-app-frontend"
+        },
+        "server": {
+            "release-type": "shopping-app",
+            "component": "shopping-app-server"
         }
     }
 }
