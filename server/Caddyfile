@@ -8,8 +8,13 @@
     file_server
   }
 
-  handle_path /shopping/* {
+  handle_path /shopping/dashboard/* {
     root * ./site/
+    file_server
+  }
+
+  handle_path /assets/* {
+    root * ./site/assets/
     file_server
   }
 }
