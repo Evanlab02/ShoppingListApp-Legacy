@@ -1,0 +1,57 @@
+.navbar {
+    background-color: #ffffff;
+    min-height: 80px;
+    display: flex;
+    margin-bottom: 1rem;
+
+    .main-item {
+        width: 250px;
+    }
+
+    .navbar-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        transition: all 0.3s ease-in-out;
+
+        color: #000000;
+
+        sl-icon-button {
+            z-index: 2000;
+            cursor: pointer;
+            color: #813d9c;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+
+        .menu-list-button {
+            background-color: #deabd3;
+            border-radius: 0.6rem;
+        }
+
+        .menu-list-button:hover {
+            background-color: #813d9c;
+            border-radius: 0.6rem;
+        }
+
+        a {
+            cursor: pointer;
+            color: #000000;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            z-index: 1028;
+            display: flex;
+            align-items: center;
+        }
+
+        sl-icon {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #1a5fb4;
+            padding-right: 0.5rem;
+        }
+    }
+}
