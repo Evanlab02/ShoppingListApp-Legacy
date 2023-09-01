@@ -13,3 +13,6 @@ fresh:
 
 lint:
 	npm run lint
+
+clean:
+	rm -rf dist/
