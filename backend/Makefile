@@ -20,3 +20,6 @@ dev:
 
 migrate:
 	python manage.py migrate --settings=shoppingapp.settings.local_settings
+
+clean:
+	rm -rf shoppinglist/migrations/0*.py
