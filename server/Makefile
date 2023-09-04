@@ -7,3 +7,10 @@ up:
 down:
 	sudo ./bin/caddy stop
 
+clean:
+	rm -rf ./site/*
+	rm -rf ./static/*
+
+files: clean
+	cd ../backend/ && make static
+	cd ../frontend/ && make build
