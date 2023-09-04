@@ -5,4 +5,6 @@ export interface CardProps {
     iconName?: string;
     subText?: string;
     height?: string;
+    directLink?: string;
+    onClick?: () => void;
 }

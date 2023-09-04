@@ -5,4 +5,5 @@ export interface MiniCardProps {
     subText?: string;
     textColor?: string;
     iconName?: string;
+    directLink?: string;
 }
