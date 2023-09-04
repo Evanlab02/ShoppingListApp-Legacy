@@ -8,6 +8,20 @@
         align-items: center;
         justify-content: space-between;
 
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            color: #ffffff;
+
+            &:hover,
+            &:active,
+            &:visited,
+            &:focus,
+            &:link {
+                text-decoration: none;
+            }
+        }
+
         .left-icon {
             margin: 1rem 0 0 1rem;
             width: 50px;
@@ -19,6 +33,10 @@
             justify-content: center;
         }
 
+        .left-icon:hover {
+            opacity: 0.5;
+        }
+
         .right-icon {
             margin: 1rem 1rem 0 0;
             width: 50px;
@@ -28,6 +46,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .right-icon:hover {
+            cursor: pointer;
+            opacity: 0.5;
         }
     }
 

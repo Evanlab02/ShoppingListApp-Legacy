@@ -1,0 +1,19 @@
+.detail-panel {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.2rem;
+
+    h4 {
+        margin: 0rem;
+        padding: 0rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .recent-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+    }
+}
