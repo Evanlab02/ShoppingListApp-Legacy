@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.1.0...shopping-app-backend-v0.2.0) (2023-09-04)
+
+
+### Features
+
+* **Settings:** Allow backend to run on network host ([c486b14](https://github.com/Evanlab02/ShoppingListApp/commit/c486b14e8b52323ec4190ebdd563537ad32a46ee))
+
 ## [0.1.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.1.0...shopping-app-backend-v0.1.0) (2023-08-31)
 
 
