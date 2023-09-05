@@ -1,15 +1,15 @@
 """Contains the Django Ninja routes for the shoppinglist app."""
 
-from ninja import NinjaAPI
+from ninja import Router
 
 from ..models import ShoppingList
 from ..schemas.schemas import ShoppingListSchema, UploadSchema, ErrorSchema
 from ..validation.validation import validate_shoppinglist
 
-list_api = NinjaAPI()
+list_router = Router()
 
 
-@list_api.post("/create", response={201: UploadSchema, 400: ErrorSchema})
+@list_router.post("/create", response={201: UploadSchema, 400: ErrorSchema})
 def create_list(request, payload: ShoppingListSchema):
     """Create a new shopping list."""
     try:
