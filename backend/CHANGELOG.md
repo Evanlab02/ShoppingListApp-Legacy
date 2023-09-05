@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.2.0...shopping-app-backend-v0.3.0) (2023-09-05)
+
+
+### Features
+
+* **Admin:** Added shopping lists to admin page ([5c6a49d](https://github.com/Evanlab02/ShoppingListApp/commit/5c6a49d5c00a8497d3a13861c1f7ea7a251670cc))
+* **Deps:** Updated dependencies ([956028b](https://github.com/Evanlab02/ShoppingListApp/commit/956028b48db962be6d701a2b3d29db409691a3d9))
+
 ## [0.2.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.1.0...shopping-app-backend-v0.2.0) (2023-09-04)
 
 

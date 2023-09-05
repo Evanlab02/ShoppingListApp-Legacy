@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.3.0...shopping-app-frontend-v0.4.0) (2023-09-05)
+
+
+### Features
+
+* **Deps:** Updated dependencies ([5d5fa60](https://github.com/Evanlab02/ShoppingListApp/commit/5d5fa603b227302b553d99db6b230f2e777babcb))
+
 ## [0.3.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.2.0...shopping-app-frontend-v0.3.0) (2023-09-04)
 
 
