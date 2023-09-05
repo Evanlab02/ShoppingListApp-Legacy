@@ -13,6 +13,13 @@ class RegisterSchema(Schema):
     last_name: str
 
 
+class LoginSchema(Schema):
+    """Schema for the login endpoint."""
+
+    username: str
+    password: str
+
+
 class ErrorSchema(Schema):
     """Schema for the error response."""
 
