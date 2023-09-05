@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  Backend-Checks:
+  Checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,55 +21,39 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-      - name: Setup
+      - name: Backend - Setup
         working-directory: ./backend
         run: |
           pip install --upgrade pip
           pip install pipenv
           pipenv install --dev
-      - name: Lint and Docs Styling
+      - name: Backend - Lint and Docs Styling
         working-directory: ./backend
         run: |
           pipenv run black . --check
           pipenv run flake8 . --max-line-length=100
           pipenv run pydocstyle .
-      - name: Docker build
+      - name: Backend - Docker build
         working-directory: ./backend
         run: |
           docker build -t backend:latest .
-
-  Frontend-Checks:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Setup Node.js
+      - name: Frontend - Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18.16"
-      - name: Setup
+      - name: Frontend - Setup
         working-directory: ./frontend
         run: |
           npm ci
-      - name: Lint and Docs Styling
+      - name: Frontend - Lint and Docs Styling
         working-directory: ./frontend
         run: |
           npm run lint
-      - name: Build
+      - name: Frontend - Build
         working-directory: ./frontend
         run: |
           npm run build
-
-  Server-Checks:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Build
+      - name: Server - Build
         working-directory: ./server
         run: |
           docker build -t server:latest .
