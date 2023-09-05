@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.2.0...shopping-app-server-v0.3.0) (2023-09-05)
+
+
+### Features
+
+* **Makefile:** Added convenience rules ([a79baba](https://github.com/Evanlab02/ShoppingListApp/commit/a79baba91172aa99033251d849da3744be4fc631))
+
 ## [0.2.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.1.0...shopping-app-server-v0.2.0) (2023-09-04)
 
 
