@@ -17,9 +17,19 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+
+from ninja import NinjaAPI
+
+from authenticationapp.routes.routes import auth_router
+from shoppinglist.routes.routes import list_router
+
+api = NinjaAPI()
+
+api.add_router("/auth", auth_router)
+api.add_router("/list", list_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("lists/", include("shoppinglist.urls")),
+    path("api/", api.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

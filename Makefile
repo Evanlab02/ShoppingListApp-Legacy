@@ -1,4 +1,5 @@
 up:
+	cd server && make files
 	docker compose up -d --build
 
 down:
