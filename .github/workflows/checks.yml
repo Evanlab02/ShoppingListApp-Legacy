@@ -47,12 +47,11 @@ jobs:
       - name: Start Prod Server
         run: |
           docker compose up -d
-          sleep 10
       - name: Make Migrations and Migrate
         working-directory: ./backend
         run: |
-          pipenv run python manage.py makemigrations
-          pipenv run python manage.py migrate
+          pipenv run python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+          pipenv run python manage.py migrate --settings=shoppingapp.settings.test_settings
       - name: Run Django Tests
         working-directory: ./backend
         run: |
