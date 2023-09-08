@@ -72,6 +72,21 @@ class TestAuthentication(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {"detail": "User is already authenticated."})
 
+        response = client.post(
+            "/api/auth/register",
+            {
+                "username": "test-login",
+                "email": "test@login.com",
+                "password": "testpassword",
+                "first_name": "test",
+                "last_name": "user",
+            },
+            content_type="application/json",
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"detail": "User is already authenticated."})
+
     def test_logout(self):
         """Test the logout endpoint."""
         client = Client()

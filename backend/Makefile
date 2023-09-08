@@ -12,8 +12,9 @@ lint:
 	flake8 . --max-line-length=100
 	pydocstyle .
 
-django-test:
-	python manage.py test --settings=shoppingapp.settings.local_settings
+test:
+	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+	pytest -v --cov=. --cov-report term-missing
 
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
@@ -22,4 +23,5 @@ dev:
 	python manage.py runserver localhost:7000 --settings=shoppingapp.settings.local_settings
 
 migrate:
+	python manage.py makemigrations --settings=shoppingapp.settings.local_settings
 	python manage.py migrate --settings=shoppingapp.settings.local_settings
