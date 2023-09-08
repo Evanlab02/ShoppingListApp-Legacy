@@ -15,7 +15,7 @@ class ShoppingListSchema(ModelSchema):
         model_fields = ["name", "description", "start_date", "end_date"]
 
 
-class UploadSchema(Schema):
+class SuccessSchema(Schema):
     """Schema for the Upload model."""
 
     message: str
@@ -24,4 +24,4 @@ class UploadSchema(Schema):
 class ErrorSchema(Schema):
     """Schema for the Error model."""
 
-    message: str
+    detail: str

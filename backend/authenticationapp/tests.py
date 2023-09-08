@@ -1,6 +1,8 @@
 """Contains tests for the authentication app."""
 from django.test import TestCase, Client
 
+CONTENT_TYPE = "application/json"
+
 
 class TestAuthentication(TestCase):
     """Tests for the authentication app."""
@@ -8,7 +10,6 @@ class TestAuthentication(TestCase):
     def test_register(self):
         """Test the register endpoint."""
         client = Client()
-        client.get("/api/auth/logout")
 
         response = client.post(
             "/api/auth/register",
@@ -19,7 +20,7 @@ class TestAuthentication(TestCase):
                 "first_name": "test",
                 "last_name": "user",
             },
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 201)
@@ -28,7 +29,6 @@ class TestAuthentication(TestCase):
     def test_login(self):
         """Test the login endpoint."""
         client = Client()
-        client.get("/api/auth/logout")
 
         response = client.post(
             "/api/auth/register",
@@ -39,7 +39,7 @@ class TestAuthentication(TestCase):
                 "first_name": "test",
                 "last_name": "user",
             },
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 201)
@@ -48,7 +48,7 @@ class TestAuthentication(TestCase):
         response = client.post(
             "/api/auth/login",
             {"username": "test-login", "password": "testpass"},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 401)
@@ -57,7 +57,7 @@ class TestAuthentication(TestCase):
         response = client.post(
             "/api/auth/login",
             {"username": "test-login", "password": "testpassword"},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 200)
@@ -66,7 +66,7 @@ class TestAuthentication(TestCase):
         response = client.post(
             "/api/auth/login",
             {"username": "test-login", "password": "testpassword"},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 400)
@@ -81,7 +81,7 @@ class TestAuthentication(TestCase):
                 "first_name": "test",
                 "last_name": "user",
             },
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 400)
@@ -101,7 +101,7 @@ class TestAuthentication(TestCase):
                 "first_name": "test",
                 "last_name": "user",
             },
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 201)
@@ -110,7 +110,7 @@ class TestAuthentication(TestCase):
         response = client.post(
             "/api/auth/login",
             {"username": "test-logout", "password": "testpassword"},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
         )
 
         self.assertEqual(response.status_code, 200)

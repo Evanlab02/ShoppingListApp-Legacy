@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
-from os import environ
 
 from dotenv import load_dotenv
 
@@ -25,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ["DJANGO_KEY"]
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -83,9 +84,9 @@ WSGI_APPLICATION = "shoppingapp.configs.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": environ.get("DJANGO_DATABASE_NAME"),
-        "USER": environ.get("DJANGO_DATABASE_USER"),
-        "PASSWORD": environ.get("DJANGO_DATABASE_PASSWORD"),
+        "NAME": os.environ.get("DJANGO_DATABASE_NAME"),
+        "USER": os.environ.get("DJANGO_DATABASE_USER"),
+        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD"),
         "HOST": "shopping-app-django-postgres-db",
         "PORT": "5432",
     }

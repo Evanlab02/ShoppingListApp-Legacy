@@ -18,7 +18,7 @@ jobs:
       DJANGO_DATABASE_NAME: ${{ vars.DJANGO_DATABASE_NAME }}
       DJANGO_DATABASE_USER: ${{ vars.DJANGO_DATABASE_USER }}
       DJANGO_DATABASE_PASSWORD: ${{ vars.DJANGO_DATABASE_PASSWORD }}
-      DJANGO_SECRET_KEY: ${{ vars.DJANGO_SECRET_KEY }}
+      DJANGO_KEY: ${{ vars.DJANGO_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -56,6 +56,14 @@ jobs:
         working-directory: ./backend
         run: |
           pipenv run pytest -v --cov=. --cov-report term-missing
+          pipenv run coverage xml
+      - name: SonarCloud Scan - Backend
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: backend/
 
   Frontend-Checks:
     runs-on: ubuntu-latest
