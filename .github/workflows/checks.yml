@@ -47,6 +47,7 @@ jobs:
       - name: Start Prod Server
         run: |
           docker compose up -d
+          sleep 10
       - name: Make Migrations and Migrate
         working-directory: ./backend
         run: |
