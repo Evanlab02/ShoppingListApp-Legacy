@@ -3,6 +3,7 @@ from django.test import TestCase, Client
 
 CONTENT_TYPE = "application/json"
 
+
 class TestAuthentication(TestCase):
     """Tests for the authentication app."""
 

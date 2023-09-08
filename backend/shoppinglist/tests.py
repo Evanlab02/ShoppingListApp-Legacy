@@ -13,6 +13,7 @@ LIST_DESCRIPTION = "test description"
 
 CONTENT_TYPE = "application/json"
 
+
 class TestShoppingList(TestCase):
     """Tests for the shoppinglist app."""
 
