@@ -13,6 +13,13 @@ jobs:
   Backend-Checks:
     runs-on: ubuntu-latest
 
+    # Vars set in Github should not be used in any PROD environment
+    env:
+      DJANGO_DATABASE_NAME: ${{ vars.DJANGO_DATABASE_NAME }}
+      DJANGO_DATABASE_USER: ${{ vars.DJANGO_DATABASE_USER }}
+      DJANGO_DATABASE_PASSWORD: ${{ vars.DJANGO_DATABASE_PASSWORD }}
+      DJANGO_SECRET_KEY: ${{ vars.DJANGO_SECRET_KEY }}
+
     steps:
       - uses: actions/checkout@v3
         with:
