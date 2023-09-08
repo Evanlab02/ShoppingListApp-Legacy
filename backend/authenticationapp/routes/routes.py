@@ -13,7 +13,7 @@ auth_router = Router()
 def register(request: HttpRequest, payload: RegisterSchema):
     """
     Register a user.
-    
+
     Create a new user with the given credentials.
 
     Args:
@@ -36,13 +36,13 @@ def register(request: HttpRequest, payload: RegisterSchema):
 def login(request: HttpRequest, payload: LoginSchema):
     """
     Login a user.
-    
+
     Login a user with the given credentials.
 
     Args:
         request (HttpRequest): The request object.
         payload (LoginSchema): The payload containing the credentials.
-        
+
     Returns:
         (int, SuccessSchema | ErrorSchema): The status code and the response as a schema.
     """
@@ -56,7 +56,7 @@ def login(request: HttpRequest, payload: LoginSchema):
 def logout(request: HttpRequest):
     """
     Logout a user.
-    
+
     Args:
         request (HttpRequest): The request object.
 

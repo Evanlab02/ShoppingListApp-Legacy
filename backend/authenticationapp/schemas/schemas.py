@@ -6,7 +6,7 @@ from ninja import Schema
 class RegisterSchema(Schema):
     """
     Schema for the register endpoint.
-    
+
     attributes:
         username: str
         password: str
@@ -25,7 +25,7 @@ class RegisterSchema(Schema):
 class LoginSchema(Schema):
     """
     Schema for the login endpoint.
-    
+
     attributes:
         username: str
         password: str
@@ -38,7 +38,7 @@ class LoginSchema(Schema):
 class ErrorSchema(Schema):
     """
     Schema for the error response.
-    
+
     attributes:
         detail: str
     """
@@ -49,7 +49,7 @@ class ErrorSchema(Schema):
 class SuccessSchema(Schema):
     """
     Schema for the success response.
-    
+
     attributes:
         message: str
     """

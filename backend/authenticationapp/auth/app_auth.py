@@ -10,7 +10,7 @@ from ..schemas.schemas import RegisterSchema, LoginSchema, ErrorSchema, SuccessS
 def create_user(payload: RegisterSchema):
     """
     Register a user.
-    
+
     Create a new user with the given credentials without saving them to the database.
 
     Args:
@@ -32,7 +32,7 @@ def create_user(payload: RegisterSchema):
 def login_user(request: HttpRequest, payload: LoginSchema):
     """
     Login a user.
-    
+
     Login a user with the given credentials.
 
     Args:
