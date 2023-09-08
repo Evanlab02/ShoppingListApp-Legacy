@@ -12,6 +12,9 @@ lint:
 	flake8 . --max-line-length=100
 	pydocstyle .
 
+django-test:
+	python manage.py test --settings=shoppingapp.settings.local_settings
+
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
 
