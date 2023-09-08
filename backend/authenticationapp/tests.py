@@ -8,7 +8,6 @@ class TestAuthentication(TestCase):
     def test_register(self):
         """Test the register endpoint."""
         client = Client()
-        client.get("/api/auth/logout")
 
         response = client.post(
             "/api/auth/register",
@@ -28,7 +27,6 @@ class TestAuthentication(TestCase):
     def test_login(self):
         """Test the login endpoint."""
         client = Client()
-        client.get("/api/auth/logout")
 
         response = client.post(
             "/api/auth/register",
