@@ -56,6 +56,12 @@ jobs:
         working-directory: ./backend
         run: |
           pipenv run pytest -v --cov=. --cov-report term-missing
+          pipenv run coverage xml
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   Frontend-Checks:
     runs-on: ubuntu-latest
