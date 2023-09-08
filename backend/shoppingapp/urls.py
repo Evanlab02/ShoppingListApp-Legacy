@@ -24,7 +24,7 @@ from ninja import NinjaAPI
 from authenticationapp.routes.routes import auth_router
 from shoppinglist.routes.routes import list_router
 
-api = NinjaAPI()
+api = NinjaAPI(csrf=True)
 
 api.add_router("/auth", auth_router)
 api.add_router("/list", list_router)

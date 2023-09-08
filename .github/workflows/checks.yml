@@ -13,6 +13,13 @@ jobs:
   Backend-Checks:
     runs-on: ubuntu-latest
 
+    # Vars set in Github should not be used in any PROD environment
+    env:
+      DJANGO_DATABASE_NAME: ${{ vars.DJANGO_DATABASE_NAME }}
+      DJANGO_DATABASE_USER: ${{ vars.DJANGO_DATABASE_USER }}
+      DJANGO_DATABASE_PASSWORD: ${{ vars.DJANGO_DATABASE_PASSWORD }}
+      DJANGO_SECRET_KEY: ${{ vars.DJANGO_SECRET_KEY }}
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -37,6 +44,18 @@ jobs:
         working-directory: ./backend
         run: |
           docker build -t backend:latest .
+      - name: Start Prod Server
+        run: |
+          docker compose up -d
+      - name: Make Migrations and Migrate
+        working-directory: ./backend
+        run: |
+          pipenv run python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+          pipenv run python manage.py migrate --settings=shoppingapp.settings.test_settings
+      - name: Run Django Tests
+        working-directory: ./backend
+        run: |
+          pipenv run python manage.py test --settings=shoppingapp.settings.test_settings
 
   Frontend-Checks:
     runs-on: ubuntu-latest
