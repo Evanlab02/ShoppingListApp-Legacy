@@ -37,6 +37,18 @@ jobs:
         working-directory: ./backend
         run: |
           docker build -t backend:latest .
+      - name: Start Prod Server
+        run: |
+          docker compose up -d
+      - name: Make Migrations and Migrate
+        working-directory: ./backend
+        run: |
+          pipenv run python manage.py makemigrations
+          pipenv run python manage.py migrate
+      - name: Run Django Tests
+        working-directory: ./backend
+        run: |
+          pipenv run python manage.py test
 
   Frontend-Checks:
     runs-on: ubuntu-latest
