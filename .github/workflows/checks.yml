@@ -48,7 +48,7 @@ jobs:
       - name: Run Django Tests
         working-directory: ./backend
         run: |
-          pipenv run python manage.py test
+          pipenv run python manage.py test --settings=shoppingapp.settings.test_settings
 
   Frontend-Checks:
     runs-on: ubuntu-latest
