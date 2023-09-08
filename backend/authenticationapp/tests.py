@@ -1,6 +1,7 @@
 """Contains tests for the authentication app."""
 from django.test import TestCase, Client
 
+
 class TestAuthentication(TestCase):
     """Tests for the authentication app."""
 
@@ -22,7 +23,7 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"message": "User successfully registered."})        
+        self.assertEqual(response.json(), {"message": "User successfully registered."})
 
     def test_login(self):
         """Test the login endpoint."""
@@ -61,7 +62,7 @@ class TestAuthentication(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"message": "User successfully logged in."})
-        
+
         response = client.post(
             "/api/auth/login",
             {"username": "test-login", "password": "testpassword"},
@@ -70,7 +71,6 @@ class TestAuthentication(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {"detail": "User is already authenticated."})
-
 
     def test_logout(self):
         """Test the logout endpoint."""
