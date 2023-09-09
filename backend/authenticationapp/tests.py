@@ -11,6 +11,7 @@ LOGIN_ENDPOINT = "/api/auth/login"
 LOGOUT_ENDPOINT = "/api/auth/logout"
 SUCCESS_REGISTER_MESSAGE = "User successfully registered."
 
+
 class TestAuthentication(TestCase):
     """Tests for the authentication app."""
 
