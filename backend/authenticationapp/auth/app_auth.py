@@ -8,13 +8,18 @@ from ninja.security import APIKeyHeader
 from ..models import Client
 from ..schemas.schemas import RegisterSchema, LoginSchema, ErrorSchema, SuccessSchema
 
+
 class ApiKey(APIKeyHeader):
+    """API key authentication helper class."""
+
     param_name = "X-API-Key"
 
     def authenticate(self, request, key):
+        """Authenticate a user."""
         client = Client.objects.get(user=request.user)
         if key == client.token:
             return client
+
 
 def create_user(payload: RegisterSchema):
     """
@@ -65,6 +70,7 @@ def logout_user(request: HttpRequest):
         return 400, ErrorSchema(detail="User is not authenticated.")
     logout(request)
     return 200, SuccessSchema(message="User successfully logged out.")
+
 
 def generate_token(user: User):
     """Generate a token for a user."""

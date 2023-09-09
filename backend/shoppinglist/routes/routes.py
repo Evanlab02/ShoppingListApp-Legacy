@@ -14,7 +14,9 @@ api_key = ApiKey()
 list_router = Router(auth=api_key)
 
 
-@list_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema, 401: ErrorSchema})
+@list_router.post(
+    "/create", response={201: SuccessSchema, 400: ErrorSchema, 401: ErrorSchema}
+)
 def create_list(request: HttpRequest, payload: ShoppingListSchema):
     """
     Create a new shopping list.
@@ -36,6 +38,8 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
 
-    shopping_list = ShoppingList.objects.create(**payload.dict(), user=request.auth.user)
+    shopping_list = ShoppingList.objects.create(
+        **payload.dict(), user=request.auth.user
+    )
     shopping_list.save()
     return 201, SuccessSchema(message="Shopping list created successfully")

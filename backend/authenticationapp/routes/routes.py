@@ -66,6 +66,7 @@ def logout(request: HttpRequest):
     status_code, response = logout_user(request)
     return status_code, response
 
+
 @auth_router.get("/token", response={200: SuccessSchema, 400: ErrorSchema})
 def token(request: HttpRequest):
     """

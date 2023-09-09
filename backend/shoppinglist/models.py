@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from django.contrib.auth.models import User
 
+
 class ShoppingList(models.Model):
     """Represents a shopping list."""
 
