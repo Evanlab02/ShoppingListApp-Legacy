@@ -3,6 +3,7 @@
 from django.db import models
 from django.utils import timezone
 
+from django.contrib.auth.models import User
 
 class ShoppingList(models.Model):
     """Represents a shopping list."""
@@ -13,6 +14,7 @@ class ShoppingList(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """Return a string representation of the shopping list."""

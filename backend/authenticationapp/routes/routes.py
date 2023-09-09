@@ -3,7 +3,7 @@
 from django.http import HttpRequest
 from ninja import Router
 
-from ..auth.app_auth import create_user, login_user, logout_user
+from ..auth.app_auth import create_user, login_user, logout_user, generate_token
 from ..schemas.schemas import RegisterSchema, ErrorSchema, SuccessSchema, LoginSchema
 
 auth_router = Router()
@@ -65,3 +65,18 @@ def logout(request: HttpRequest):
     """
     status_code, response = logout_user(request)
     return status_code, response
+
+@auth_router.get("/token", response={200: SuccessSchema, 400: ErrorSchema})
+def token(request: HttpRequest):
+    """
+    Get token of a user.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response as a schema.
+    """
+    if not request.user.is_authenticated:
+        return 400, ErrorSchema(detail="User is not authenticated.")
+    return 200, SuccessSchema(message=generate_token(request.user))

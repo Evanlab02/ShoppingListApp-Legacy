@@ -3,9 +3,18 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpRequest
+from ninja.security import APIKeyHeader
 
+from ..models import Client
 from ..schemas.schemas import RegisterSchema, LoginSchema, ErrorSchema, SuccessSchema
 
+class ApiKey(APIKeyHeader):
+    param_name = "X-API-Key"
+
+    def authenticate(self, request, key):
+        client = Client.objects.get(user=request.user)
+        if key == client.token:
+            return client
 
 def create_user(payload: RegisterSchema):
     """
@@ -56,3 +65,17 @@ def logout_user(request: HttpRequest):
         return 400, ErrorSchema(detail="User is not authenticated.")
     logout(request)
     return 200, SuccessSchema(message="User successfully logged out.")
+
+def generate_token(user: User):
+    """Generate a token for a user."""
+    client = None
+    try:
+        client = Client.objects.filter(user=user).get()
+    except Client.DoesNotExist:
+        client = None
+
+    if client is None:
+        client = Client.objects.create(user=user)
+
+    client.generate_token()
+    return client.token

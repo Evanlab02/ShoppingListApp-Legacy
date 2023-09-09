@@ -1,17 +1,21 @@
 """Contains the Django Ninja routes for the shoppinglist app."""
 
+from django.http import HttpRequest
 from ninja import Router
-from ninja.security import django_auth
+
+from authenticationapp.auth.app_auth import ApiKey
+from authenticationapp.models import Client
 
 from ..models import ShoppingList
 from ..schemas.schemas import ShoppingListSchema, SuccessSchema, ErrorSchema
 from ..validation.validation import validate_shoppinglist
 
-list_router = Router(auth=django_auth)
+api_key = ApiKey()
+list_router = Router(auth=api_key)
 
 
-@list_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
-def create_list(request, payload: ShoppingListSchema):
+@list_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema, 401: ErrorSchema})
+def create_list(request: HttpRequest, payload: ShoppingListSchema):
     """
     Create a new shopping list.
 
@@ -23,10 +27,15 @@ def create_list(request, payload: ShoppingListSchema):
         (int, UploadSchema | ErrorSchema): The status code and the response schema.
     """
     try:
+        assert isinstance(request.auth, Client)
+    except AssertionError:
+        return 401, ErrorSchema(detail="unauthorized")
+
+    try:
         validate_shoppinglist(payload)
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
 
-    shopping_list = ShoppingList.objects.create(**payload.dict())
+    shopping_list = ShoppingList.objects.create(**payload.dict(), user=request.auth.user)
     shopping_list.save()
     return 201, SuccessSchema(message="Shopping list created successfully")
