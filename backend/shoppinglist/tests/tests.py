@@ -4,9 +4,8 @@ from datetime import date, timedelta
 
 import pytest
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from django.test import TestCase
 
-from authenticationapp.models import Client as AuthClient
 from ..models import ShoppingList
 from ..schemas.schemas import ShoppingListSchema
 from ..validation.validation import validate_shoppinglist
@@ -26,7 +25,7 @@ class TestShoppingList(TestCase):
         user = User.objects.create_user(
             username="testuser", email=TEST_EMAIL, password="testpassword"
         )
-        
+
         shopping_list = ShoppingListSchema(
             name=LIST_NAME,
             description=LIST_DESCRIPTION,

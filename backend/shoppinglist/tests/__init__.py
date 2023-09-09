@@ -1,1 +1,1 @@
-"""Contains tests for the shoppinglist app"""
+"""Contains tests for the shoppinglist app."""

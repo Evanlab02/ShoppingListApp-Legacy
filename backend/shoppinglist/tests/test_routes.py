@@ -11,6 +11,7 @@ TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
 CREATE_ENDPOINT = "/api/list/create"
 
+
 class TestShoppingListEndpoints(TestCase):
     """Contains tests for the shoppinglist app's endpoints."""
 
@@ -143,7 +144,9 @@ class TestShoppingListEndpoints(TestCase):
 
         AuthClient.objects.create(
             user=User.objects.create_user(
-                username="testuser2", email="testuser2@test.com", password="testpassword"
+                username="testuser2",
+                email="testuser2@test.com",
+                password="testpassword",
             ),
         )
 
