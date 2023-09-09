@@ -16,6 +16,9 @@ class ApiKey(APIKeyHeader):
 
     def authenticate(self, request, key):
         """Authenticate a user."""
+        if not request.user.is_authenticated:
+            return None
+
         client = Client.objects.get(user=request.user)
         if key == client.token:
             return client

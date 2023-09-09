@@ -29,11 +29,6 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
         (int, UploadSchema | ErrorSchema): The status code and the response schema.
     """
     try:
-        assert isinstance(request.auth, Client)
-    except AssertionError:
-        return 401, ErrorSchema(detail="unauthorized")
-
-    try:
         validate_shoppinglist(payload)
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
