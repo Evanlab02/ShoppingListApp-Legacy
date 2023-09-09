@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.1...shopping-app-backend-v0.4.2) (2023-09-09)
+
+
+### Bug Fixes
+
+* **Docker:** Adjusted docker ignore to exlude non-prod files ([f711031](https://github.com/Evanlab02/ShoppingListApp/commit/f711031823372ecd91d79c9024c504eec3d062b0))
+* **ShoppingLists:** Different users date ranges will not clash with each other anymore ([ebdfd85](https://github.com/Evanlab02/ShoppingListApp/commit/ebdfd85e5e05cabce65c61d75baa56710658e26c))
+
 ## [0.4.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.0...shopping-app-backend-v0.4.1) (2023-09-09)
 
 
