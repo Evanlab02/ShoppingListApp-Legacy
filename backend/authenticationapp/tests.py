@@ -5,6 +5,7 @@ from django.test import TestCase, Client
 from .models import Client as ClientModel
 
 CONTENT_TYPE = "application/json"
+LOGIN_SUCCESS_MESSAGE = "User successfully logged in."
 
 
 class TestAuthentication(TestCase):
@@ -64,7 +65,7 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"message": "User successfully logged in."})
+        self.assertEqual(response.json(), {"message": LOGIN_SUCCESS_MESSAGE})
 
         response = client.post(
             "/api/auth/login",
@@ -117,7 +118,7 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"message": "User successfully logged in."})
+        self.assertEqual(response.json(), {"message": LOGIN_SUCCESS_MESSAGE})
 
         response = client.get("/api/auth/logout")
 
@@ -155,7 +156,7 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"message": "User successfully logged in."})
+        self.assertEqual(response.json(), {"message": LOGIN_SUCCESS_MESSAGE})
 
         response = client.get("/api/auth/token")
 

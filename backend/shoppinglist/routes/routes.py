@@ -4,7 +4,6 @@ from django.http import HttpRequest
 from ninja import Router
 
 from authenticationapp.auth.app_auth import ApiKey
-from authenticationapp.models import Client
 
 from ..models import ShoppingList
 from ..schemas.schemas import ShoppingListSchema, SuccessSchema, ErrorSchema

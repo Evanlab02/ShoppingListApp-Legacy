@@ -13,7 +13,7 @@ from .validation.validation import validate_shoppinglist
 
 LIST_NAME = "test shopping list"
 LIST_DESCRIPTION = "test description"
-
+TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
 
 
@@ -110,7 +110,7 @@ class TestShoppingList(TestCase):
 
         AuthClient.objects.create(
             user=User.objects.create_user(
-                username="testuser", email="test@test.com", password="testpassword"
+                username="testuser", email=TEST_EMAIL, password="testpassword"
             ),
         )
 
@@ -134,7 +134,7 @@ class TestShoppingList(TestCase):
 
         AuthClient.objects.create(
             user=User.objects.create_user(
-                username="testuser", email="test@test.com", password="testpassword"
+                username="testuser", email=TEST_EMAIL, password="testpassword"
             ),
         )
 
@@ -153,14 +153,13 @@ class TestShoppingList(TestCase):
         assert response.status_code == 401
         assert response.json()["detail"] == "Unauthorized"
 
-
     def test_create_shopping_list_invalid_payload(self):
         """Test the create shopping list endpoint with an invalid payload."""
         client = Client()
 
         AuthClient.objects.create(
             user=User.objects.create_user(
-                username="testuser", email="test@test.com", password="testpassword"
+                username="testuser", email=TEST_EMAIL, password="testpassword"
             ),
         )
 
@@ -183,7 +182,10 @@ class TestShoppingList(TestCase):
         )
 
         assert response.status_code == 400
-        assert response.json()["detail"] == "The shopping list's start date must be before its end date."
+        assert (
+            response.json()["detail"]
+            == "The shopping list's start date must be before its end date."
+        )
 
     def test_create_shopping_list_valid_payload(self):
         """Test the create shopping list endpoint with a valid payload."""
@@ -191,7 +193,7 @@ class TestShoppingList(TestCase):
 
         AuthClient.objects.create(
             user=User.objects.create_user(
-                username="testuser", email="test@test.com", password="testpassword"
+                username="testuser", email=TEST_EMAIL, password="testpassword"
             ),
         )
 
@@ -219,7 +221,7 @@ class TestShoppingList(TestCase):
     def test_shopping_list_to_string(self):
         """Test the __str__ method of the ShoppingList model."""
         user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         shopping_list = ShoppingList.objects.create(
@@ -232,11 +234,10 @@ class TestShoppingList(TestCase):
 
         assert str(shopping_list) == LIST_NAME
 
-
     def test_shopping_list_is_current(self):
         """Test the is_current method of the ShoppingList model."""
         user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         shopping_list = ShoppingList.objects.create(
@@ -252,7 +253,7 @@ class TestShoppingList(TestCase):
     def test_shopping_list_is_not_current(self):
         """Test the is_current method of the ShoppingList model."""
         user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         shopping_list = ShoppingList.objects.create(

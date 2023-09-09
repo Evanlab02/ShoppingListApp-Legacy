@@ -11,7 +11,7 @@ class Client(models.Model):
     """Model for a client."""
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=100, blank=True, null=True)
+    token = models.CharField(max_length=100, blank=True)
     token_expiration = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
