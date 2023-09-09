@@ -6,7 +6,10 @@ from .models import Client as ClientModel
 
 CONTENT_TYPE = "application/json"
 LOGIN_SUCCESS_MESSAGE = "User successfully logged in."
-
+REGISTER_ENDPOINT = "/api/auth/register"
+LOGIN_ENDPOINT = "/api/auth/login"
+LOGOUT_ENDPOINT = "/api/auth/logout"
+SUCCESS_REGISTER_MESSAGE = "User successfully registered."
 
 class TestAuthentication(TestCase):
     """Tests for the authentication app."""
@@ -16,7 +19,7 @@ class TestAuthentication(TestCase):
         client = Client()
 
         response = client.post(
-            "/api/auth/register",
+            REGISTER_ENDPOINT,
             {
                 "username": "test",
                 "email": "test@testuser.com",
@@ -28,14 +31,14 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"message": "User successfully registered."})
+        self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
 
     def test_login(self):
         """Test the login endpoint."""
         client = Client()
 
         response = client.post(
-            "/api/auth/register",
+            REGISTER_ENDPOINT,
             {
                 "username": "test-login",
                 "email": "test@login.com",
@@ -47,10 +50,10 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"message": "User successfully registered."})
+        self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
 
         response = client.post(
-            "/api/auth/login",
+            LOGIN_ENDPOINT,
             {"username": "test-login", "password": "testpass"},
             content_type=CONTENT_TYPE,
         )
@@ -59,7 +62,7 @@ class TestAuthentication(TestCase):
         self.assertEqual(response.json(), {"detail": "Invalid credentials."})
 
         response = client.post(
-            "/api/auth/login",
+            LOGIN_ENDPOINT,
             {"username": "test-login", "password": "testpassword"},
             content_type=CONTENT_TYPE,
         )
@@ -68,7 +71,7 @@ class TestAuthentication(TestCase):
         self.assertEqual(response.json(), {"message": LOGIN_SUCCESS_MESSAGE})
 
         response = client.post(
-            "/api/auth/login",
+            LOGIN_ENDPOINT,
             {"username": "test-login", "password": "testpassword"},
             content_type=CONTENT_TYPE,
         )
@@ -77,7 +80,7 @@ class TestAuthentication(TestCase):
         self.assertEqual(response.json(), {"detail": "User is already authenticated."})
 
         response = client.post(
-            "/api/auth/register",
+            REGISTER_ENDPOINT,
             {
                 "username": "test-login",
                 "email": "test@login.com",
@@ -94,10 +97,10 @@ class TestAuthentication(TestCase):
     def test_logout(self):
         """Test the logout endpoint."""
         client = Client()
-        client.get("/api/auth/logout")
+        client.get(LOGOUT_ENDPOINT)
 
         response = client.post(
-            "/api/auth/register",
+            REGISTER_ENDPOINT,
             {
                 "username": "test-logout",
                 "email": "test@logout.com",
@@ -109,10 +112,10 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"message": "User successfully registered."})
+        self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
 
         response = client.post(
-            "/api/auth/login",
+            LOGIN_ENDPOINT,
             {"username": "test-logout", "password": "testpassword"},
             content_type=CONTENT_TYPE,
         )
@@ -120,12 +123,12 @@ class TestAuthentication(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"message": LOGIN_SUCCESS_MESSAGE})
 
-        response = client.get("/api/auth/logout")
+        response = client.get(LOGOUT_ENDPOINT)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"message": "User successfully logged out."})
 
-        response = client.get("/api/auth/logout")
+        response = client.get(LOGOUT_ENDPOINT)
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), {"detail": "User is not authenticated."})
@@ -135,7 +138,7 @@ class TestAuthentication(TestCase):
         client = Client()
 
         response = client.post(
-            "/api/auth/register",
+            REGISTER_ENDPOINT,
             {
                 "username": "test-token",
                 "email": "test@token.com",
@@ -147,10 +150,10 @@ class TestAuthentication(TestCase):
         )
 
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.json(), {"message": "User successfully registered."})
+        self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
 
         response = client.post(
-            "/api/auth/login",
+            LOGIN_ENDPOINT,
             {"username": "test-token", "password": "testpassword"},
             content_type=CONTENT_TYPE,
         )
