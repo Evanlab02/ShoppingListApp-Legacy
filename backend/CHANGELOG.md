@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.0...shopping-app-backend-v0.4.1) (2023-09-09)
+
+
+### Bug Fixes
+
+* **Authentication:** Switched to token based authentication to solve CSRF errors. ([d303942](https://github.com/Evanlab02/ShoppingListApp/commit/d303942a1f2024e52194adb4761ad09d82064d41))
+
 ## [0.4.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.3.0...shopping-app-backend-v0.4.0) (2023-09-08)
 
 
