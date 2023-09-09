@@ -15,6 +15,7 @@ LIST_NAME = "test shopping list"
 LIST_DESCRIPTION = "test description"
 TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
+CREATE_ENDPOINT = "/api/list/create"
 
 
 class TestShoppingList(TestCase):
@@ -35,7 +36,7 @@ class TestShoppingList(TestCase):
     def test_validate_shopping_list_case_1(self):
         """Test the validate_shoppinglist function."""
         user = User.objects.create_user(
-            username="testuser", email="test@user.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         ShoppingList.objects.create(
@@ -59,7 +60,7 @@ class TestShoppingList(TestCase):
     def test_validate_shopping_list_case_2(self):
         """Test the validate_shoppinglist function."""
         user = User.objects.create_user(
-            username="testuser", email="test@user.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         ShoppingList.objects.create(
@@ -83,7 +84,7 @@ class TestShoppingList(TestCase):
     def test_validate_shopping_list_case_3(self):
         """Test the validate_shoppinglist function."""
         user = User.objects.create_user(
-            username="testuser", email="test@user.com", password="testpassword"
+            username="testuser", email=TEST_EMAIL, password="testpassword"
         )
 
         ShoppingList.objects.create(
@@ -115,7 +116,7 @@ class TestShoppingList(TestCase):
         )
 
         response = client.post(
-            "/api/list/create",
+            CREATE_ENDPOINT,
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -139,7 +140,7 @@ class TestShoppingList(TestCase):
         )
 
         response = client.post(
-            "/api/list/create",
+            CREATE_ENDPOINT,
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -170,7 +171,7 @@ class TestShoppingList(TestCase):
         token = response.json()["message"]
 
         response = client.post(
-            "/api/list/create",
+            CREATE_ENDPOINT,
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -204,7 +205,7 @@ class TestShoppingList(TestCase):
         token = response.json()["message"]
 
         response = client.post(
-            "/api/list/create",
+            CREATE_ENDPOINT,
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
