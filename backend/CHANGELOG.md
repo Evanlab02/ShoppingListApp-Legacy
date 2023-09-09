@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.2...shopping-app-backend-v0.4.3) (2023-09-09)
+
+
+### Bug Fixes
+
+* **Sonar:** Dealt with all code smells ([a361dfc](https://github.com/Evanlab02/ShoppingListApp/commit/a361dfcb1e4d0571b5568f1ef1f73753a80ae372))
+
 ## [0.4.2](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.1...shopping-app-backend-v0.4.2) (2023-09-09)
 
 
