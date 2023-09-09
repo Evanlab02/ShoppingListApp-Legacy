@@ -1,9 +1,11 @@
 """Contains validation functions for shoppinglist app."""
 
+from django.contrib.auth.models import User
+
 from ..models import ShoppingList
 
 
-def validate_shoppinglist(shoppinglist: ShoppingList):
+def validate_shoppinglist(shoppinglist: ShoppingList, user: User):
     """
     Validate the shoppinglist object.
 
@@ -16,7 +18,7 @@ def validate_shoppinglist(shoppinglist: ShoppingList):
     if shoppinglist.start_date > shoppinglist.end_date:
         raise ValueError("The shopping list's start date must be before its end date.")
 
-    lists = ShoppingList.objects.all()
+    lists = ShoppingList.objects.filter(user=user)
     for shopping_list in lists:
         if shoppinglist.start_date <= shopping_list.start_date <= shoppinglist.end_date:
             raise ValueError("A shopping list already exists for this date range.")

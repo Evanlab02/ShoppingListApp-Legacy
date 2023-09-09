@@ -28,7 +28,7 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
         (int, UploadSchema | ErrorSchema): The status code and the response schema.
     """
     try:
-        validate_shoppinglist(payload)
+        validate_shoppinglist(payload, request.user)
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
 
