@@ -10,6 +10,8 @@ LIST_DESCRIPTION = "test description"
 TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
 CREATE_ENDPOINT = "/api/list/create"
+TOKEN_ENDPOINT = "/api/auth/token"
+SUCESS_CREATE_MESSAGE = "Shopping list created successfully"
 
 
 class TestShoppingListEndpoints(TestCase):
@@ -76,7 +78,7 @@ class TestShoppingListEndpoints(TestCase):
 
         client.login(username="testuser", password="testpassword")
 
-        response = client.get("/api/auth/token")
+        response = client.get(TOKEN_ENDPOINT)
 
         token = response.json()["message"]
 
@@ -110,7 +112,7 @@ class TestShoppingListEndpoints(TestCase):
 
         client.login(username="testuser", password="testpassword")
 
-        response = client.get("/api/auth/token")
+        response = client.get(TOKEN_ENDPOINT)
 
         token = response.json()["message"]
 
@@ -127,7 +129,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 201
-        assert response.json()["message"] == "Shopping list created successfully"
+        assert response.json()["message"] == SUCESS_CREATE_MESSAGE
 
     def test_different_user_shopping_list_do_not_clash(self):
         """
@@ -152,7 +154,7 @@ class TestShoppingListEndpoints(TestCase):
 
         client.login(username="testuser", password="testpassword")
 
-        response = client.get("/api/auth/token")
+        response = client.get(TOKEN_ENDPOINT)
 
         token = response.json()["message"]
 
@@ -169,13 +171,13 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 201
-        assert response.json()["message"] == "Shopping list created successfully"
+        assert response.json()["message"] == SUCESS_CREATE_MESSAGE
 
         client.logout()
 
         client.login(username="testuser2", password="testpassword")
 
-        response = client.get("/api/auth/token")
+        response = client.get(TOKEN_ENDPOINT)
 
         token = response.json()["message"]
 
@@ -192,4 +194,4 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 201
-        assert response.json()["message"] == "Shopping list created successfully"
+        assert response.json()["message"] == SUCESS_CREATE_MESSAGE
