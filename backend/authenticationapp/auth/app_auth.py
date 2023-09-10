@@ -20,7 +20,10 @@ class ApiKey(APIKeyHeader):
             return None
 
         client = Client.objects.get(user=request.user)
-        if key == client.token:
+
+        if key == "":
+            return None
+        elif key == client.token:
             return client
 
 

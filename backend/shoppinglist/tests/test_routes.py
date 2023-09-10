@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
 from authenticationapp.models import Client as AuthClient
+from ..models import ShoppingList
 
 LIST_NAME = "test shopping list"
 LIST_DESCRIPTION = "test description"
@@ -11,6 +12,7 @@ TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
 CREATE_ENDPOINT = "/api/list/create"
 TOKEN_ENDPOINT = "/api/auth/token"
+LISTS_ENDPOINT = "/api/list/"
 SUCESS_CREATE_MESSAGE = "Shopping list created successfully"
 
 
@@ -195,3 +197,77 @@ class TestShoppingListEndpoints(TestCase):
 
         assert response.status_code == 201
         assert response.json()["message"] == SUCESS_CREATE_MESSAGE
+
+    def test_get_shopping_lists_unauthorized(self):
+        """Test the get shopping lists endpoint without being logged in."""
+        client = Client()
+
+        response = client.get(LISTS_ENDPOINT)
+
+        assert response.status_code == 401
+        assert response.json()["detail"] == "Unauthorized"
+
+    def test_get_shopping_lists_no_token(self):
+        """Test the get shopping lists endpoint without a token."""
+        client = Client()
+
+        AuthClient.objects.create(
+            user=User.objects.create_user(
+                username="testuser", email=TEST_EMAIL, password="testpassword"
+            ),
+        )
+
+        client.post("/api/auth/login", {"username": "testuser", "password": "testpassword"})
+
+        response = client.get(LISTS_ENDPOINT, headers={"X-API-Key": ""})
+
+        assert response.status_code == 401
+        assert response.json()["detail"] == "Unauthorized"
+
+    def test_get_shopping_lists_no_lists(self):
+        """Test the get shopping lists endpoint with no lists."""
+        client = Client()
+
+        AuthClient.objects.create(
+            user=User.objects.create_user(
+                username="testuser", email=TEST_EMAIL, password="testpassword"
+            ),
+        )
+
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.get(LISTS_ENDPOINT, headers={"X-API-Key": token})
+
+        assert response.status_code == 200
+        assert response.json() == []
+
+    def test_get_shopping_lists_with_lists(self):
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+
+        ShoppingList.objects.create(
+            name="test list",
+            description="test description",
+            start_date="2021-01-01",
+            end_date="2021-01-02",
+            user=user,
+        )
+
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.get(LISTS_ENDPOINT, headers={"X-API-Key": token})
+
+        assert response.status_code == 200
+        assert len(response.json()) == 1
+        assert response.json()[0]["name"] == "test list"
+        assert response.json()[0]["description"] == "test description"
+        assert response.json()[0]["start_date"] == "2021-01-01"
+        assert response.json()[0]["end_date"] == "2021-01-02"

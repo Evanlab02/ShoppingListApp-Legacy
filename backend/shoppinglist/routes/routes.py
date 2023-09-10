@@ -37,3 +37,18 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
     )
     shopping_list.save()
     return 201, SuccessSchema(message="Shopping list created successfully")
+
+
+@list_router.get("/", response={200: list[ShoppingListSchema]})
+def get_lists(request: HttpRequest):
+    """
+    Get all the shopping lists for the user.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, ShoppingListSchema | ErrorSchema): The status code and the response schema.
+    """
+    shopping_lists = ShoppingList.objects.filter(user=request.auth.user)
+    return 200, [ShoppingListSchema.from_orm(list) for list in shopping_lists]
