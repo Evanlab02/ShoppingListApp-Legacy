@@ -254,7 +254,7 @@ class TestShoppingListEndpoints(TestCase):
 
         ShoppingList.objects.create(
             name="test list",
-            description="test description",
+            description=LIST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
             user=user,
@@ -270,6 +270,6 @@ class TestShoppingListEndpoints(TestCase):
         assert response.status_code == 200
         assert len(response.json()) == 1
         assert response.json()[0]["name"] == "test list"
-        assert response.json()[0]["description"] == "test description"
+        assert response.json()[0]["description"] == LIST_DESCRIPTION
         assert response.json()[0]["start_date"] == "2021-01-01"
         assert response.json()[0]["end_date"] == "2021-01-02"
