@@ -217,7 +217,9 @@ class TestShoppingListEndpoints(TestCase):
             ),
         )
 
-        client.post("/api/auth/login", {"username": "testuser", "password": "testpassword"})
+        client.post(
+            "/api/auth/login", {"username": "testuser", "password": "testpassword"}
+        )
 
         response = client.get(LISTS_ENDPOINT, headers={"X-API-Key": ""})
 
