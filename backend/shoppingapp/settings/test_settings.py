@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ["localhost", "192.168.0.3"]
 
 INSTALLED_APPS = [
     "authenticationapp.apps.AuthenticationappConfig",
+    "shoppingitem.apps.ShoppingitemConfig",
     "shoppinglist.apps.ShoppinglistConfig",
     "django.contrib.admin",
     "django.contrib.auth",
