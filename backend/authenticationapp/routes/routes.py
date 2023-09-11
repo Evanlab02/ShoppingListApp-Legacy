@@ -6,7 +6,7 @@ from ninja import Router
 from ..auth.app_auth import create_user, login_user, logout_user, generate_token
 from ..schemas.schemas import RegisterSchema, ErrorSchema, SuccessSchema, LoginSchema
 
-auth_router = Router()
+auth_router = Router(tags=["Authentication"])
 
 
 @auth_router.post("/register", response={201: SuccessSchema, 400: ErrorSchema})

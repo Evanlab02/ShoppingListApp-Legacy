@@ -19,7 +19,10 @@ class ApiKey(APIKeyHeader):
         if not request.user.is_authenticated:
             return None
 
-        client = Client.objects.get(user=request.user)
+        try:
+            client = Client.objects.get(user=request.user)
+        except Client.DoesNotExist:
+            return None
 
         if key == "":
             return None

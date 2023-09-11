@@ -22,12 +22,14 @@ from django.urls import path
 from ninja import NinjaAPI
 
 from authenticationapp.routes.routes import auth_router
+from shoppingitem.routes.routes import item_and_shop_router
 from shoppinglist.routes.routes import list_router
 
 api = NinjaAPI()
 
 api.add_router("/auth", auth_router)
-api.add_router("/list", list_router)
+api.add_router("/", item_and_shop_router)
+api.add_router("/lists", list_router)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

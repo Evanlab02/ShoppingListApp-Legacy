@@ -10,12 +10,10 @@ from ..schemas.schemas import ShoppingListSchema, SuccessSchema, ErrorSchema
 from ..validation.validation import validate_shoppinglist
 
 api_key = ApiKey()
-list_router = Router(auth=api_key)
+list_router = Router(auth=api_key, tags=["Shopping Lists"])
 
 
-@list_router.post(
-    "/create", response={201: SuccessSchema, 400: ErrorSchema, 401: ErrorSchema}
-)
+@list_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_list(request: HttpRequest, payload: ShoppingListSchema):
     """
     Create a new shopping list.
@@ -39,7 +37,7 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
     return 201, SuccessSchema(message="Shopping list created successfully")
 
 
-@list_router.get("/", response={200: list[ShoppingListSchema]})
+@list_router.get("", response={200: list[ShoppingListSchema]})
 def get_lists(request: HttpRequest):
     """
     Get all the shopping lists for the user.
