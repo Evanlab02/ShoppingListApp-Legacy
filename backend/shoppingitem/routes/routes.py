@@ -118,6 +118,26 @@ def update_store(request: HttpRequest, store_id: int, payload: SingleStoreSchema
         return 400, ErrorSchema(detail=str(err))
 
 
+@shop_router.delete("/{store_id}", response={200: SuccessSchema, 404: ErrorSchema})
+def delete_store(request: HttpRequest, store_id: int):
+    """
+    Delete a store.
+
+    Args:
+        request (HttpRequest): The request object.
+        store_id (int): The id of the store.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        store = Store.objects.get(id=store_id, user=request.user)
+        store.delete()
+        return 200, SuccessSchema(message="Store deleted successfully")
+    except Store.DoesNotExist:
+        return 404, ErrorSchema(detail="Store not found, or store does not belong to you")
+
+
 @item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_item(request: HttpRequest, payload: ItemSchema):
     """
