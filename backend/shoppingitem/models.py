@@ -17,7 +17,7 @@ class ShoppingStore(models.Model):
 
     def __str__(self):
         """Return a string representation of the shopping store."""
-        return f"{self.name}@{self.store_type}"
+        return f"{self.name}"
 
 
 class ShoppingItem(models.Model):
