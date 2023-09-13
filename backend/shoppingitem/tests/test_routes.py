@@ -10,6 +10,11 @@ from authenticationapp.models import Client
 from shoppingitem.models import ShoppingStore
 
 CONTENT_TYPE = "application/json"
+TEST_DESCRIPTION = "Test Description"
+TEST_NAME = "Test Store"
+API_STORE_ID_URL = "/api/stores/1"
+SECONDARY_TEST_EMAIL = "test@2.com"
+ID_ERROR = "Store not found, or store does not belong to you"
 
 
 class TestStoreRoutes(TestCase):
@@ -35,7 +40,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.post(
             "/api/stores/create",
-            {"name": "", "store_type": 1, "description": "Test Description"},
+            {"name": "", "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -50,7 +55,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.post(
             "/api/stores/create",
-            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            {"name": TEST_NAME, "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -94,7 +99,7 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.get(
-            "/api/stores/1",
+            API_STORE_ID_URL,
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -145,7 +150,7 @@ class TestStoreRoutes(TestCase):
         ShoppingStore.objects.create(name="Amazon", store_type=1, user=self.user).save()
 
         user = User.objects.create_user(
-            username="test2", email="test@2.com", password="test"
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
         )
 
         ShoppingStore.objects.create(name="Apple", store_type=1, user=user).save()
@@ -167,8 +172,8 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.put(
-            "/api/stores/1",
-            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            API_STORE_ID_URL,
+            {"name": TEST_NAME, "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -176,7 +181,7 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(
             response.json()["detail"],
-            "Store not found, or store does not belong to you",
+            ID_ERROR,
         )
 
     def test_update_store_that_does_not_belong_to_user(self):
@@ -185,14 +190,14 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         user = User.objects.create_user(
-            username="test2", email="test@2.com", password="test"
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore.objects.create(name="Amazon", store_type=1, user=user)
 
         response = django_client.put(
             f"/api/stores/{store.id}",
-            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            {"name": TEST_NAME, "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -200,7 +205,7 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(
             response.json()["detail"],
-            "Store not found, or store does not belong to you",
+            ID_ERROR,
         )
 
     def test_update_store_invalid_payload(self):
@@ -214,7 +219,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.put(
             f"/api/stores/{store.id}",
-            {"name": "", "store_type": 1, "description": "Test Description"},
+            {"name": "", "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -233,7 +238,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.put(
             f"/api/stores/{store.id}",
-            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            {"name": TEST_NAME, "store_type": 1, "description": TEST_DESCRIPTION},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -247,7 +252,7 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.delete(
-            "/api/stores/1",
+            API_STORE_ID_URL,
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -255,7 +260,7 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(
             response.json()["detail"],
-            "Store not found, or store does not belong to you",
+            ID_ERROR,
         )
 
     def test_delete_store_that_does_not_belong_to_user(self):
@@ -264,7 +269,7 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         user = User.objects.create_user(
-            username="test2", email="test@2.com", password="test"
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore.objects.create(name="Amazon", store_type=1, user=user)
@@ -278,7 +283,7 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertEqual(
             response.json()["detail"],
-            "Store not found, or store does not belong to you",
+            ID_ERROR,
         )
 
     def test_delete_store_valid_payload(self):
