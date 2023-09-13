@@ -11,6 +11,7 @@ class ShoppingStore(models.Model):
     store_type = models.IntegerField(
         choices=((1, "Online"), (2, "In-Store"), (3, "Both"))
     )
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

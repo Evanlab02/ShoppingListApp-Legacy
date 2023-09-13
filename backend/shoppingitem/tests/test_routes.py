@@ -35,7 +35,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.post(
             "/api/stores/create",
-            {"name": "", "store_type": 1},
+            {"name": "", "store_type": 1, "description": "Test Description"},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -50,7 +50,7 @@ class TestStoreRoutes(TestCase):
 
         response = django_client.post(
             "/api/stores/create",
-            {"name": "Test Store", "store_type": 1},
+            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -87,6 +87,41 @@ class TestStoreRoutes(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 1)
+
+    def test_get_details_store_case_1(self):
+        """Test the get_details_store route with invalid store id."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/stores/1",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Store not found")
+
+    def test_get_details_store_case_2(self):
+        """Test the get_details_store route with valid store id."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        store = ShoppingStore.objects.create(
+            name="Amazon", store_type=1, user=self.user
+        )
+        store.save()
+
+        response = django_client.get(
+            f"/api/stores/{store.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], "Amazon")
+        self.assertEqual(response.json()["store_type"], 1)
+        self.assertEqual(response.json()["description"], "")
 
 
 class TestItemRoutes(TestCase):

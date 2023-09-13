@@ -5,7 +5,13 @@ from ninja import Router
 
 from authenticationapp.auth.app_auth import ApiKey
 from ..models import ShoppingStore as Store, ShoppingItem as Item
-from ..schemas.schemas import SuccessSchema, ErrorSchema, StoreSchema, ItemSchema
+from ..schemas.schemas import (
+    SuccessSchema,
+    ErrorSchema,
+    StoreSchema,
+    ItemSchema,
+    SingleStoreSchema,
+)
 from ..validation.validation import validate_store, validate_item
 
 api_key = ApiKey()
@@ -15,13 +21,13 @@ item_router = Router(auth=api_key, tags=["Shopping Items"])
 
 
 @shop_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
-def create_store(request: HttpRequest, payload: StoreSchema):
+def create_store(request: HttpRequest, payload: SingleStoreSchema):
     """
     Create a new store.
 
     Args:
         request (HttpRequest): The request object.
-        payload (StoreSchema): The store data.
+        payload (SingleStoreSchema): The store data.
 
     Returns:
         (int, SuccessSchema | ErrorSchema): The status code and the response schema.
@@ -49,6 +55,25 @@ def get_stores(request: HttpRequest):
     """
     stores = Store.objects.all()
     return 200, [StoreSchema.from_orm(store) for store in stores]
+
+
+@shop_router.get("/{store_id}", response={200: SingleStoreSchema, 404: ErrorSchema})
+def get_details_of_store(request: HttpRequest, store_id: int):
+    """
+    Get the details of a store.
+
+    Args:
+        request (HttpRequest): The request object.
+        store_id (int): The id of the store.
+
+    Returns:
+        (int, SingleStoreSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        store = Store.objects.get(id=store_id)
+        return 200, SingleStoreSchema.from_orm(store)
+    except Store.DoesNotExist:
+        return 404, ErrorSchema(detail="Store not found")
 
 
 @item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})

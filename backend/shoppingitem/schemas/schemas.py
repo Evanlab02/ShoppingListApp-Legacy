@@ -12,7 +12,17 @@ class StoreSchema(ModelSchema):
         """Config for the StoreSchema."""
 
         model = ShoppingStore
-        model_fields = ["name", "store_type"]
+        model_fields = ["id", "name", "store_type"]
+
+
+class SingleStoreSchema(ModelSchema):
+    """Schema for a single Store model."""
+
+    class Config:
+        """Config for the StoreSchema."""
+
+        model = ShoppingStore
+        model_fields = ["name", "store_type", "description"]
 
 
 class ItemSchema(ModelSchema):
