@@ -10,9 +10,9 @@ LIST_NAME = "test shopping list"
 LIST_DESCRIPTION = "test description"
 TEST_EMAIL = "test@test.com"
 CONTENT_TYPE = "application/json"
-CREATE_ENDPOINT = "/api/list/create"
+CREATE_ENDPOINT = "/api/lists/create"
 TOKEN_ENDPOINT = "/api/auth/token"
-LISTS_ENDPOINT = "/api/list/"
+LISTS_ENDPOINT = "/api/lists"
 SUCESS_CREATE_MESSAGE = "Shopping list created successfully"
 
 

@@ -11,6 +11,7 @@ class ShoppingListAdmin(admin.ModelAdmin):
     list_display = ("name", "user", "updated_at", "is_current")
     list_filter = ("updated_at",)
     search_fields = ("name", "description")
+    list_per_page = 25
 
 
 admin.site.register(ShoppingList, ShoppingListAdmin)
