@@ -11,13 +11,16 @@ from shoppingitem.schemas.schemas import ItemSchema
 from shoppingitem.validation.validation import validate_item, validate_store
 
 
+TEST_ITEM_NAME = "Test Item"
+TEST_EMAIL = "test@test.com"
+
 class TestStoreValidators(TestCase):
     """Test the ShoppingStore validators."""
 
     def test_validate_store_case_1(self):
         """Test the validate_store function with empty name."""
         user = User.objects.create_user(
-            username="test", email="test@test.com", password="test"
+            username="test", email=TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore(name="", store_type=1, user=user)
@@ -28,7 +31,7 @@ class TestStoreValidators(TestCase):
     def test_validate_store_case_2(self):
         """Test the validate_store function with invalid store type."""
         user = User.objects.create_user(
-            username="test", email="test@test.com", password="test"
+            username="test", email=TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore(name="Amazon", store_type=4, user=user)
@@ -39,7 +42,7 @@ class TestStoreValidators(TestCase):
     def test_validate_store_case_3(self):
         """Test the validate_store function with invalid store type."""
         user = User.objects.create_user(
-            username="test", email="test@test.com", password="test"
+            username="test", email=TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore.objects.create(name="Amazon", store_type=0, user=user)
@@ -50,7 +53,7 @@ class TestStoreValidators(TestCase):
     def test_validate_store_case_4(self):
         """Test the validate_store function with existing store name."""
         user = User.objects.create_user(
-            username="test", email="test@test.com", password="test"
+            username="test", email=TEST_EMAIL, password="test"
         )
 
         store = ShoppingStore.objects.create(name="Amazon", store_type=1, user=user)
@@ -70,7 +73,7 @@ class TestItemValidators(TestCase):
     def setUp(self) -> None:
         """Initialize the TestItemValidators class."""
         self.test_user = User.objects.create_user(
-            username="test", email="test@test.com", password="test"
+            username="test", email=TEST_EMAIL, password="test"
         )
 
         self.test_store = ShoppingStore.objects.create(
@@ -91,13 +94,13 @@ class TestItemValidators(TestCase):
         """Test the validate_item function with existing item name for store."""
 
         item = ShoppingItem.objects.create(
-            name="Test Item", price=10.00, store=self.test_store, user=self.test_user
+            name=TEST_ITEM_NAME, price=10.00, store=self.test_store, user=self.test_user
         )
 
         item.save()
 
         duplicate_item = ShoppingItem(
-            name="Test Item", price=10.00, store=self.test_store, user=self.test_user
+            name=TEST_ITEM_NAME, price=10.00, store=self.test_store, user=self.test_user
         )
 
         with pytest.raises(ValueError):
@@ -107,7 +110,7 @@ class TestItemValidators(TestCase):
         """Test the validate_item function with invalid price."""
 
         item = ShoppingItem(
-            name="Test Item", price=-10.00, store=self.test_store, user=self.test_user
+            name=TEST_ITEM_NAME, price=-10.00, store=self.test_store, user=self.test_user
         )
 
         with pytest.raises(ValueError):
@@ -117,7 +120,7 @@ class TestItemValidators(TestCase):
         """Test the validate_item function with invalid store."""
 
         item = ItemSchema(
-            name="Test Item", price=10.00, store_id=100, user=self.test_user
+            name=TEST_ITEM_NAME, price=10.00, store_id=100, user=self.test_user
         )
 
         with pytest.raises(ValueError):
@@ -127,7 +130,7 @@ class TestItemValidators(TestCase):
         """Test the validate_item function with valid item."""
 
         item = ItemSchema(
-            name="Test Item",
+            name=TEST_ITEM_NAME,
             price=10.00,
             store_id=self.test_store.id,
             user=self.test_user,

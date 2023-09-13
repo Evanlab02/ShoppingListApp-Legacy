@@ -9,6 +9,7 @@ import pytest
 from authenticationapp.models import Client
 from shoppingitem.models import ShoppingStore
 
+CONTENT_TYPE = "application/json"
 
 class TestStoreRoutes(TestCase):
     """Test the ShoppingStore routes."""
@@ -34,7 +35,7 @@ class TestStoreRoutes(TestCase):
         response = django_client.post(
             "/api/store/create",
             {"name": "", "store_type": 1},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
 
@@ -49,7 +50,7 @@ class TestStoreRoutes(TestCase):
         response = django_client.post(
             "/api/store/create",
             {"name": "Test Store", "store_type": 1},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
 
@@ -87,7 +88,7 @@ class TestItemRoutes(TestCase):
         response = django_client.post(
             "/api/item/create",
             {"name": "", "price": 10.00, "store_id": self.store.id},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
 
@@ -103,7 +104,7 @@ class TestItemRoutes(TestCase):
         response = django_client.post(
             "/api/item/create",
             {"name": "Test Item", "price": 10.00, "store_id": self.store.id},
-            content_type="application/json",
+            content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
 
