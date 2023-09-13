@@ -161,6 +161,82 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.json()[0]["name"], "Amazon")
         self.assertEqual(response.json()[0]["store_type"], 1)
 
+    def test_update_store_that_does_not_exist(self):
+        """Test the update_store route with invalid store id."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.put(
+            "/api/stores/1",
+            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+
+    def test_update_store_that_does_not_belong_to_user(self):
+        """Test the update_store route with invalid store id."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email="test@2.com", password="test"
+        )
+
+        store = ShoppingStore.objects.create(
+            name="Amazon", store_type=1, user=user
+        )
+
+        response = django_client.put(
+            f"/api/stores/{store.id}",
+            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+
+    def test_update_store_invalid_payload(self):
+        """Test the update_store route with invalid payload."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        store = ShoppingStore.objects.create(
+            name="Amazon", store_type=1, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/stores/{store.id}",
+            {"name": "", "store_type": 1, "description": "Test Description"},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], "Store name cannot be empty")
+
+    def test_update_store_valid_payload(self):
+        """Test the update_store route with valid payload."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        store = ShoppingStore.objects.create(
+            name="Amazon", store_type=1, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/stores/{store.id}",
+            {"name": "Test Store", "store_type": 1, "description": "Test Description"},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["message"], "Store updated successfully")
+
 
 class TestItemRoutes(TestCase):
     """Test the ShoppingItem routes."""

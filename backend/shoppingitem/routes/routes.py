@@ -91,6 +91,33 @@ def get_details_of_store(request: HttpRequest, store_id: int):
         return 404, ErrorSchema(detail="Store not found")
 
 
+@shop_router.put("/{store_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema})
+def update_store(request: HttpRequest, store_id: int, payload: SingleStoreSchema):
+    """
+    Update the details of a store.
+
+    Args:
+        request (HttpRequest): The request object.
+        store_id (int): The id of the store.
+        payload (SingleStoreSchema): The store data.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        validate_store(payload)
+        store = Store.objects.get(id=store_id, user=request.user)
+        store.name = payload.name
+        store.store_type = payload.store_type
+        store.description = payload.description
+        store.save()
+        return 200, SuccessSchema(message="Store updated successfully")
+    except Store.DoesNotExist:
+        return 404, ErrorSchema(detail="Store not found, or store does not belong to you")
+    except ValueError as err:
+        return 400, ErrorSchema(detail=str(err))
+
+
 @item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_item(request: HttpRequest, payload: ItemSchema):
     """
