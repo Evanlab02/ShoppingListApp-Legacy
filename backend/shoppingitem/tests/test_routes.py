@@ -174,7 +174,10 @@ class TestStoreRoutes(TestCase):
         )
 
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+        self.assertEqual(
+            response.json()["detail"],
+            "Store not found, or store does not belong to you",
+        )
 
     def test_update_store_that_does_not_belong_to_user(self):
         """Test the update_store route with invalid store id."""
@@ -185,9 +188,7 @@ class TestStoreRoutes(TestCase):
             username="test2", email="test@2.com", password="test"
         )
 
-        store = ShoppingStore.objects.create(
-            name="Amazon", store_type=1, user=user
-        )
+        store = ShoppingStore.objects.create(name="Amazon", store_type=1, user=user)
 
         response = django_client.put(
             f"/api/stores/{store.id}",
@@ -197,7 +198,10 @@ class TestStoreRoutes(TestCase):
         )
 
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+        self.assertEqual(
+            response.json()["detail"],
+            "Store not found, or store does not belong to you",
+        )
 
     def test_update_store_invalid_payload(self):
         """Test the update_store route with invalid payload."""
@@ -249,7 +253,10 @@ class TestStoreRoutes(TestCase):
         )
 
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+        self.assertEqual(
+            response.json()["detail"],
+            "Store not found, or store does not belong to you",
+        )
 
     def test_delete_store_that_does_not_belong_to_user(self):
         """Test the delete_store route with invalid store id."""
@@ -260,9 +267,7 @@ class TestStoreRoutes(TestCase):
             username="test2", email="test@2.com", password="test"
         )
 
-        store = ShoppingStore.objects.create(
-            name="Amazon", store_type=1, user=user
-        )
+        store = ShoppingStore.objects.create(name="Amazon", store_type=1, user=user)
 
         response = django_client.delete(
             f"/api/stores/{store.id}",
@@ -271,7 +276,10 @@ class TestStoreRoutes(TestCase):
         )
 
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Store not found, or store does not belong to you")
+        self.assertEqual(
+            response.json()["detail"],
+            "Store not found, or store does not belong to you",
+        )
 
     def test_delete_store_valid_payload(self):
         """Test the delete_store route with valid payload."""
