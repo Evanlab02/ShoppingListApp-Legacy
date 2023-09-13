@@ -34,7 +34,7 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.post(
-            "/api/store/create",
+            "/api/stores/create",
             {"name": "", "store_type": 1},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
@@ -49,7 +49,7 @@ class TestStoreRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.post(
-            "/api/store/create",
+            "/api/stores/create",
             {"name": "Test Store", "store_type": 1},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
@@ -57,6 +57,36 @@ class TestStoreRoutes(TestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()["message"], "Store created successfully")
+
+    def test_get_stores_case_1(self):
+        """Test the get_stores route with no stores."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/stores",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
+
+    def test_get_stores_case_2(self):
+        """Test the get_stores route with stores."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        ShoppingStore.objects.create(name="Amazon", store_type=1, user=self.user).save()
+
+        response = django_client.get(
+            "/api/stores",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
 
 
 class TestItemRoutes(TestCase):
@@ -87,7 +117,7 @@ class TestItemRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.post(
-            "/api/item/create",
+            "/api/items/create",
             {"name": "", "price": 10.00, "store_id": self.store.id},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
@@ -103,7 +133,7 @@ class TestItemRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         response = django_client.post(
-            "/api/item/create",
+            "/api/items/create",
             {"name": "Test Item", "price": 10.00, "store_id": self.store.id},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},

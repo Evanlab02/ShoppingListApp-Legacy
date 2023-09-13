@@ -10,12 +10,11 @@ from ..validation.validation import validate_store, validate_item
 
 api_key = ApiKey()
 
-item_and_shop_router = Router(auth=api_key, tags=["Shopping Items and Stores"])
+shop_router = Router(auth=api_key, tags=["Shopping Stores"])
+item_router = Router(auth=api_key, tags=["Shopping Items"])
 
 
-@item_and_shop_router.post(
-    "/store/create", response={201: SuccessSchema, 400: ErrorSchema}
-)
+@shop_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_store(request: HttpRequest, payload: StoreSchema):
     """
     Create a new store.
@@ -37,9 +36,22 @@ def create_store(request: HttpRequest, payload: StoreSchema):
     return 201, SuccessSchema(message="Store created successfully")
 
 
-@item_and_shop_router.post(
-    "/item/create", response={201: SuccessSchema, 400: ErrorSchema}
-)
+@shop_router.get("", response={200: list[StoreSchema]})
+def get_stores(request: HttpRequest):
+    """
+    Get all the stores.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, [StoreSchema] | ErrorSchema): The status code and the response schema.
+    """
+    stores = Store.objects.all()
+    return 200, [StoreSchema.from_orm(store) for store in stores]
+
+
+@item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_item(request: HttpRequest, payload: ItemSchema):
     """
     Create a new item.
