@@ -14,6 +14,7 @@ from shoppingitem.validation.validation import validate_item, validate_store
 TEST_ITEM_NAME = "Test Item"
 TEST_EMAIL = "test@test.com"
 
+
 class TestStoreValidators(TestCase):
     """Test the ShoppingStore validators."""
 
@@ -110,7 +111,10 @@ class TestItemValidators(TestCase):
         """Test the validate_item function with invalid price."""
 
         item = ShoppingItem(
-            name=TEST_ITEM_NAME, price=-10.00, store=self.test_store, user=self.test_user
+            name=TEST_ITEM_NAME,
+            price=-10.00,
+            store=self.test_store,
+            user=self.test_user,
         )
 
         with pytest.raises(ValueError):

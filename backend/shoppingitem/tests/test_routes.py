@@ -11,6 +11,7 @@ from shoppingitem.models import ShoppingStore
 
 CONTENT_TYPE = "application/json"
 
+
 class TestStoreRoutes(TestCase):
     """Test the ShoppingStore routes."""
 
