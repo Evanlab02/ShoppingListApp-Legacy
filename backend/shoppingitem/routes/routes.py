@@ -57,6 +57,21 @@ def get_stores(request: HttpRequest):
     return 200, [StoreSchema.from_orm(store) for store in stores]
 
 
+@shop_router.get("/me", response={200: list[StoreSchema]})
+def get_my_stores(request: HttpRequest):
+    """
+    Get all the stores of the current user.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, [StoreSchema] | ErrorSchema): The status code and the response schema.
+    """
+    stores = Store.objects.filter(user=request.user)
+    return 200, [StoreSchema.from_orm(store) for store in stores]
+
+
 @shop_router.get("/{store_id}", response={200: SingleStoreSchema, 404: ErrorSchema})
 def get_details_of_store(request: HttpRequest, store_id: int):
     """

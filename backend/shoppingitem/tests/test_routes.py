@@ -123,6 +123,44 @@ class TestStoreRoutes(TestCase):
         self.assertEqual(response.json()["store_type"], 1)
         self.assertEqual(response.json()["description"], "")
 
+    def test_get_my_stores_case_1(self):
+        """Test the get_my_stores route with no stores."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/stores/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
+
+    def test_get_my_stores_case_2(self):
+        """Test the get_my_stores route with stores."""
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        ShoppingStore.objects.create(name="Amazon", store_type=1, user=self.user).save()
+
+        user = User.objects.create_user(
+            username="test2", email="test@2.com", password="test"
+        )
+
+        ShoppingStore.objects.create(name="Apple", store_type=1, user=user).save()
+
+        response = django_client.get(
+            "/api/stores/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]["name"], "Amazon")
+        self.assertEqual(response.json()[0]["store_type"], 1)
+
 
 class TestItemRoutes(TestCase):
     """Test the ShoppingItem routes."""
