@@ -13,9 +13,8 @@ api_key = ApiKey()
 shop_router = Router(auth=api_key, tags=["Shopping Stores"])
 item_router = Router(auth=api_key, tags=["Shopping Items"])
 
-@shop_router.post(
-    "/create", response={201: SuccessSchema, 400: ErrorSchema}
-)
+
+@shop_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_store(request: HttpRequest, payload: StoreSchema):
     """
     Create a new store.
@@ -36,9 +35,8 @@ def create_store(request: HttpRequest, payload: StoreSchema):
     store.save()
     return 201, SuccessSchema(message="Store created successfully")
 
-@shop_router.get(
-    "", response={200: list[StoreSchema]}
-)
+
+@shop_router.get("", response={200: list[StoreSchema]})
 def get_stores(request: HttpRequest):
     """
     Get all the stores.
@@ -53,9 +51,7 @@ def get_stores(request: HttpRequest):
     return 200, [StoreSchema.from_orm(store) for store in stores]
 
 
-@item_router.post(
-    "/create", response={201: SuccessSchema, 400: ErrorSchema}
-)
+@item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
 def create_item(request: HttpRequest, payload: ItemSchema):
     """
     Create a new item.

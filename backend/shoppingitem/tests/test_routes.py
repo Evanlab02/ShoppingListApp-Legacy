@@ -77,9 +77,7 @@ class TestStoreRoutes(TestCase):
         django_client = DjangoClient()
         django_client.login(username="test", password="test")
 
-        ShoppingStore.objects.create(
-            name="Amazon", store_type=1, user=self.user
-        ).save()
+        ShoppingStore.objects.create(name="Amazon", store_type=1, user=self.user).save()
 
         response = django_client.get(
             "/api/stores",
