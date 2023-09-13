@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.3...shopping-app-backend-v0.5.0) (2023-09-13)
+
+
+### Features
+
+* **Items:** Added items to admin page ([85125ec](https://github.com/Evanlab02/ShoppingListApp/commit/85125ec61347a0f605e982abb49f28144773a0f4))
+* **Items:** Created items app ([66c63ba](https://github.com/Evanlab02/ShoppingListApp/commit/66c63baa257cf1558c0366dee0fd6bcb6421085a))
+* **Lists:** Can now retrieve all lists through the API ([8a26df8](https://github.com/Evanlab02/ShoppingListApp/commit/8a26df892c1a0730594b2474e45fa32429b50580))
+* **Stores:** Can now delete stores through the API. ([68d87a8](https://github.com/Evanlab02/ShoppingListApp/commit/68d87a8af4eedf2648cbf6e371b4c2701d1e9fe3))
+* **Stores:** Can now get all of the users created stores. ([40e1a11](https://github.com/Evanlab02/ShoppingListApp/commit/40e1a11d78088c95adc7bf2c196465da04b9ab83))
+* **Stores:** Can now get all stores ([31046cc](https://github.com/Evanlab02/ShoppingListApp/commit/31046cc9d350c89fc871202ec01356dabc053a9a))
+* **Stores:** Can now get details of a single store. ([d27f815](https://github.com/Evanlab02/ShoppingListApp/commit/d27f81553ed3e0d2768ba35294a1471bbf1831aa))
+* **Stores:** Can now update stores through the API ([0047b93](https://github.com/Evanlab02/ShoppingListApp/commit/0047b93c7060549373ba24604fa58b3c99acc95c))
+* **Stores:** Created store model and added it to admin page ([520174c](https://github.com/Evanlab02/ShoppingListApp/commit/520174c1f7c73f73114f22dbdca53de265c4a755))
+* **Stores:** Stores and their items can now be created ([02174fa](https://github.com/Evanlab02/ShoppingListApp/commit/02174fac884e54ded495a6431439b8a661962bd7))
+* **Testing:** Testing for create store and item route ([318426a](https://github.com/Evanlab02/ShoppingListApp/commit/318426a7c2f39582c67fdbd5a26675ada61a6d84))
+
 ## [0.4.3](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.2...shopping-app-backend-v0.4.3) (2023-09-09)
 
 
