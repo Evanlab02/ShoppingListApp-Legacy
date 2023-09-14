@@ -32,7 +32,10 @@ def validate_item(item: ShoppingItem, is_update: bool = False) -> ShoppingStore:
     """
     if item.name == "":
         raise ValueError("Item name cannot be empty")
-    elif ShoppingItem.objects.filter(name=item.name, store=item.store).exists() and not is_update:
+    elif (
+        ShoppingItem.objects.filter(name=item.name, store=item.store).exists()
+        and not is_update
+    ):
         raise ValueError("Item already exists in this store")
     elif item.price <= 0:
         raise ValueError("Item price must be greater than 0")

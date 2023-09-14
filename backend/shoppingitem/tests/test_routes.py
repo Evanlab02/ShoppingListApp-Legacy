@@ -395,7 +395,6 @@ class TestItemRoutes(TestCase):
         self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
         self.assertEqual(response.json()[0]["price"], "10.00")
 
-
     def test_get_my_items_empty(self):
         """Test get my items route with no items."""
 
@@ -480,9 +479,11 @@ class TestItemRoutes(TestCase):
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
-        
+
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Item not found, or item does not belong to you")
+        self.assertEqual(
+            response.json()["detail"], "Item not found, or item does not belong to you"
+        )
 
     def test_update_item_valid_payload(self):
         """Test update item route with valid payload."""
@@ -523,9 +524,11 @@ class TestItemRoutes(TestCase):
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
-        
+
         self.assertEqual(response.status_code, 404)
-        self.assertEqual(response.json()["detail"], "Item not found, or item does not belong to you")
+        self.assertEqual(
+            response.json()["detail"], "Item not found, or item does not belong to you"
+        )
 
     def test_delete_item_valid_payload(self):
         """Test delete item route with valid payload."""

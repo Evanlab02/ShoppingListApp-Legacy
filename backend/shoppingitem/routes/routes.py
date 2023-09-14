@@ -182,6 +182,7 @@ def get_items(request: HttpRequest):
     items = Item.objects.all()
     return 200, [ItemSchema.from_orm(item) for item in items]
 
+
 @item_router.get("/me", response={200: list[ItemSchema]})
 def get_my_items(request: HttpRequest):
     """
@@ -196,7 +197,10 @@ def get_my_items(request: HttpRequest):
     items = Item.objects.filter(user=request.user)
     return 200, [ItemSchema.from_orm(item) for item in items]
 
-@item_router.put("/{item_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema})
+
+@item_router.put(
+    "/{item_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema}
+)
 def update_item(request: HttpRequest, item_id: int, payload: ItemSchema):
     """
     Update the details of an item.
@@ -221,6 +225,7 @@ def update_item(request: HttpRequest, item_id: int, payload: ItemSchema):
         return 404, ErrorSchema(detail="Item not found, or item does not belong to you")
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
+
 
 @item_router.delete("/{item_id}", response={200: SuccessSchema, 404: ErrorSchema})
 def delete_item(request: HttpRequest, item_id: int):
