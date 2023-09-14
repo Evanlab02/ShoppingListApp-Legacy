@@ -198,6 +198,25 @@ def get_my_items(request: HttpRequest):
     return 200, [ItemSchema.from_orm(item) for item in items]
 
 
+@item_router.get("/{item_id}", response={200: SingleItemSchema, 404: ErrorSchema})
+def get_details_of_item(request: HttpRequest, item_id: int):
+    """
+    Get the details of an item.
+
+    Args:
+        request (HttpRequest): The request object.
+        item_id (int): The id of the item.
+
+    Returns:
+        (int, SingleItemSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        item = Item.objects.get(id=item_id)
+        return 200, SingleItemSchema.from_orm(item)
+    except Item.DoesNotExist:
+        return 404, ErrorSchema(detail="Item not found")
+
+
 @item_router.put(
     "/{item_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema}
 )

@@ -548,3 +548,38 @@ class TestItemRoutes(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["message"], "Item deleted successfully")
+
+    def test_get_details_of_item_that_does_not_exist(self):
+        """Test get details of item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/items/1",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Item not found")
+
+    def test_get_details_of_item_valid_payload(self):
+        """Test get details of item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.get(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], TEST_ITEM_NAME)
+        self.assertEqual(response.json()["price"], "10.00")
