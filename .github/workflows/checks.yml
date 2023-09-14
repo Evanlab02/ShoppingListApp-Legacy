@@ -97,6 +97,5 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build
-        working-directory: ./server
         run: |
           docker build -t server:latest .

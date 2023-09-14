@@ -38,7 +38,7 @@ services:
     restart: always
 
   shopping-django-server:
-    build: ./server
+    build: .
     command:
       ./bin/caddy run Caddyfile
     expose:
