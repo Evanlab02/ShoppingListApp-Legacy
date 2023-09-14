@@ -1,7 +1,18 @@
+// Third party imports
 import { SlIcon } from "@shoelace-style/shoelace/dist/react";
-import "./styles/Card.scss"
+
+// File imports
 import { CardProps } from "./helpers/interfaces";
 
+// Styles
+import "./styles/Card.scss"
+
+/**
+ * Card component.
+ * 
+ * @param props 
+ * @returns The card component.
+ */
 export default function Card(props: CardProps) {
     const { backgroundColor, iconBackgroundColor, mainText, subText = "", height = "200px", iconName = "shop", directLink = "", onClick } = props;
 

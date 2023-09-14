@@ -1,6 +1,15 @@
+// Third party imports
 import { SlDialog, SlButton } from '@shoelace-style/shoelace/dist/react';
+
+// File imports
 import { ButtonDialogProps } from './helpers/interfaces';
 
+/**
+ * Button dialog component.
+ * 
+ * @param props Button dialog props
+ * @returns Button dialog component
+ */
 export default function ButtonDialog(props: ButtonDialogProps) {
     const { onClose, open, title, text = "", buttonValues } = props;
 

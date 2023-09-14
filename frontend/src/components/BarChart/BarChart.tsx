@@ -1,4 +1,4 @@
-import { Bar } from "react-chartjs-2";
+// Third party imports
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -8,8 +8,12 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import { Bar } from "react-chartjs-2";
+
+// Styles
 import "./styles/BarChart.scss"
 
+// Register the required chart components
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -19,6 +23,11 @@ ChartJS.register(
     Legend
 );
 
+/**
+ * Bar chart component.
+ * 
+ * @returns Bar chart component
+ */
 export default function BarChart() {
     const options = {
         responsive: true,

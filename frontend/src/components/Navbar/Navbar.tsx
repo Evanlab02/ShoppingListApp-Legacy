@@ -1,7 +1,15 @@
+// Third party imports
 import { Link } from "react-router-dom";
 import { SlIcon, SlIconButton } from "@shoelace-style/shoelace/dist/react";
+
+// Styles
 import "./styles/Navbar.scss";
 
+/**
+ * Navbar component.
+ * 
+ * @returns The navbar component.
+ */
 export default function Navbar() {
     return (
         <header className="navbar">

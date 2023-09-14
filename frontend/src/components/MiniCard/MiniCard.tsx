@@ -1,7 +1,18 @@
+// Third party imports
 import { SlIcon } from "@shoelace-style/shoelace/dist/react";
-import "./styles/MiniCard.scss"
+
+// File imports
 import { MiniCardProps } from "./helpers/interfaces";
 
+// Styles
+import "./styles/MiniCard.scss"
+
+/**
+ * Mini card component.
+ * 
+ * @param props 
+ * @returns The mini card component.
+ */
 export default function MiniCard(props: MiniCardProps) {
     const {
         backgroundColor,
