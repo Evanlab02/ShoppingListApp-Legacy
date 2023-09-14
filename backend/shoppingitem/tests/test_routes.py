@@ -439,3 +439,67 @@ class TestItemRoutes(TestCase):
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
         self.assertEqual(response.json()[0]["price"], "10.00")
+
+    def test_update_item_invalid_payload(self):
+        """Test update item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": "", "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], "Item name cannot be empty")
+
+    def test_update_item_that_does_not_belong_to_user(self):
+        """Test update item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": TEST_ITEM_NAME, "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+        
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Item not found, or item does not belong to you")
+
+    def test_update_item_valid_payload(self):
+        """Test update item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": TEST_ITEM_NAME, "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["message"], "Item updated successfully")

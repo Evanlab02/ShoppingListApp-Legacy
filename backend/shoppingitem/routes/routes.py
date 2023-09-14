@@ -195,3 +195,29 @@ def get_my_items(request: HttpRequest):
     """
     items = Item.objects.filter(user=request.user)
     return 200, [ItemSchema.from_orm(item) for item in items]
+
+@item_router.put("/{item_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema})
+def update_item(request: HttpRequest, item_id: int, payload: ItemSchema):
+    """
+    Update the details of an item.
+
+    Args:
+        request (HttpRequest): The request object.
+        item_id (int): The id of the item.
+        payload (ItemSchema): The item data.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        store = validate_item(payload, True)
+        item = Item.objects.get(id=item_id, user=request.user)
+        item.name = payload.name
+        item.price = payload.price
+        item.store = store
+        item.save()
+        return 200, SuccessSchema(message="Item updated successfully")
+    except Item.DoesNotExist:
+        return 404, ErrorSchema(detail="Item not found, or item does not belong to you")
+    except ValueError as err:
+        return 400, ErrorSchema(detail=str(err))
