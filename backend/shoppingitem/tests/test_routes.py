@@ -7,7 +7,7 @@ from django.test import TestCase, Client as DjangoClient
 import pytest
 
 from authenticationapp.models import Client
-from shoppingitem.models import ShoppingStore
+from shoppingitem.models import ShoppingStore, ShoppingItem
 
 CONTENT_TYPE = "application/json"
 TEST_DESCRIPTION = "Test Description"
@@ -357,3 +357,40 @@ class TestItemRoutes(TestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()["message"], "Item created successfully")
+
+
+    def test_get_items_empty(self):
+        """Test get items route with no items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/items",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
+
+    def test_get_items(self):
+        """Test get items route with items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        ShoppingItem.objects.create(
+            name="Test Item", price=10.00, store=self.store, user=self.user
+        ).save()
+
+        response = django_client.get(
+            "/api/items",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]["name"], "Test Item")
+        self.assertEqual(response.json()[0]["price"], "10.00")

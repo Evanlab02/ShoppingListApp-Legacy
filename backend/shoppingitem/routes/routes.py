@@ -9,6 +9,7 @@ from ..schemas.schemas import (
     SuccessSchema,
     ErrorSchema,
     StoreSchema,
+    SingleItemSchema,
     ItemSchema,
     SingleStoreSchema,
 )
@@ -145,7 +146,7 @@ def delete_store(request: HttpRequest, store_id: int):
 
 
 @item_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
-def create_item(request: HttpRequest, payload: ItemSchema):
+def create_item(request: HttpRequest, payload: SingleItemSchema):
     """
     Create a new item.
 
@@ -165,3 +166,17 @@ def create_item(request: HttpRequest, payload: ItemSchema):
         return 201, SuccessSchema(message="Item created successfully")
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
+
+@item_router.get("", response={200: list[ItemSchema]})
+def get_items(request: HttpRequest):
+    """
+    Get all the items.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, [ItemSchema] | ErrorSchema): The status code and the response schema.
+    """
+    items = Item.objects.all()
+    return 200, [ItemSchema.from_orm(item) for item in items]
