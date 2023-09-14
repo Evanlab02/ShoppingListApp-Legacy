@@ -394,3 +394,48 @@ class TestItemRoutes(TestCase):
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
         self.assertEqual(response.json()[0]["price"], "10.00")
+
+
+    def test_get_my_items_empty(self):
+        """Test get my items route with no items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        ).save()
+
+        response = django_client.get(
+            "/api/items/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
+
+    def test_get_my_items(self):
+        """Test get my items route with items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        ).save()
+
+        response = django_client.get(
+            "/api/items/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
+        self.assertEqual(response.json()[0]["price"], "10.00")

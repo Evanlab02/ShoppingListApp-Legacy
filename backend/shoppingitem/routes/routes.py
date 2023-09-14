@@ -181,3 +181,17 @@ def get_items(request: HttpRequest):
     """
     items = Item.objects.all()
     return 200, [ItemSchema.from_orm(item) for item in items]
+
+@item_router.get("/me", response={200: list[ItemSchema]})
+def get_my_items(request: HttpRequest):
+    """
+    Get all the items of the current user.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, [ItemSchema] | ErrorSchema): The status code and the response schema.
+    """
+    items = Item.objects.filter(user=request.user)
+    return 200, [ItemSchema.from_orm(item) for item in items]
