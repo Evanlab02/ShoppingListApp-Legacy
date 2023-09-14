@@ -29,3 +29,7 @@ I did not want to use react for the entire front-end because I really wanted to 
 ## Developer documentation
 
 Please find more docs here: [Developer documentation](./docs/README.md)
+
+## Changelog
+
+Please find the changelog here: [Changelog](./CHANGELOG.md)
