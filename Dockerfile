@@ -13,7 +13,7 @@ COPY ./backend /backend
 WORKDIR /backend
 
 RUN pip install -r requirements.txt
-RUN python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
+RUN python manage.py collectstatic --noinput
 
 FROM node:18 as frontend-layer
 
