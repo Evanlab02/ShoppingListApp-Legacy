@@ -167,6 +167,7 @@ def create_item(request: HttpRequest, payload: SingleItemSchema):
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
 
+
 @item_router.get("", response={200: list[ItemSchema]})
 def get_items(request: HttpRequest):
     """

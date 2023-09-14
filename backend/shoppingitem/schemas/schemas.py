@@ -34,6 +34,7 @@ class ItemSchema(ModelSchema):
         model = ShoppingItem
         model_fields = ["id", "name", "price", "store"]
 
+
 class SingleItemSchema(ModelSchema):
     """Schema for the Item model."""
 

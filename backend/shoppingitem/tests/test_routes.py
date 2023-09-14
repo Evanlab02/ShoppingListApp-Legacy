@@ -358,7 +358,6 @@ class TestItemRoutes(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()["message"], "Item created successfully")
 
-
     def test_get_items_empty(self):
         """Test get items route with no items."""
 

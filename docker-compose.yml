@@ -8,9 +8,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: "${DJANGO_DATABASE_USER}"
-      POSTGRES_PASSWORD: "${DJANGO_DATABASE_PASSWORD}"
-      POSTGRES_DB: "${DJANGO_DATABASE_NAME}"
+      POSTGRES_USER: ${DJANGO_DATABASE_USER}
+      POSTGRES_PASSWORD: ${DJANGO_DATABASE_PASSWORD}
+      POSTGRES_DB: ${DJANGO_DATABASE_NAME}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -25,10 +25,10 @@ services:
   shopping-django-app:
     build: ./backend
     environment:
-      DJANGO_DATABASE_USER: ${DJANGO_DATABASE_USER}"
-      DJANGO_DATABASE_PASSWORD: "${DJANGO_DATABASE_PASSWORD}"
-      DJANGO_DATABASE_NAME: "${DJANGO_DATABASE_NAME}"
-      DJANGO_KEY: "${DJANGO_KEY}"
+      DJANGO_DATABASE_USER: ${DJANGO_DATABASE_USER}
+      DJANGO_DATABASE_PASSWORD: ${DJANGO_DATABASE_PASSWORD}
+      DJANGO_DATABASE_NAME: ${DJANGO_DATABASE_NAME}
+      DJANGO_KEY: ${DJANGO_KEY}
     command:
       python -m uvicorn shoppingapp.configs.asgi:application --host 0.0.0.0 --port 8000
     expose:
@@ -44,6 +44,8 @@ services:
 
   shopping-django-server:
     build: .
+    environment:
+      DJANGO_KEY: ${DJANGO_KEY}
     command:
       ./bin/caddy run Caddyfile
     expose:
