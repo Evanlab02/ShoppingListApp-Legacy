@@ -24,6 +24,11 @@ services:
 
   shopping-django-app:
     build: ./backend
+    environment:
+      DJANGO_DATABASE_USER: ${DJANGO_DATABASE_USER}"
+      DJANGO_DATABASE_PASSWORD: "${DJANGO_DATABASE_PASSWORD}"
+      DJANGO_DATABASE_NAME: "${DJANGO_DATABASE_NAME}"
+      DJANGO_KEY: "${DJANGO_KEY}"
     command:
       python -m uvicorn shoppingapp.configs.asgi:application --host 0.0.0.0 --port 8000
     expose:

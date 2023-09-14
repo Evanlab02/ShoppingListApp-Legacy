@@ -12,6 +12,9 @@ COPY ./backend /backend
 
 WORKDIR /backend
 
+ARG KEY
+ENV DJANGO_KEY $KEY
+
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --noinput
 

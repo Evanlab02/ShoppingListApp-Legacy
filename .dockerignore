@@ -1,2 +1,3 @@
 server/site/
 server/static/
+.env

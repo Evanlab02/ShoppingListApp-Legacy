@@ -104,4 +104,4 @@ jobs:
           fetch-depth: 0
       - name: Build
         run: |
-          docker build -t server:latest --build-arg DJANGO_KEY=${{vars.DJANGO_KEY}} .
+          docker build -t server:latest --build-arg KEY=${{vars.DJANGO_KEY}} .
