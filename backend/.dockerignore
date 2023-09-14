@@ -19,3 +19,4 @@ Dockerfile
 shoppingapp/settings/*
 !shoppingapp/settings/__init__.py
 !shoppingapp/settings/settings.py
+.env
