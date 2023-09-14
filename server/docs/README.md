@@ -8,7 +8,6 @@
 - [Database with Postgres](#database)
 - [Docker using docker compose](#docker)
 - [The caddyfile](#caddyfile)
-- [Makefile](#makefile)
 - [CHANGELOG](#changelog)
 
 ## Caddy
@@ -45,3 +44,5 @@ We use docker compose to run the server because it is very easy to use and it is
 
 The Caddyfile is the configuration file for Caddy. You can read more about the Caddyfile [here](https://caddyserver.com/docs/caddyfile).
 You can also find more documentation about the Caddyfile used in this project [here](./caddy.md).
+
+## Find the CHANGELOG [here](../CHANGELOG.md)
