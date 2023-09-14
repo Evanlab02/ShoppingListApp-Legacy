@@ -38,8 +38,6 @@ services:
     restart: always
 
   shopping-django-server:
-    environment:
-      DJANGO_KEY: ${DJANGO_KEY}
     build: .
     command:
       ./bin/caddy run Caddyfile
