@@ -15,6 +15,7 @@ TEST_NAME = "Test Store"
 API_STORE_ID_URL = "/api/stores/1"
 SECONDARY_TEST_EMAIL = "test@2.com"
 ID_ERROR = "Store not found, or store does not belong to you"
+TEST_ITEM_NAME = "Test Item"
 
 
 class TestStoreRoutes(TestCase):
@@ -350,7 +351,7 @@ class TestItemRoutes(TestCase):
 
         response = django_client.post(
             "/api/items/create",
-            {"name": "Test Item", "price": 10.00, "store_id": self.store.id},
+            {"name": TEST_ITEM_NAME, "price": 10.00, "store_id": self.store.id},
             content_type=CONTENT_TYPE,
             headers={"X-API-Key": self.token},
         )
@@ -380,7 +381,7 @@ class TestItemRoutes(TestCase):
         django_client.login(username="test", password="test")
 
         ShoppingItem.objects.create(
-            name="Test Item", price=10.00, store=self.store, user=self.user
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
         ).save()
 
         response = django_client.get(
@@ -391,5 +392,5 @@ class TestItemRoutes(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.json()), 1)
-        self.assertEqual(response.json()[0]["name"], "Test Item")
+        self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
         self.assertEqual(response.json()[0]["price"], "10.00")
