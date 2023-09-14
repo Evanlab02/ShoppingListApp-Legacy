@@ -394,3 +394,192 @@ class TestItemRoutes(TestCase):
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
         self.assertEqual(response.json()[0]["price"], "10.00")
+
+    def test_get_my_items_empty(self):
+        """Test get my items route with no items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        ).save()
+
+        response = django_client.get(
+            "/api/items/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), [])
+
+    def test_get_my_items(self):
+        """Test get my items route with items."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        ).save()
+
+        response = django_client.get(
+            "/api/items/me",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.json()), 1)
+        self.assertEqual(response.json()[0]["name"], TEST_ITEM_NAME)
+        self.assertEqual(response.json()[0]["price"], "10.00")
+
+    def test_update_item_invalid_payload(self):
+        """Test update item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": "", "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()["detail"], "Item name cannot be empty")
+
+    def test_update_item_that_does_not_belong_to_user(self):
+        """Test update item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": TEST_ITEM_NAME, "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.json()["detail"], "Item not found, or item does not belong to you"
+        )
+
+    def test_update_item_valid_payload(self):
+        """Test update item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.put(
+            f"/api/items/{item.id}",
+            {"name": TEST_ITEM_NAME, "price": 10.00, "store_id": self.store.id},
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["message"], "Item updated successfully")
+
+    def test_delete_item_that_does_not_belong_to_user(self):
+        """Test delete item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        )
+
+        response = django_client.delete(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.json()["detail"], "Item not found, or item does not belong to you"
+        )
+
+    def test_delete_item_valid_payload(self):
+        """Test delete item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.delete(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["message"], "Item deleted successfully")
+
+    def test_get_details_of_item_that_does_not_exist(self):
+        """Test get details of item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        response = django_client.get(
+            "/api/items/1",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Item not found")
+
+    def test_get_details_of_item_valid_payload(self):
+        """Test get details of item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.get(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["name"], TEST_ITEM_NAME)
+        self.assertEqual(response.json()["price"], "10.00")
