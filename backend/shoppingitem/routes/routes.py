@@ -221,3 +221,22 @@ def update_item(request: HttpRequest, item_id: int, payload: ItemSchema):
         return 404, ErrorSchema(detail="Item not found, or item does not belong to you")
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
+
+@item_router.delete("/{item_id}", response={200: SuccessSchema, 404: ErrorSchema})
+def delete_item(request: HttpRequest, item_id: int):
+    """
+    Delete an item.
+
+    Args:
+        request (HttpRequest): The request object.
+        item_id (int): The id of the item.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        item = Item.objects.get(id=item_id, user=request.user)
+        item.delete()
+        return 200, SuccessSchema(message="Item deleted successfully")
+    except Item.DoesNotExist:
+        return 404, ErrorSchema(detail="Item not found, or item does not belong to you")

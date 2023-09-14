@@ -503,3 +503,45 @@ class TestItemRoutes(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["message"], "Item updated successfully")
+
+    def test_delete_item_that_does_not_belong_to_user(self):
+        """Test delete item route with invalid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        user = User.objects.create_user(
+            username="test2", email=SECONDARY_TEST_EMAIL, password="test"
+        )
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=user
+        )
+
+        response = django_client.delete(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+        
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.json()["detail"], "Item not found, or item does not belong to you")
+
+    def test_delete_item_valid_payload(self):
+        """Test delete item route with valid payload."""
+
+        django_client = DjangoClient()
+        django_client.login(username="test", password="test")
+
+        item = ShoppingItem.objects.create(
+            name=TEST_ITEM_NAME, price=10.00, store=self.store, user=self.user
+        )
+
+        response = django_client.delete(
+            f"/api/items/{item.id}",
+            content_type=CONTENT_TYPE,
+            headers={"X-API-Key": self.token},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["message"], "Item deleted successfully")
