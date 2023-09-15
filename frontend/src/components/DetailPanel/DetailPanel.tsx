@@ -1,5 +1,11 @@
+// Styles
 import "./styles/DetailPanel.scss"
 
+/**
+ * Detail panel component.
+ * 
+ * @returns Detail panel component
+ */
 export default function DetailPanel() {
     return (
         <div className="detail-panel">

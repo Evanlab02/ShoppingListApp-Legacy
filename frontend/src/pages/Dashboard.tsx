@@ -1,14 +1,16 @@
-import { Grid } from "@mui/material";
-import Card from "../components/Card/Card";
 import { useState } from "react";
-import Navbar from "../components/Navbar/Navbar";
-import MiniCard from "../components/MiniCard/MiniCard";
+
+import { Grid } from "@mui/material";
+
+import BarChart from "../components/BarChart/BarChart";
 import ButtonDialog from "../components/ButtonDialog/ButtonDialog";
 import { ButtonProps } from "../components/ButtonDialog/helpers/interfaces";
-import BarChart from "../components/BarChart/BarChart";
-import "../styles/Dashboard.scss";
+import Card from "../components/Card/Card";
 import DetailPanel from "../components/DetailPanel/DetailPanel";
+import MiniCard from "../components/MiniCard/MiniCard";
+import Navbar from "../components/Navbar/Navbar";
 
+import "../styles/Dashboard.scss";
 
 export default function Dashboard() {
     const [openItemsDialog, setOpenItemsDialog] = useState(false);
