@@ -6,11 +6,17 @@ The reason we use react for the dashboard is because I am more familiar with rea
 
 ## Getting started
 
+### .env file
+
 You need a .env file in the frontend directory with the following variables:
 
 ```env
 VITE_REACT_NAMESPACE="shopping"
 ```
+
+You could change the namespace to whatever you want, but it is recommended to keep it as shopping. If you change the namespace you will also need to change the namespace in the [server](../server/README.md). The namespace is used to separate the different apps in the project. If you not supply .env file, it will default the namespace to shopping.
+
+### Running the project
 
 To get the front-end running on your machine you will need to have [node](https://nodejs.org/en/) installed. You can check if you have node installed by running `node -v` in your terminal. If you do not have node installed you can download it from [here](https://nodejs.org/en/).
 

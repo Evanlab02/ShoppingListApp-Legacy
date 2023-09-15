@@ -3,7 +3,7 @@ import Dashboard from '../../pages/Dashboard';
 
 
 export default function Nav() {
-    const namespace = import.meta.env.VITE_REACT_NAMESPACE;
+    const namespace = import.meta.env.VITE_REACT_NAMESPACE ?? "shopping";
 
     return (
         <Routes>
