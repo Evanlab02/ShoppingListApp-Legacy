@@ -16,3 +16,6 @@ lint:
 
 clean:
 	rm -rf dist/
+
+storybook:
+	npm run storybook

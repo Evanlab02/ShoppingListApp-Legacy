@@ -11,6 +11,7 @@ In the components folder you will find all the components that are used in the p
 - [MiniCard](#minicard)
 - [Navbar](#navbar)
 - [Navigation](#navigation)
+- [View components with storybook](#view-components-with-storybook)
 
 ## Barchart
 
@@ -106,3 +107,17 @@ The navbar component is used by our application to display a navigation bar. Fin
 ## Navigation
 
 This is a hidden component that is used by our application to manage routing.
+
+## View components with storybook
+
+To view the components with storybook, run the following command:
+
+```bash
+npm run storybook
+```
+
+Make sure to run the following command before running storybook:
+
+```bash
+npm install
+```
