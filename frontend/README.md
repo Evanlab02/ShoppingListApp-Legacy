@@ -6,6 +6,12 @@ The reason we use react for the dashboard is because I am more familiar with rea
 
 ## Getting started
 
+You need a .env file in the frontend directory with the following variables:
+
+```env
+VITE_REACT_NAMESPACE="shopping"
+```
+
 To get the front-end running on your machine you will need to have [node](https://nodejs.org/en/) installed. You can check if you have node installed by running `node -v` in your terminal. If you do not have node installed you can download it from [here](https://nodejs.org/en/).
 
 Once you have node installed you can run `npm install` in the frontend directory to install all the dependencies. Once the dependencies are installed you can run `npm run dev` to start the development server. The development server will be running on http://localhost:5173.
