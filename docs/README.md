@@ -36,5 +36,18 @@ Important things to know:
 - [Makefile](./backend/makefile.md)
 - [Dockerfile](./backend/Docker.md)
 - [Changelog](../backend/CHANGELOG.md)
-- [The code](./backend/code.md)
 - [MISC](./backend/misc.md)
+
+## Frontend
+
+- [Frontend - Getting started](../frontend/README.md)
+- [Frontend -Overview](../frontend/docs/README.md)
+- [Frontend - Changelog](../frontend/CHANGELOG.md)
+- [Frontend - Components](../frontend/docs/components.md)
+- [Frontend - Pages](../frontend/docs/pages.md)
+- [Frontend - Dependencies](../frontend/docs/dependencies.md)
+
+## Server
+
+- [Server - Getting started](../server/README.md)
+- [Server - Overview](../server/docs/README.md)
