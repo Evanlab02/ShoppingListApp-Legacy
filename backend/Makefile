@@ -27,4 +27,4 @@ migrate:
 	python manage.py migrate --settings=shoppingapp.settings.local_settings
 
 clean:
-	rm -rf .coverage coverage.xml
+	rm -rf .coverage coverage.xml .pytest_cache

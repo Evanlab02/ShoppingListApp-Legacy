@@ -13,8 +13,6 @@ from ..validation.validation import validate_shoppinglist
 LIST_NAME = "test shopping list"
 LIST_DESCRIPTION = "test description"
 TEST_EMAIL = "test@test.com"
-CONTENT_TYPE = "application/json"
-CREATE_ENDPOINT = "/api/list/create"
 
 
 class TestShoppingList(TestCase):
