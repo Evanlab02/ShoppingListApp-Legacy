@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.6.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.5.0...shopping-app-backend-v0.6.0) (2023-09-21)
+
+
+### Features
+
+* **Docs:** Added documentation for Server ([01450f0](https://github.com/Evanlab02/ShoppingListApp/commit/01450f0d81543ada3002d321676a733ee4dfb7a9))
+* **docs:** Project Wide Documentation ([7d005d1](https://github.com/Evanlab02/ShoppingListApp/commit/7d005d19041764e682d80a375177a027820872a8))
+* **Items:** Can now delete items through the API ([b3266d8](https://github.com/Evanlab02/ShoppingListApp/commit/b3266d884a2165f1b3085ce86469b6bf357b3562))
+* **Items:** Can now get all items through the API ([6480409](https://github.com/Evanlab02/ShoppingListApp/commit/6480409e31b9baca7857a712c1aaabc31657da56))
+* **Items:** Get details of a single item ([9d5a14c](https://github.com/Evanlab02/ShoppingListApp/commit/9d5a14cb20a138bac933af7f11b656d07764d090))
+* **Items:** Get your created items through the API ([ee7746d](https://github.com/Evanlab02/ShoppingListApp/commit/ee7746d1100acf34014fc0676c18b0525f3ea2f1))
+* **Items:** Update items through the API ([d29b867](https://github.com/Evanlab02/ShoppingListApp/commit/d29b86791424fe5d0f490e7252eaec7d3a2c3581))
+
+
+### Bug Fixes
+
+* **Clean-Up:** Cleaned up some files ([d025384](https://github.com/Evanlab02/ShoppingListApp/commit/d02538425397ddfefead47267f4fed4561248b0d))
+* **Docker:** Docker improvements ([2acb6b1](https://github.com/Evanlab02/ShoppingListApp/commit/2acb6b18ec82ccace2e726f17463c0b9123c8bc7))
+
 ## [0.5.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.4.3...shopping-app-backend-v0.5.0) (2023-09-13)
 
 
