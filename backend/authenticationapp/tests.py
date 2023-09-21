@@ -4,6 +4,7 @@ from django.test import TestCase, Client
 
 from .models import Client as ClientModel
 
+TEST_EMAIL = "test@login.com"
 CONTENT_TYPE = "application/json"
 LOGIN_SUCCESS_MESSAGE = "User successfully logged in."
 REGISTER_ENDPOINT = "/api/auth/register"
@@ -42,7 +43,7 @@ class TestAuthentication(TestCase):
             REGISTER_ENDPOINT,
             {
                 "username": "test-login",
-                "email": "test@login.com",
+                "email": TEST_EMAIL,
                 "password": "testpassword",
                 "first_name": "test",
                 "last_name": "user",
@@ -70,7 +71,7 @@ class TestAuthentication(TestCase):
             REGISTER_ENDPOINT,
             {
                 "username": "test-login",
-                "email": "test@login.com",
+                "email": TEST_EMAIL,
                 "password": "testpassword",
                 "first_name": "test",
                 "last_name": "user",
@@ -98,7 +99,7 @@ class TestAuthentication(TestCase):
             REGISTER_ENDPOINT,
             {
                 "username": "test-login",
-                "email": "test@login.com",
+                "email": TEST_EMAIL,
                 "password": "testpassword",
                 "first_name": "test",
                 "last_name": "user",
@@ -135,7 +136,7 @@ class TestAuthentication(TestCase):
             REGISTER_ENDPOINT,
             {
                 "username": "test-login",
-                "email": "test@login.com",
+                "email": TEST_EMAIL,
                 "password": "testpassword",
                 "first_name": "test",
                 "last_name": "user",
@@ -159,7 +160,7 @@ class TestAuthentication(TestCase):
             REGISTER_ENDPOINT,
             {
                 "username": "test-login",
-                "email": "test@login.com",
+                "email": TEST_EMAIL,
                 "password": "testpassword",
                 "first_name": "test",
                 "last_name": "user",
