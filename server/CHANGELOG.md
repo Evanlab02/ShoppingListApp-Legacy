@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.3.0...shopping-app-server-v0.4.0) (2023-09-21)
+
+
+### Features
+
+* **Docker:** Server can now be built using only docker ([961ed30](https://github.com/Evanlab02/ShoppingListApp/commit/961ed300b6202fc3b48879d4a856e3b067f0d382))
+* **Docs:** Added documentation for Server ([01450f0](https://github.com/Evanlab02/ShoppingListApp/commit/01450f0d81543ada3002d321676a733ee4dfb7a9))
+
+
+### Bug Fixes
+
+* **Docs:** Added missing section for server docs ([1706045](https://github.com/Evanlab02/ShoppingListApp/commit/1706045e9635f0ba8c9aa6938f52eaf6a36cb799))
+
 ## [0.3.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.2.0...shopping-app-server-v0.3.0) (2023-09-05)
 
 

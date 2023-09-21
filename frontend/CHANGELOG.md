@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.4.0...shopping-app-frontend-v0.5.0) (2023-09-21)
+
+
+### Features
+
+* **Docs:** Added docs for pages and dependencies ([f4387c7](https://github.com/Evanlab02/ShoppingListApp/commit/f4387c7b0ff4da8d2f4adbdc5ba7985bfb0de09f))
+* **Docs:** Added section on .env file ([b1b3ceb](https://github.com/Evanlab02/ShoppingListApp/commit/b1b3ceba8371b2fb451dc69083e08d20eaf09913))
+* **Docs:** Added section on .env file ([c076e71](https://github.com/Evanlab02/ShoppingListApp/commit/c076e716517106a8a7d575dd665b4e34192e4a16))
+* **Docs:** Frontend component docs ([e1f2ae5](https://github.com/Evanlab02/ShoppingListApp/commit/e1f2ae554a4b4967655e7ff8270664e9f889115b))
+* **Storybook:** Added storybook for frontend components ([cb7d1c0](https://github.com/Evanlab02/ShoppingListApp/commit/cb7d1c07af1c6cef25e4d4c4071da3ceea7aaa00))
+
 ## [0.4.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.3.0...shopping-app-frontend-v0.4.0) (2023-09-05)
 
 
