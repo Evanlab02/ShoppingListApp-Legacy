@@ -15,6 +15,8 @@ from ..schemas.schemas import (
 )
 from ..validation.validation import validate_shoppinglist
 
+NOT_FOUND_MESSAGE = "Shopping list not found"
+
 api_key = ApiKey()
 list_router = Router(auth=api_key, tags=["Shopping Lists"])
 
@@ -57,7 +59,7 @@ def get_lists(request: HttpRequest):
 
 
 @list_router.get(
-    "/{list_id}", response={200: SingleShoppingListSchema, 404: ErrorSchema}
+    "/detail/{list_id}", response={200: SingleShoppingListSchema, 404: ErrorSchema}
 )
 def get_list_details(request: HttpRequest, list_id: int):
     """
@@ -74,13 +76,14 @@ def get_list_details(request: HttpRequest, list_id: int):
         user = request.user
         shopping_list = ShoppingList.objects.get(id=list_id, user=user)
     except ShoppingList.DoesNotExist:
-        return 404, ErrorSchema(detail="Shopping list not found")
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
 
     return 200, SingleShoppingListSchema.from_orm(shopping_list)
 
 
 @list_router.put(
-    "/{list_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema}
+    "/update/{list_id}",
+    response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema},
 )
 def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSchema):
     """
@@ -102,7 +105,7 @@ def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSc
     try:
         shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
     except ShoppingList.DoesNotExist:
-        return 404, ErrorSchema(detail="Shopping list not found")
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
 
     shopping_list.name = payload.name
     shopping_list.description = payload.description
@@ -110,3 +113,46 @@ def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSc
     shopping_list.end_date = payload.end_date
     shopping_list.save()
     return 200, SuccessSchema(message="Shopping list updated successfully")
+
+
+@list_router.delete(
+    "/delete/{list_id}", response={200: SuccessSchema, 404: ErrorSchema}
+)
+def delete_list(request: HttpRequest, list_id: int):
+    """
+    Delete a shopping list.
+
+    Args:
+        request (HttpRequest): The request object.
+        list_id (int): The id of the shopping list.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
+    except ShoppingList.DoesNotExist:
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
+
+    shopping_list.delete()
+    return 200, SuccessSchema(message="Shopping list deleted successfully")
+
+
+@list_router.get("/current", response={200: SingleShoppingListSchema, 404: ErrorSchema})
+def get_current_list(request: HttpRequest):
+    """
+    Get the details of the current shopping list.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        (int, ShoppingListSchema | ErrorSchema): The status code and the response schema.
+    """
+    user = request.user
+    shopping_list = ShoppingList.get_current(user=user)
+
+    if shopping_list is None:
+        return 404, ErrorSchema(detail="No shopping list for the current timeframe")
+
+    return 200, SingleShoppingListSchema.from_orm(shopping_list)

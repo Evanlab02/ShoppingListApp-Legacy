@@ -1,5 +1,7 @@
 """Contains tests for the routes in the shoppinglist app."""
 
+from datetime import date, timedelta
+
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
@@ -288,7 +290,9 @@ class TestShoppingListEndpoints(TestCase):
         response = client.get(TOKEN_ENDPOINT)
         token = response.json()["message"]
 
-        response = client.get(f"{LISTS_ENDPOINT}/1", headers={"X-API-Key": token})
+        response = client.get(
+            f"{LISTS_ENDPOINT}/detail/1", headers={"X-API-Key": token}
+        )
 
         assert response.status_code == 404
         assert response.json()["detail"] == NOT_FOUND_MESSAGE
@@ -316,7 +320,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.get(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}", headers={"X-API-Key": token}
+            f"{LISTS_ENDPOINT}/detail/{shopping_list.id}", headers={"X-API-Key": token}
         )
 
         assert response.status_code == 200
@@ -352,7 +356,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.get(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}", headers={"X-API-Key": token}
+            f"{LISTS_ENDPOINT}/detail/{shopping_list.id}", headers={"X-API-Key": token}
         )
 
         assert response.status_code == 404
@@ -372,7 +376,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.put(
-            f"{LISTS_ENDPOINT}/1",
+            f"{LISTS_ENDPOINT}/update/1",
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -412,7 +416,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.put(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}",
+            f"{LISTS_ENDPOINT}/update/{shopping_list.id}",
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -448,7 +452,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.put(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}",
+            f"{LISTS_ENDPOINT}/update/{shopping_list.id}",
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -495,7 +499,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.put(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}",
+            f"{LISTS_ENDPOINT}/update/{shopping_list.id}",
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -534,7 +538,7 @@ class TestShoppingListEndpoints(TestCase):
         token = response.json()["message"]
 
         response = client.put(
-            f"{LISTS_ENDPOINT}/{shopping_list.id}",
+            f"{LISTS_ENDPOINT}/update/{shopping_list.id}",
             {
                 "name": LIST_NAME,
                 "description": LIST_DESCRIPTION,
@@ -547,3 +551,125 @@ class TestShoppingListEndpoints(TestCase):
 
         assert response.status_code == 200
         assert response.json()["message"] == "Shopping list updated successfully"
+
+    def test_delete_shopping_list_that_does_not_exist(self):
+        """Test the delete shopping list endpoint with a list that does not exist."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(
+            f"{LISTS_ENDPOINT}/delete/1", headers={"X-API-Key": token}
+        )
+
+        assert response.status_code == 404
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
+
+    def test_delete_shopping_list_that_does_not_belong_to_user(self):
+        """Test the delete shopping list endpoint with a list that does not belong to the user."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        user2 = User.objects.create_user(
+            username="testuser2", email=TEST_EMAIL, password="testpassword"
+        )
+
+        shopping_list = ShoppingList.objects.create(
+            name=LIST_NAME,
+            description=LIST_DESCRIPTION,
+            start_date="2021-01-01",
+            end_date="2021-01-02",
+            user=user2,
+        )
+
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(
+            f"{LISTS_ENDPOINT}/delete/{shopping_list.id}", headers={"X-API-Key": token}
+        )
+
+        assert response.status_code == 404
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
+
+    def test_delete_shopping_list_valid(self):
+        """Test the delete shopping list endpoint with a valid list."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        shopping_list = ShoppingList.objects.create(
+            name=LIST_NAME,
+            description=LIST_DESCRIPTION,
+            start_date="2021-01-01",
+            end_date="2021-01-02",
+            user=user,
+        )
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(
+            f"{LISTS_ENDPOINT}/delete/{shopping_list.id}", headers={"X-API-Key": token}
+        )
+
+        assert response.status_code == 200
+        assert response.json()["message"] == "Shopping list deleted successfully"
+
+    def test_get_current_shopping_list_not_exist(self):
+        """Test the get current shopping list endpoint with no current list."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+        response = client.get(f"{LISTS_ENDPOINT}/current", headers={"X-API-Key": token})
+
+        assert response.status_code == 404
+        assert response.json()["detail"] == "No shopping list for the current timeframe"
+
+    def test_get_current_shopping_list_exists(self):
+        """Test the get current shopping list endpoint with a current list."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+
+        ShoppingList.objects.create(
+            name=LIST_NAME,
+            description=LIST_DESCRIPTION,
+            start_date=date.today() - timedelta(days=1),
+            end_date=date.today() + timedelta(days=1),
+            user=user,
+        )
+
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.get(f"{LISTS_ENDPOINT}/current", headers={"X-API-Key": token})
+
+        assert response.status_code == 200
+        assert response.json()["name"] == LIST_NAME
+        assert response.json()["description"] == LIST_DESCRIPTION
+        assert response.json()["start_date"] == str(date.today() - timedelta(days=1))
+        assert response.json()["end_date"] == str(date.today() + timedelta(days=1))
+        assert response.json()["items"] == []

@@ -4,16 +4,17 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.7.0
 
-- [ ] Create a new endpoint to get the detail of a shopping list
-- [ ] Create a new endpoint to edit a shopping list
-- [ ] Create a new endpoint to delete a shopping list
-- [ ] Create a new endpoint to get the current shopping list
+- [x] Create a new endpoint to get the detail of a shopping list
+- [x] Create a new endpoint to edit a shopping list
+- [x] Create a new endpoint to delete a shopping list
+- [x] Create a new endpoint to get the current shopping list
 
 ## Backend - V0.8.0
 
 - [ ] Create a new endpoint to add a item to a shopping list
 - [ ] Create a new endpoint to edit a item from a shopping list
 - [ ] Create a new endpoint to delete a item from a shopping list
+- [ ] Adjust detail endpoint to return item details
 
 ## Backend - V0.9.0
 
