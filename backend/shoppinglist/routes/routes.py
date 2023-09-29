@@ -11,6 +11,7 @@ from ..schemas.schemas import (
     SuccessSchema,
     ErrorSchema,
     SingleShoppingListSchema,
+    InputShoppingListSchema
 )
 from ..validation.validation import validate_shoppinglist
 
@@ -19,7 +20,7 @@ list_router = Router(auth=api_key, tags=["Shopping Lists"])
 
 
 @list_router.post("/create", response={201: SuccessSchema, 400: ErrorSchema})
-def create_list(request: HttpRequest, payload: ShoppingListSchema):
+def create_list(request: HttpRequest, payload: InputShoppingListSchema):
     """
     Create a new shopping list.
 
@@ -36,7 +37,7 @@ def create_list(request: HttpRequest, payload: ShoppingListSchema):
         return 400, ErrorSchema(detail=str(err))
 
     shopping_list = ShoppingList.objects.create(
-        **payload.dict(), user=request.auth.user
+        **payload.dict(), user=request.user
     )
     shopping_list.save()
     return 201, SuccessSchema(message="Shopping list created successfully")
@@ -53,7 +54,7 @@ def get_lists(request: HttpRequest):
     Returns:
         (int, ShoppingListSchema | ErrorSchema): The status code and the response schema.
     """
-    shopping_lists = ShoppingList.objects.filter(user=request.auth.user)
+    shopping_lists = ShoppingList.objects.filter(user=request.user)
     return 200, [ShoppingListSchema.from_orm(list) for list in shopping_lists]
 
 
@@ -78,3 +79,36 @@ def get_list_details(request: HttpRequest, list_id: int):
         return 404, ErrorSchema(detail="Shopping list not found")
 
     return 200, SingleShoppingListSchema.from_orm(shopping_list)
+
+
+@list_router.put(
+    "/{list_id}", response={200: SuccessSchema, 400: ErrorSchema, 404: ErrorSchema}
+)
+def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSchema):
+    """
+    Update a shopping list.
+
+    Args:
+        request (HttpRequest): The request object.
+        list_id (int): The id of the shopping list.
+        payload (ShoppingListSchema): The shopping list data.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        validate_shoppinglist(payload, request.user, is_update=True, id=list_id)
+    except ValueError as err:
+        return 400, ErrorSchema(detail=str(err))
+
+    try:
+        shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
+    except ShoppingList.DoesNotExist:
+        return 404, ErrorSchema(detail="Shopping list not found")
+
+    shopping_list.name = payload.name
+    shopping_list.description = payload.description
+    shopping_list.start_date = payload.start_date
+    shopping_list.end_date = payload.end_date
+    shopping_list.save()
+    return 200, SuccessSchema(message="Shopping list updated successfully")

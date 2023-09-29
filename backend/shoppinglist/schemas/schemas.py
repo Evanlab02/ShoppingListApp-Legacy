@@ -25,6 +25,16 @@ class SingleShoppingListSchema(ModelSchema):
         model_fields = ["name", "description", "start_date", "end_date", "items"]
 
 
+class InputShoppingListSchema(ModelSchema):
+    """Schema for the ShoppingList model."""
+
+    class Config:
+        """Config for the ShoppingListSchema."""
+
+        model = ShoppingList
+        model_fields = ["name", "description", "start_date", "end_date"]
+
+
 class SuccessSchema(Schema):
     """Schema for the Upload model."""
 
