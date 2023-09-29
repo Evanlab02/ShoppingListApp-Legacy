@@ -14,6 +14,7 @@ CREATE_ENDPOINT = "/api/lists/create"
 TOKEN_ENDPOINT = "/api/auth/token"
 LISTS_ENDPOINT = "/api/lists"
 SUCESS_CREATE_MESSAGE = "Shopping list created successfully"
+NOT_FOUND_MESSAGE = "Shopping list not found"
 
 
 class TestShoppingListEndpoints(TestCase):
@@ -290,7 +291,7 @@ class TestShoppingListEndpoints(TestCase):
         response = client.get(f"{LISTS_ENDPOINT}/1", headers={"X-API-Key": token})
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "Shopping list not found"
+        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
 
     def test_get_shopping_list_detail_exists(self):
         """Test the get shopping list detail endpoint with a list that exists."""
@@ -355,7 +356,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "Shopping list not found"
+        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
 
     def test_update_shopping_list_that_does_not_exist(self):
         """Test the update shopping list endpoint with a list that does not exist."""
@@ -383,7 +384,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "Shopping list not found"
+        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
 
     def test_update_shopping_list_that_does_not_belong_to_user(self):
         """Test the update shopping list endpoint with a list that does not belong to the user."""
@@ -423,7 +424,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "Shopping list not found"
+        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
 
     def test_update_shopping_list_invalid_payload(self):
         """Test the update shopping list endpoint with an invalid payload."""
