@@ -253,7 +253,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         ShoppingList.objects.create(
-            name="test list",
+            name=LIST_NAME,
             description=LIST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
@@ -269,7 +269,7 @@ class TestShoppingListEndpoints(TestCase):
 
         assert response.status_code == 200
         assert len(response.json()) == 1
-        assert response.json()[0]["name"] == "test list"
+        assert response.json()[0]["name"] == LIST_NAME
         assert response.json()[0]["description"] == LIST_DESCRIPTION
         assert response.json()[0]["start_date"] == "2021-01-01"
         assert response.json()[0]["end_date"] == "2021-01-02"
@@ -302,7 +302,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         shopping_list = ShoppingList.objects.create(
-            name="test list",
+            name=LIST_NAME,
             description=LIST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
@@ -319,7 +319,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 200
-        assert response.json()["name"] == "test list"
+        assert response.json()["name"] == LIST_NAME
         assert response.json()["description"] == LIST_DESCRIPTION
         assert response.json()["start_date"] == "2021-01-01"
         assert response.json()["end_date"] == "2021-01-02"
@@ -338,7 +338,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         shopping_list = ShoppingList.objects.create(
-            name="test list",
+            name=LIST_NAME,
             description=LIST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
