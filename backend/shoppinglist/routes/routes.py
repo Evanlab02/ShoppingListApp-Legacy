@@ -10,7 +10,7 @@ from ..schemas.schemas import (
     ShoppingListSchema,
     SuccessSchema,
     ErrorSchema,
-    SingleShoppingListSchema
+    SingleShoppingListSchema,
 )
 from ..validation.validation import validate_shoppinglist
 
@@ -56,7 +56,10 @@ def get_lists(request: HttpRequest):
     shopping_lists = ShoppingList.objects.filter(user=request.auth.user)
     return 200, [ShoppingListSchema.from_orm(list) for list in shopping_lists]
 
-@list_router.get("/{list_id}", response={200: SingleShoppingListSchema, 404: ErrorSchema})
+
+@list_router.get(
+    "/{list_id}", response={200: SingleShoppingListSchema, 404: ErrorSchema}
+)
 def get_list_details(request: HttpRequest, list_id: int):
     """
     Get the details of a shopping list.
