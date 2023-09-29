@@ -291,7 +291,7 @@ class TestShoppingListEndpoints(TestCase):
         response = client.get(f"{LISTS_ENDPOINT}/1", headers={"X-API-Key": token})
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
 
     def test_get_shopping_list_detail_exists(self):
         """Test the get shopping list detail endpoint with a list that exists."""
@@ -356,7 +356,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
 
     def test_update_shopping_list_that_does_not_exist(self):
         """Test the update shopping list endpoint with a list that does not exist."""
@@ -384,7 +384,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
 
     def test_update_shopping_list_that_does_not_belong_to_user(self):
         """Test the update shopping list endpoint with a list that does not belong to the user."""
@@ -424,7 +424,7 @@ class TestShoppingListEndpoints(TestCase):
         )
 
         assert response.status_code == 404
-        assert response.json()["detail"] == "NOT_FOUND_MESSAGE"
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
 
     def test_update_shopping_list_invalid_payload(self):
         """Test the update shopping list endpoint with an invalid payload."""
