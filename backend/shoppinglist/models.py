@@ -29,7 +29,7 @@ class ShoppingList(models.Model):
         return self.start_date <= timezone.now().date() <= self.end_date
 
     @classmethod
-    def get_current(self, user):
+    def get_current(cls, user):
         """Return the current shopping list."""
         return (
             ShoppingList.objects.filter(user=user)

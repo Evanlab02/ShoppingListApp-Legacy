@@ -15,6 +15,8 @@ from ..schemas.schemas import (
 )
 from ..validation.validation import validate_shoppinglist
 
+NOT_FOUND_MESSAGE = "Shopping list not found"
+
 api_key = ApiKey()
 list_router = Router(auth=api_key, tags=["Shopping Lists"])
 
@@ -74,7 +76,7 @@ def get_list_details(request: HttpRequest, list_id: int):
         user = request.user
         shopping_list = ShoppingList.objects.get(id=list_id, user=user)
     except ShoppingList.DoesNotExist:
-        return 404, ErrorSchema(detail="Shopping list not found")
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
 
     return 200, SingleShoppingListSchema.from_orm(shopping_list)
 
@@ -103,7 +105,7 @@ def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSc
     try:
         shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
     except ShoppingList.DoesNotExist:
-        return 404, ErrorSchema(detail="Shopping list not found")
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
 
     shopping_list.name = payload.name
     shopping_list.description = payload.description
@@ -130,7 +132,7 @@ def delete_list(request: HttpRequest, list_id: int):
     try:
         shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
     except ShoppingList.DoesNotExist:
-        return 404, ErrorSchema(detail="Shopping list not found")
+        return 404, ErrorSchema(detail=NOT_FOUND_MESSAGE)
 
     shopping_list.delete()
     return 200, SuccessSchema(message="Shopping list deleted successfully")
