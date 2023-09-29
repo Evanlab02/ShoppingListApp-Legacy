@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from ..models import ShoppingList
 
 
-def validate_shoppinglist(shoppinglist: ShoppingList, user: User, is_update=False, id=None):
+def validate_shoppinglist(
+    shoppinglist: ShoppingList, user: User, is_update=False, id=None
+):
     """
     Validate the shoppinglist object.
 

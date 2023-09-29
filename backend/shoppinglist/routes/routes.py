@@ -11,7 +11,7 @@ from ..schemas.schemas import (
     SuccessSchema,
     ErrorSchema,
     SingleShoppingListSchema,
-    InputShoppingListSchema
+    InputShoppingListSchema,
 )
 from ..validation.validation import validate_shoppinglist
 
@@ -36,9 +36,7 @@ def create_list(request: HttpRequest, payload: InputShoppingListSchema):
     except ValueError as err:
         return 400, ErrorSchema(detail=str(err))
 
-    shopping_list = ShoppingList.objects.create(
-        **payload.dict(), user=request.user
-    )
+    shopping_list = ShoppingList.objects.create(**payload.dict(), user=request.user)
     shopping_list.save()
     return 201, SuccessSchema(message="Shopping list created successfully")
 
