@@ -110,3 +110,24 @@ def update_list(request: HttpRequest, list_id: int, payload: InputShoppingListSc
     shopping_list.end_date = payload.end_date
     shopping_list.save()
     return 200, SuccessSchema(message="Shopping list updated successfully")
+
+
+@list_router.delete("/{list_id}", response={200: SuccessSchema, 404: ErrorSchema})
+def delete_list(request: HttpRequest, list_id: int):
+    """
+    Delete a shopping list.
+
+    Args:
+        request (HttpRequest): The request object.
+        list_id (int): The id of the shopping list.
+
+    Returns:
+        (int, SuccessSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        shopping_list = ShoppingList.objects.get(id=list_id, user=request.user)
+    except ShoppingList.DoesNotExist:
+        return 404, ErrorSchema(detail="Shopping list not found")
+
+    shopping_list.delete()
+    return 200, SuccessSchema(message="Shopping list deleted successfully")

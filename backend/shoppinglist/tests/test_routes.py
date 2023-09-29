@@ -547,3 +547,77 @@ class TestShoppingListEndpoints(TestCase):
 
         assert response.status_code == 200
         assert response.json()["message"] == "Shopping list updated successfully"
+
+    def test_delete_shopping_list_that_does_not_exist(self):
+        """Test the delete shopping list endpoint with a list that does not exist."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(f"{LISTS_ENDPOINT}/1", headers={"X-API-Key": token})
+
+        assert response.status_code == 404
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
+
+    def test_delete_shopping_list_that_does_not_belong_to_user(self):
+        """Test the delete shopping list endpoint with a list that does not belong to the user."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        user2 = User.objects.create_user(
+            username="testuser2", email=TEST_EMAIL, password="testpassword"
+        )
+
+        shopping_list = ShoppingList.objects.create(
+            name=LIST_NAME,
+            description=LIST_DESCRIPTION,
+            start_date="2021-01-01",
+            end_date="2021-01-02",
+            user=user2,
+        )
+
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(
+            f"{LISTS_ENDPOINT}/{shopping_list.id}", headers={"X-API-Key": token}
+        )
+
+        assert response.status_code == 404
+        assert response.json()["detail"] == NOT_FOUND_MESSAGE
+
+    def test_delete_shopping_list_valid(self):
+        """Test the delete shopping list endpoint with a valid list."""
+        client = Client()
+
+        user = User.objects.create_user(
+            username="testuser", email=TEST_EMAIL, password="testpassword"
+        )
+        shopping_list = ShoppingList.objects.create(
+            name=LIST_NAME,
+            description=LIST_DESCRIPTION,
+            start_date="2021-01-01",
+            end_date="2021-01-02",
+            user=user,
+        )
+        AuthClient.objects.create(user=user)
+        client.login(username="testuser", password="testpassword")
+        response = client.get(TOKEN_ENDPOINT)
+        token = response.json()["message"]
+
+        response = client.delete(
+            f"{LISTS_ENDPOINT}/{shopping_list.id}", headers={"X-API-Key": token}
+        )
+
+        assert response.status_code == 200
+        assert response.json()["message"] == "Shopping list deleted successfully"

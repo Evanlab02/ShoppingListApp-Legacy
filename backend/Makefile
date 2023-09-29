@@ -4,15 +4,15 @@ requirements:
 dev-requirements:
 	pipenv requirements --dev > dev-requirements.txt
 
-format:
+format: clean
 	black .
 
-lint:
+lint: clean
 	black --check .
 	flake8 . --max-line-length=100
 	pydocstyle .
 
-test:
+test: clean
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
 	pytest -v --cov=. --cov-report term-missing
 
