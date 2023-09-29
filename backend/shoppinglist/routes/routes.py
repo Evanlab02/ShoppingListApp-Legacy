@@ -6,7 +6,12 @@ from ninja import Router
 from authenticationapp.auth.app_auth import ApiKey
 
 from ..models import ShoppingList
-from ..schemas.schemas import ShoppingListSchema, SuccessSchema, ErrorSchema
+from ..schemas.schemas import (
+    ShoppingListSchema,
+    SuccessSchema,
+    ErrorSchema,
+    SingleShoppingListSchema
+)
 from ..validation.validation import validate_shoppinglist
 
 api_key = ApiKey()
@@ -50,3 +55,23 @@ def get_lists(request: HttpRequest):
     """
     shopping_lists = ShoppingList.objects.filter(user=request.auth.user)
     return 200, [ShoppingListSchema.from_orm(list) for list in shopping_lists]
+
+@list_router.get("/{list_id}", response={200: SingleShoppingListSchema, 404: ErrorSchema})
+def get_list_details(request: HttpRequest, list_id: int):
+    """
+    Get the details of a shopping list.
+
+    Args:
+        request (HttpRequest): The request object.
+        list_id (int): The id of the shopping list.
+
+    Returns:
+        (int, ShoppingListSchema | ErrorSchema): The status code and the response schema.
+    """
+    try:
+        user = request.user
+        shopping_list = ShoppingList.objects.get(id=list_id, user=user)
+    except ShoppingList.DoesNotExist:
+        return 404, ErrorSchema(detail="Shopping list not found")
+
+    return 200, SingleShoppingListSchema.from_orm(shopping_list)
