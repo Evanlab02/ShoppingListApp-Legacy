@@ -28,3 +28,4 @@ migrate:
 
 clean:
 	rm -rf .coverage coverage.xml .pytest_cache
+	rm -rf **/migrations/0*.py

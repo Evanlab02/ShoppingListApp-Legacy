@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from ..models import ShoppingList
 
 
-def validate_shoppinglist(shoppinglist: ShoppingList, user: User):
+def validate_shoppinglist(
+    shoppinglist: ShoppingList, user: User, is_update=False, id=None
+):
     """
     Validate the shoppinglist object.
 
@@ -22,6 +24,9 @@ def validate_shoppinglist(shoppinglist: ShoppingList, user: User):
 
     lists = ShoppingList.objects.filter(user=user)
     for shopping_list in lists:
+        if is_update and shopping_list.id == id:
+            continue
+
         flag_one = (
             shoppinglist.start_date <= shopping_list.start_date <= shoppinglist.end_date
         )
