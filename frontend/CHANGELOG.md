@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.5.0...shopping-app-frontend-v0.5.1) (2023-09-29)
+
+
+### Bug Fixes
+
+* **Lazy-Loading:** Components now are bundled seperately ([1dc9366](https://github.com/Evanlab02/ShoppingListApp/commit/1dc9366192fcd647be9eef556f052d880ac4f639))
+
 ## [0.5.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.4.0...shopping-app-frontend-v0.5.0) (2023-09-21)
 
 

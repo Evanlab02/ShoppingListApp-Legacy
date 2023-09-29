@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.6.0...shopping-app-backend-v0.7.0) (2023-09-29)
+
+
+### Features
+
+* **Lists:** Can now delete lists through the API ([0db9bdb](https://github.com/Evanlab02/ShoppingListApp/commit/0db9bdb868476a0484cde70f49611021f1a72dc2))
+* **Lists:** Can now edit lists through the API ([6f8dac1](https://github.com/Evanlab02/ShoppingListApp/commit/6f8dac18a26f8e8ef468616061da4cd705289d2f))
+* **Lists:** Can now get current shopping list through the API ([e976958](https://github.com/Evanlab02/ShoppingListApp/commit/e9769583c3d3ef93124e043806d8b6fc6413a84b))
+* **Lists:** Can now get details of a shopping list ([22457b6](https://github.com/Evanlab02/ShoppingListApp/commit/22457b67b1c441d2083dc018b7644015129dabf8))
+* **Testing:** Added testing for edit endpoint ([aab4123](https://github.com/Evanlab02/ShoppingListApp/commit/aab412356269d52b3496929c9c25bf8b910d5560))
+* **Testing:** Added tests for list detail endpoint ([3b1c8f3](https://github.com/Evanlab02/ShoppingListApp/commit/3b1c8f3154954fa1223b78ff471a382be86a1708))
+
 ## [0.6.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.5.0...shopping-app-backend-v0.6.0) (2023-09-21)
 
 
