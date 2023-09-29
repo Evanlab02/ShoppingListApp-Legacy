@@ -1,3 +1,4 @@
 server/site/
 server/static/
 .env
+frontend/node_modules/
