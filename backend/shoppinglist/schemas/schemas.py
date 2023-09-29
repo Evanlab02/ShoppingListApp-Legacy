@@ -12,7 +12,17 @@ class ShoppingListSchema(ModelSchema):
         """Config for the ShoppingListSchema."""
 
         model = ShoppingList
-        model_fields = ["name", "description", "start_date", "end_date"]
+        model_fields = ["id", "name", "description", "start_date", "end_date"]
+
+
+class SingleShoppingListSchema(ModelSchema):
+    """Schema for the ShoppingList model."""
+
+    class Config:
+        """Config for the ShoppingListSchema."""
+
+        model = ShoppingList
+        model_fields = ["name", "description", "start_date", "end_date", "items"]
 
 
 class SuccessSchema(Schema):
