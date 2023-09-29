@@ -14,6 +14,7 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Create a new endpoint to add a item to a shopping list
 - [ ] Create a new endpoint to edit a item from a shopping list
 - [ ] Create a new endpoint to delete a item from a shopping list
+- [ ] Adjust detail endpoint to return item details
 
 ## Backend - V0.9.0
 
