@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 
 import { Grid } from "@mui/material";
 
-import BarChart from "../components/BarChart/BarChart";
-import ButtonDialog from "../components/ButtonDialog/ButtonDialog";
 import { ButtonProps } from "../components/ButtonDialog/helpers/interfaces";
-import Card from "../components/Card/Card";
-import DetailPanel from "../components/DetailPanel/DetailPanel";
-import MiniCard from "../components/MiniCard/MiniCard";
-import Navbar from "../components/Navbar/Navbar";
 
 import "../styles/Dashboard.scss";
+
+const BarChart = lazy(() => import("../components/BarChart/BarChart"));
+const ButtonDialog = lazy(() => import("../components/ButtonDialog/ButtonDialog"));
+const Card = lazy(() => import("../components/Card/Card"));
+const DetailPanel = lazy(() => import("../components/DetailPanel/DetailPanel"));
+const MiniCard = lazy(() => import("../components/MiniCard/MiniCard"));
+const Navbar = lazy(() => import("../components/Navbar/Navbar"));
 
 export default function Dashboard() {
     const [openItemsDialog, setOpenItemsDialog] = useState(false);
