@@ -12,5 +12,5 @@ MONTH_MAPPING = {
     9: "Sep",
     10: "Oct",
     11: "Nov",
-    12: "Dec"
+    12: "Dec",
 }

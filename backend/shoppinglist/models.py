@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from shoppingitem.models import ShoppingItem
 
+
 class ShoppingList(models.Model):
     """Represents a shopping list."""
 
@@ -36,6 +37,7 @@ class ShoppingList(models.Model):
             .filter(end_date__gte=timezone.now().date())
             .first()
         )
+
 
 class ShoppingBudget(models.Model):
     """Represents a shopping budget."""

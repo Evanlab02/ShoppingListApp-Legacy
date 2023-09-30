@@ -4,6 +4,7 @@ from ninja import ModelSchema
 
 from ..models import ShoppingItem
 
+
 class ShoppingItemModelSchema(ModelSchema):
     """Schema for the shopping item model."""
 

@@ -2,10 +2,11 @@
 
 from ..models import ShoppingItem
 
+
 def get_recent_items():
     """
     Get the 5 most recent shopping items.
-    
+
     Returns:
         list[ShoppingItem]: The 5 most recent shopping items.
     """
