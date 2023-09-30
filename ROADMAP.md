@@ -4,8 +4,8 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.8.0
 
-- [ ] Add budget functionality to shopping lists
-- [ ] Create a new endpoint to get the dashboard data
+- [x] Add budget functionality to shopping lists
+- [x] Create a new endpoint to get the dashboard data
 
 ## Frontend - V0.6.0
 

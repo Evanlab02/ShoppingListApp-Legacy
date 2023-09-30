@@ -37,3 +37,11 @@ class ShoppingList(models.Model):
             .filter(end_date__gte=timezone.now().date())
             .first()
         )
+
+
+class ShoppingBudget(models.Model):
+    """Represents a shopping budget."""
+
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
