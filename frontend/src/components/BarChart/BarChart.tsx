@@ -10,8 +10,11 @@ import {
 } from 'chart.js';
 import { Bar } from "react-chartjs-2";
 
+import { BarChartProps } from './helpers/intefaces';
+
 // Styles
 import "./styles/BarChart.scss"
+
 
 // Register the required chart components
 ChartJS.register(
@@ -28,7 +31,7 @@ ChartJS.register(
  * 
  * @returns Bar chart component
  */
-export default function BarChart() {
+export default function BarChart(props: BarChartProps) {
     const options = {
         responsive: true,
         plugins: {
@@ -42,35 +45,9 @@ export default function BarChart() {
         },
     };
 
-    const labels = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-    ];
-
     const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: 'Budget',
-                data: [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40],
-                backgroundColor: '#602786',
-            },
-            {
-                label: 'Price',
-                data: [28, 48, 40, 19, 86, 27, 90, 48, 40, 19, 86, 27, 90],
-                backgroundColor: '#3b5fe2',
-            },
-        ],
+        labels: props.labels,
+        datasets: props.datasets,
     }
 
 
