@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.8.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.7.0...shopping-app-backend-v0.8.0) (2023-10-02)
+
+
+### Features
+
+* **Budgets:** Can now link budgets to shopping lists ([ed112bc](https://github.com/Evanlab02/ShoppingListApp/commit/ed112bcf75666fcf6b877bc1c9720f012619a637))
+* **Dashboard:** Created dashboard endpoints ([49f561d](https://github.com/Evanlab02/ShoppingListApp/commit/49f561d913971e4d6626f4aa382bef3a404e1dd4))
+* **Refactor:** Project reset ([dd15017](https://github.com/Evanlab02/ShoppingListApp/commit/dd1501723b48d6216a5aeb1be34abca45f467020))
+
 ## [0.7.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.6.0...shopping-app-backend-v0.7.0) (2023-09-29)
 
 
