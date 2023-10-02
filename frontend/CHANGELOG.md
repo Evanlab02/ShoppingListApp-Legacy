@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.5.1...shopping-app-frontend-v0.6.0) (2023-10-02)
+
+
+### Features
+
+* **Dashboard:** Linked dashboard to backend ([2dd8450](https://github.com/Evanlab02/ShoppingListApp/commit/2dd845014dbf5463d8f04162612514d2cf846db1))
+
 ## [0.5.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.5.0...shopping-app-frontend-v0.5.1) (2023-09-29)
 
 
