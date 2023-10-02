@@ -9,11 +9,7 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Frontend - V0.6.0
 
-- [ ] Connect the dashboard page to the backend
-
-## Server - V0.5.0
-
-- [ ] Add storybook to the caddy server
+- [x] Connect the dashboard page to the backend
 
 ## Backend - V1.1.0
 
