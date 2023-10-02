@@ -13,9 +13,20 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.9.0
 
-- [ ] Add login template page
+### Add login template page
+- [x] User can login with email and password
+- [x] User gets error message if login fails
+- [x] User gets redirected to dashboard page if login succeeds
+- [x] User gets redirected to dashboard page if already logged in
+- [ ] Tests for above functionality
+
+### Other
 - [ ] Add logout template page
 - [ ] Add register template page
+
+## Backend - V0.9.1
+
+- [ ] Fix average price, should return only 2 places after the decimal point
 
 ## Frontend - V0.7.0
 
