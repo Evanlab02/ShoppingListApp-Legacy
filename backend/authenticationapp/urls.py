@@ -10,4 +10,11 @@ urlpatterns = [
     path("login/action", views.login_action, name="login_action"),
     path("logout", views.logout_page, name="logout_page"),
     path("logout/action", views.logout_action, name="logout_action"),
+    path("register", views.register_page, name="register_page"),
+    path("register/action", views.register_action, name="register_action"),
+    path(
+        "register/error/<str:error>",
+        views.register_page_error,
+        name="register_page_with_error",
+    ),
 ]

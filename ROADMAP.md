@@ -27,8 +27,14 @@ Find below the roadmap for the project. It is subject to change.
 - [x] User gets redirected to dashboard page after denying confirmation
 - [x] Tests for above functionality
 
-### Other
-- [ ] Add register template page
+### Add register template page
+- [x] Add register template page
+- [x] Redirect user to dashboard page if already logged in
+- [x] Add register action endpoint
+- [x] Redirect user to login page after successful registration
+- [x] Redirect user to error register page if registration fails
+- [x] Redirect user to dashboard if already logged in
+- [x] Tests for above functionality
 
 ## Backend - V0.9.1
 

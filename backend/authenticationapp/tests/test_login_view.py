@@ -40,7 +40,7 @@ class TestLoginView(TestCase):
 
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/login.css">'
+            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
         )
         self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'
@@ -85,7 +85,7 @@ class TestLoginView(TestCase):
 
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/login.css">'
+            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
         )
         self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'

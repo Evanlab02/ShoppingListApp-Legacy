@@ -1,6 +1,7 @@
 """Contains views for the authentication app."""
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
@@ -104,3 +105,89 @@ def logout_action(request: HttpRequest):
 
     logout(request)
     return HttpResponsePermanentRedirect("/")
+
+
+@require_http_methods(["GET"])
+def register_page(request: HttpRequest):
+    """
+    Render the register page.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponsePermanentRedirect: Redirects the user to the dashboard.
+        HttpResponse: The rendered register page.
+    """
+    if request.user.is_authenticated:
+        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
+
+    return render(request, "auth/register.html")
+
+
+@require_http_methods(["POST"])
+def register_action(request: HttpRequest):
+    """
+    Register a new user.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponsePermanentRedirect: Redirects the user to the login or error page.
+    """
+    if request.user.is_authenticated:
+        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
+
+    username = request.POST.get("username-input")
+    password = request.POST.get("password-input")
+    confirm_password = request.POST.get("confirm-password-input")
+    email = request.POST.get("email-input")
+    first_name = request.POST.get("first-name-input")
+    last_name = request.POST.get("last-name-input")
+
+    if password != confirm_password:
+        return HttpResponsePermanentRedirect("/register/error/non-matching-passwords")
+    elif User.objects.filter(username=username).exists():
+        return HttpResponsePermanentRedirect("/register/error/username-already-exists")
+    elif User.objects.filter(email=email).exists():
+        return HttpResponsePermanentRedirect("/register/error/email-already-exists")
+
+    user = User.objects.create_user(
+        username=username,
+        password=password,
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+    )
+    user.save()
+
+    return HttpResponsePermanentRedirect("/")
+
+
+@require_http_methods(["GET"])
+def register_page_error(request: HttpRequest, error: str):
+    """
+    Render the register page with an error message.
+
+    Args:
+        request(HttpRequest): The request object.
+        error(str): The error message.
+
+    Returns:
+        HttpResponsePermanentRedirect: Redirects the user to the dashboard.
+        HttpResponse: The rendered register page with an error message.
+    """
+    if request.user.is_authenticated:
+        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
+
+    if (error) == "non-matching-passwords":
+        error = "Passwords do not match."
+    elif (error) == "username-already-exists":
+        error = "Username already exists."
+    elif (error) == "email-already-exists":
+        error = "Email already exists."
+    else:
+        error = "Unexpected error."
+
+    return render(request, "auth/register.html", {"error": error})
