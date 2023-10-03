@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.9.0...shopping-app-backend-v0.9.1) (2023-10-03)
+
+
+### Bug Fixes
+
+* **Dashboard-Current:** Fixed rounding issue with the average price return value ([6d187d8](https://github.com/Evanlab02/ShoppingListApp/commit/6d187d8b9b1a18839faabe658c7c420860ed68f3))
+
 ## [0.9.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.8.0...shopping-app-backend-v0.9.0) (2023-10-03)
 
 
