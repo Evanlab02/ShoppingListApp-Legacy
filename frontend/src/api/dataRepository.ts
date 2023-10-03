@@ -22,6 +22,7 @@ export default class DataRepo {
             const data = await response.json();
             return data.message;
         } else {
+            window.location.href = "/";
             return "";
         }
     }
