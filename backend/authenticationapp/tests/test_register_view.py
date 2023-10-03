@@ -9,6 +9,7 @@ from ..models import Client as ClientModel
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
+REGISTER_ACTION_ROUTE = "/register/action"
 
 
 class TestRegisterView(TestCase):
@@ -102,7 +103,7 @@ class TestRegisterView(TestCase):
     def test_register_action_when_logged_in(self):
         """Should redirect to the dashboard."""
         self.client.login(username="testuser", password="testpassword")
-        response = self.client.post("/register/action")
+        response = self.client.post(REGISTER_ACTION_ROUTE)
         self.assertRedirects(
             response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
         )
@@ -110,7 +111,7 @@ class TestRegisterView(TestCase):
     def test_register_action_valid_credentials(self):
         """Should redirect to the dashboard."""
         response = self.client.post(
-            "/register/action",
+            REGISTER_ACTION_ROUTE,
             {
                 "username-input": "newuser",
                 "password-input": "newpassword",
@@ -126,7 +127,7 @@ class TestRegisterView(TestCase):
     def test_register_action_invalid_username(self):
         """Should redirect to the register page."""
         response = self.client.post(
-            "/register/action",
+            REGISTER_ACTION_ROUTE,
             {
                 "username-input": "testuser",
                 "password-input": "newpassword",
@@ -148,7 +149,7 @@ class TestRegisterView(TestCase):
     def test_register_action_invalid_email(self):
         """Should redirect to the register page."""
         response = self.client.post(
-            "/register/action",
+            REGISTER_ACTION_ROUTE,
             {
                 "username-input": "newuser",
                 "password-input": "newpassword",
@@ -170,7 +171,7 @@ class TestRegisterView(TestCase):
     def test_register_action_invalid_passwords(self):
         """Should redirect to the register page."""
         response = self.client.post(
-            "/register/action",
+            REGISTER_ACTION_ROUTE,
             {
                 "username-input": "newuser",
                 "password-input": "newpassword",
@@ -188,3 +189,39 @@ class TestRegisterView(TestCase):
             200,
             fetch_redirect_response=False,
         )
+
+    def test_get_register_error_page_when_already_logged_in(self):
+        """Should redirect to the dashboard."""
+        self.client.login(username="testuser", password="testpassword")
+        response = self.client.get("/register/error/username-already-exists")
+        self.assertRedirects(
+            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+        )
+
+    def test_get_register_error_page_with_invalid_password_error(self):
+        """Should display the invalid password error page."""
+        response = self.client.get("/register/error/non-matching-passwords")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, FONT)
+        self.assertContains(response, "Passwords do not match.")
+
+    def test_get_register_error_page_with_invalid_username_error(self):
+        """Should display the invalid username error page."""
+        response = self.client.get("/register/error/username-already-exists")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, FONT)
+        self.assertContains(response, "Username already exists.")
+
+    def test_get_register_error_page_with_invalid_email_error(self):
+        """Should display the invalid email error page."""
+        response = self.client.get("/register/error/email-already-exists")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, FONT)
+        self.assertContains(response, "Email already exists.")
+
+    def test_get_register_error_page_with_unexpected_error(self):
+        """Should display the invalid email error page."""
+        response = self.client.get("/register/error/api-error")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, FONT)
+        self.assertContains(response, "Unexpected error.")
