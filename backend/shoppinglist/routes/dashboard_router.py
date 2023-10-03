@@ -52,6 +52,7 @@ def get_current_shopping_list_dashboard_data(request: HttpRequest):
 
     if total != 0:
         average_item_price = total_price / total
+        average_item_price = round(average_item_price, 2)
 
     return DashboardCurrentSchema(
         total=total,
