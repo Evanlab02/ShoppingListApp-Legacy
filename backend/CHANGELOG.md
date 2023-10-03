@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.9.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.8.0...shopping-app-backend-v0.9.0) (2023-10-03)
+
+
+### Features
+
+* **Login:** Added register button on login page, button routes to register page ([a9c5f10](https://github.com/Evanlab02/ShoppingListApp/commit/a9c5f107b1ef8061e5bbdaf17854de194e23bdc3))
+* **Login:** Users can now access a login page ([e690ef1](https://github.com/Evanlab02/ShoppingListApp/commit/e690ef1e2cfc46b842a3e7e197d0d0e454d64748))
+* **Logout:** Users can now access a logout page ([b779600](https://github.com/Evanlab02/ShoppingListApp/commit/b7796003d5c93408d6287fa54cd5f67ed35e6777))
+* **Register:** Users can now access a register/account creation page ([2e40530](https://github.com/Evanlab02/ShoppingListApp/commit/2e40530b4340285617de55c07c60a39e5154e656))
+
 ## [0.8.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.7.0...shopping-app-backend-v0.8.0) (2023-10-02)
 
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.6.0...shopping-app-frontend-v0.7.0) (2023-10-03)
+
+
+### Features
+
+* **Navbar:** Added logout button to navbar ([a7205e0](https://github.com/Evanlab02/ShoppingListApp/commit/a7205e0e728c881ab500247db38fe48bc5292433))
+
+
+### Bug Fixes
+
+* **Auth:** Now redirects if user is not logged in, redirects to login page ([7af7118](https://github.com/Evanlab02/ShoppingListApp/commit/7af7118b4adc651e5b0924d79c3467cabd349fd9))
+
 ## [0.6.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.5.1...shopping-app-frontend-v0.6.0) (2023-10-02)
 
 
