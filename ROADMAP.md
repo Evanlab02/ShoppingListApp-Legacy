@@ -37,14 +37,18 @@ Find below the roadmap for the project. It is subject to change.
 - [x] Register button on login page redirects to register page
 - [x] Tests for above functionality
 
-## Backend - V0.9.1
-
-- [ ] Fix average price, should return only 2 places after the decimal point
-
 ## Frontend - V0.7.0
 
 - [x] Redirect to login page if not logged in
 - [x] Add logout functionality
+
+## Backend - V0.9.1
+
+- [ ] Fix average price, should return only 2 places after the decimal point
+
+## Backend - V0.10.0
+
+- [ ] Add functionality for multiple shopping items on a shopping list
 
 ## Backend - V1.1.0
 
