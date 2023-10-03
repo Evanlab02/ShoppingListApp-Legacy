@@ -9,6 +9,9 @@ from ..models import Client as ClientModel
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
+DASHBOARD_ROUTE = "/shopping/dashboard/"
+ERROR_ROUTE = "/error"
+LOGIN_ACTION_ROUTE = "/login/action"
 
 
 class TestLoginView(TestCase):
@@ -48,7 +51,8 @@ class TestLoginView(TestCase):
         )
         self.assertContains(response, '<h2 id="login-heading">Shopping App Login</h2>')
         self.assertContains(
-            response, '<form class="login-bottom" action="/login/action" method="post">'
+            response,
+            f'<form class="login-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
         )
         self.assertContains(response, '<label for="username-input">Username:</label>')
         self.assertContains(
@@ -70,12 +74,12 @@ class TestLoginView(TestCase):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.get("")
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_get_login_page_with_error(self):
         """Test the login page with an error message."""
-        response = self.client.get("/error")
+        response = self.client.get(ERROR_ROUTE)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "auth/index.html")
 
@@ -92,7 +96,8 @@ class TestLoginView(TestCase):
         )
         self.assertContains(response, '<h2 id="login-heading">Shopping App Login</h2>')
         self.assertContains(
-            response, '<form class="login-bottom" action="/login/action" method="post">'
+            response,
+            f'<form class="login-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
         )
         self.assertContains(response, '<label for="username-input">Username:</label>')
         self.assertContains(
@@ -117,37 +122,37 @@ class TestLoginView(TestCase):
     def test_get_login_page_with_error_redirects_when_logged_in(self):
         """Test the login page redirects to the dashboard when the user is logged in."""
         self.client.login(username="testuser", password="testpassword")
-        response = self.client.get("/error")
+        response = self.client.get(ERROR_ROUTE)
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_login_action_endpoint_when_logged_in(self):
         """Test the login action endpoint redirects to the dashboard when user is logged in."""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
-            "/login/action", {"username-input": "", "password-input": ""}
+            LOGIN_ACTION_ROUTE, {"username-input": "", "password-input": ""}
         )
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_login_action_endpoint_when_not_logged_in(self):
         """Test the login action endpoint redirects when the user logs in."""
         response = self.client.post(
-            "/login/action",
+            LOGIN_ACTION_ROUTE,
             {"username-input": "testuser", "password-input": "testpassword"},
         )
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_login_action_endpoint_invalid_username(self):
         """Test the login action endpoint redirects to the dashboard when the user is logged in."""
         response = self.client.post(
-            "/login/action",
+            LOGIN_ACTION_ROUTE,
             {"username-input": "invalid", "password-input": "testpassword"},
         )
         self.assertRedirects(
-            response, "/error", 301, 200, fetch_redirect_response=False
+            response, ERROR_ROUTE, 301, 200, fetch_redirect_response=False
         )
