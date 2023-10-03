@@ -34,6 +34,7 @@ Find below the roadmap for the project. It is subject to change.
 - [x] Redirect user to login page after successful registration
 - [x] Redirect user to error register page if registration fails
 - [x] Redirect user to dashboard if already logged in
+- [x] Register button on login page redirects to register page
 - [x] Tests for above functionality
 
 ## Backend - V0.9.1
@@ -42,8 +43,8 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Frontend - V0.7.0
 
-- [ ] Redirect to login page if not logged in
-- [ ] Add logout functionality
+- [x] Redirect to login page if not logged in
+- [x] Add logout functionality
 
 ## Backend - V1.1.0
 
