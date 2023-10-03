@@ -18,6 +18,13 @@ export default function Navbar() {
                 <div className="menu-list-button">
                     <SlIconButton name="list" />
                 </div>
+                <div className="menu-list-button">
+                    <SlIconButton name="door-open"
+                        onClick={() => {
+                            window.location.href = "/logout";
+                        }}
+                    />
+                </div>
             </div>
         </header>
     )
