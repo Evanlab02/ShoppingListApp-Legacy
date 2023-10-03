@@ -44,11 +44,23 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.9.1
 
-- [ ] Fix average price, should return only 2 places after the decimal point
+- [x] Fix average price, should return only 2 places after the decimal point
 
 ## Backend - V0.10.0
 
 - [ ] Add functionality for multiple shopping items on a shopping list
+- [ ] View all items created by yourself
+- [ ] View all items
+- [ ] View all stores created by yourself
+- [ ] View all stores
+- [ ] View store details
+- [ ] View item details
+- [ ] Create stores
+- [ ] Create items
+- [ ] Edit stores
+- [ ] Edit items
+- [ ] Delete stores
+- [ ] Delete items
 
 ## Backend - V1.1.0
 
