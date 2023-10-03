@@ -8,7 +8,6 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'auth/login.css' %}">
     <link rel="stylesheet" href="{% static 'auth/base.css' %}">
-
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
@@ -19,14 +18,15 @@
         </div>
         {% if error %}
         <div class="login-middle">
-
             <p class="error-message">{{ error }}</p>
-
         </div>
         {% endif %}
         <form class="login-bottom" action="{% url 'login_action' %}" method="post">
             {% csrf_token %}
             <fieldset>
+                <div class="form-row">
+                    <legend>Login Details</legend>
+                </div>
                 <div class="form-row">
                     <label for="username-input">Username:</label>
                     <input class="text-input" type="text" name="username-input" id="username-input">

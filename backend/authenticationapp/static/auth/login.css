@@ -77,3 +77,10 @@ label {
     color: #fff;
     font-weight: bold;
 }
+
+legend {
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
