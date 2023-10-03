@@ -1,6 +1,6 @@
 """Contains views for the authentication app."""
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpRequest, HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
@@ -69,3 +69,38 @@ def login_action(request: HttpRequest):
         return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
 
     return HttpResponsePermanentRedirect("/error")
+
+
+@require_http_methods(["GET"])
+def logout_page(request: HttpRequest):
+    """
+    Log the user out.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: The rendered logout page.
+    """
+    if not request.user.is_authenticated:
+        return HttpResponsePermanentRedirect("/")
+
+    return render(request, "auth/logout.html")
+
+
+@require_http_methods(["POST"])
+def logout_action(request: HttpRequest):
+    """
+    Log the user out.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponsePermanentRedirect: Redirects the user to the login page.
+    """
+    if not request.user.is_authenticated:
+        return HttpResponsePermanentRedirect("/")
+
+    logout(request)
+    return HttpResponsePermanentRedirect("/")

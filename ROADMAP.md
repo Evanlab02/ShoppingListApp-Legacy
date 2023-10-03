@@ -18,10 +18,16 @@ Find below the roadmap for the project. It is subject to change.
 - [x] User gets error message if login fails
 - [x] User gets redirected to dashboard page if login succeeds
 - [x] User gets redirected to dashboard page if already logged in
-- [ ] Tests for above functionality
+- [x] Tests for above functionality
+
+### Add logout template page
+- [x] User can logout after confirming
+- [x] User gets redirected to login page after logout
+- [x] User get redirected to login page if not logged in
+- [x] User gets redirected to dashboard page after denying confirmation
+- [x] Tests for above functionality
 
 ### Other
-- [ ] Add logout template page
 - [ ] Add register template page
 
 ## Backend - V0.9.1
