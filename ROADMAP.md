@@ -11,6 +11,40 @@ Find below the roadmap for the project. It is subject to change.
 
 - [x] Connect the dashboard page to the backend
 
+## Backend - V0.9.0
+
+### Add login template page
+- [x] User can login with email and password
+- [x] User gets error message if login fails
+- [x] User gets redirected to dashboard page if login succeeds
+- [x] User gets redirected to dashboard page if already logged in
+- [x] Tests for above functionality
+
+### Add logout template page
+- [x] User can logout after confirming
+- [x] User gets redirected to login page after logout
+- [x] User get redirected to login page if not logged in
+- [x] User gets redirected to dashboard page after denying confirmation
+- [x] Tests for above functionality
+
+### Add register template page
+- [x] Add register template page
+- [x] Redirect user to dashboard page if already logged in
+- [x] Add register action endpoint
+- [x] Redirect user to login page after successful registration
+- [x] Redirect user to error register page if registration fails
+- [x] Redirect user to dashboard if already logged in
+- [x] Tests for above functionality
+
+## Backend - V0.9.1
+
+- [ ] Fix average price, should return only 2 places after the decimal point
+
+## Frontend - V0.7.0
+
+- [ ] Redirect to login page if not logged in
+- [ ] Add logout functionality
+
 ## Backend - V1.1.0
 
 - [ ] Add functionality for wishlists

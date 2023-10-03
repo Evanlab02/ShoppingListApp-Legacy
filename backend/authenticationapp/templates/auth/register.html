@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Shopping App</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'auth/base.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+<body class="body-block">
+    <div class="login-block">
+        <div class="login-top">
+            <h2 id="login-heading">Shopping App Register</h2>
+        </div>
+        {% if error %}
+        <div class="login-middle">
+            <p class="error-message">{{ error }}</p>
+        </div>
+        {% endif %}
+        <form class="login-bottom" action="{% url 'register_action' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-row">
+                    <legend>User Details</legend>
+                </div>
+                <div class="form-row">
+                    <label for="username-input">Username:</label>
+                    <input class="text-input" type="text" name="username-input" id="username-input" required>
+                </div>
+                <div class="form-row">
+                    <label for="password-input">Password:</label>
+                    <input class="text-input" type="password" name="password-input" id="password-input" required>
+                </div>
+                <div class="form-row">
+                    <label for="confirm-password-input">Confirm Password:</label>
+                    <input class="text-input" type="password" name="confirm-password-input" id="confirm-password-input"
+                        required>
+                </div>
+                <div class="form-row">
+                    <label for="email-input">Email (Optional):</label>
+                    <input class="text-input" type="email" name="email-input" id="email-input">
+                </div>
+                <div class="form-row">
+                    <label for="first-name-input">First Name (Optional):</label>
+                    <input class="text-input" type="text" name="first-name-input" id="first-name-input">
+                </div>
+                <div class="form-row">
+                    <label for="last-name-input">Last Name (Optional):</label>
+                    <input class="text-input" type="text" name="last-name-input" id="last-name-input">
+                </div>
+                <div class="form-row submit-row">
+                    <input class="submit-input" type="submit" value="Create Account">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+</head>

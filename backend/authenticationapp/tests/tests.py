@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
-from .models import Client as ClientModel
+from ..models import Client as ClientModel
 
 TEST_EMAIL = "test@login.com"
 CONTENT_TYPE = "application/json"

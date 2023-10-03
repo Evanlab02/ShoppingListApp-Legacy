@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Shopping App</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'auth/base.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body class="body-block">
+    <div class="login-block">
+        <div class="login-top">
+            <h2 id="login-heading">Shopping App Login</h2>
+        </div>
+        {% if error %}
+        <div class="login-middle">
+            <p class="error-message">{{ error }}</p>
+        </div>
+        {% endif %}
+        <form class="login-bottom" action="{% url 'login_action' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-row">
+                    <legend>Login Details</legend>
+                </div>
+                <div class="form-row">
+                    <label for="username-input">Username:</label>
+                    <input class="text-input" type="text" name="username-input" id="username-input">
+                </div>
+                <div class="form-row">
+                    <label for="password-input">Password:</label>
+                    <input class="text-input" type="password" name="password-input" id="password-input">
+                </div>
+                <div class="form-row submit-row">
+                    <input class="submit-input" type="submit" value="Login">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>

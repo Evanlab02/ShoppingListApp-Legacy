@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Shopping App</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'auth/base.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body class="body-block">
+    <div class="login-block">
+        <div class="login-top">
+            <h2 id="login-heading">Shopping App Logout</h2>
+        </div>
+        <form class="login-bottom" action="{% url 'logout_action' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-row">
+                    <legend>Confirm Logout</legend>
+                </div>
+                <div class="form-row submit-row">
+                    <input class="submit-input" type="submit" value="Yes">
+                    <input class="submit-input" type="button" value="No" onclick="location.href='/shopping/dashboard/'">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</body>
+
+</html>
