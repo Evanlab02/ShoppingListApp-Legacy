@@ -10,6 +10,8 @@ from ..models import Client as ClientModel
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
 REGISTER_ACTION_ROUTE = "/register/action"
+DASHBOARD_ROUTE = "/shopping/dashboard/"
+USERNAME_ERROR_ROUTE = "/register/error/username-already-exists"
 
 
 class TestRegisterView(TestCase):
@@ -97,7 +99,7 @@ class TestRegisterView(TestCase):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.get("/register")
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_register_action_when_logged_in(self):
@@ -105,7 +107,7 @@ class TestRegisterView(TestCase):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(REGISTER_ACTION_ROUTE)
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_register_action_valid_credentials(self):
@@ -140,7 +142,7 @@ class TestRegisterView(TestCase):
 
         self.assertRedirects(
             response,
-            "/register/error/username-already-exists",
+            USERNAME_ERROR_ROUTE,
             301,
             200,
             fetch_redirect_response=False,
@@ -193,9 +195,9 @@ class TestRegisterView(TestCase):
     def test_get_register_error_page_when_already_logged_in(self):
         """Should redirect to the dashboard."""
         self.client.login(username="testuser", password="testpassword")
-        response = self.client.get("/register/error/username-already-exists")
+        response = self.client.get(USERNAME_ERROR_ROUTE)
         self.assertRedirects(
-            response, "/shopping/dashboard/", 301, 404, fetch_redirect_response=False
+            response, DASHBOARD_ROUTE, 301, 404, fetch_redirect_response=False
         )
 
     def test_get_register_error_page_with_invalid_password_error(self):
@@ -207,7 +209,7 @@ class TestRegisterView(TestCase):
 
     def test_get_register_error_page_with_invalid_username_error(self):
         """Should display the invalid username error page."""
-        response = self.client.get("/register/error/username-already-exists")
+        response = self.client.get(USERNAME_ERROR_ROUTE)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, FONT)
         self.assertContains(response, "Username already exists.")
