@@ -10,6 +10,10 @@ from authenticationapp.models import Client as AuthClient
 from shoppingitem.models import ShoppingItem, ShoppingStore
 from shoppinglist.models import ShoppingList, ShoppingBudget, ShoppingItemQuantity
 
+TEST_LIST_NAME = "Test Shopping List"
+TEST_DESCRIPTION = "Test Shopping List Description"
+TEST_CURRENT_ENDPOINT = "/api/dashboard/current"
+
 
 class TestDashboardEndpoints(TestCase):
     """Contains tests for the shopping list app's dashboard routes."""
@@ -44,8 +48,8 @@ class TestDashboardEndpoints(TestCase):
         """Tests the get_current_shopping_list_dashboard_data endpoint."""
         shopping_list = ShoppingList.objects.create(
             user=self.user,
-            name="Test Shopping List",
-            description="Test Shopping List Description",
+            name=TEST_LIST_NAME,
+            description=TEST_DESCRIPTION,
             start_date=date.today() - timedelta(days=1),
             end_date=date.today() + timedelta(days=1),
         )
@@ -62,7 +66,7 @@ class TestDashboardEndpoints(TestCase):
         )
         budget.save()
 
-        response = self.client.get("/api/dashboard/current", headers=self.headers)
+        response = self.client.get(TEST_CURRENT_ENDPOINT, headers=self.headers)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["total"], 1)
         self.assertEqual(response.json()["total_price"], 100)
@@ -71,7 +75,7 @@ class TestDashboardEndpoints(TestCase):
 
     def test_get_current_shopping_list_dashboard_data_no_shopping_list(self):
         """Tests the endpoint when there is no shopping list."""
-        response = self.client.get("/api/dashboard/current", headers=self.headers)
+        response = self.client.get(TEST_CURRENT_ENDPOINT, headers=self.headers)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["total"], None)
         self.assertEqual(response.json()["total_price"], None)
@@ -88,8 +92,8 @@ class TestDashboardEndpoints(TestCase):
         """Tests the get_shopping_list_history endpoint."""
         shopping_list = ShoppingList.objects.create(
             user=self.user,
-            name="Test Shopping List",
-            description="Test Shopping List Description",
+            name=TEST_LIST_NAME,
+            description=TEST_DESCRIPTION,
             start_date=f"{date.today().year}-01-01",
             end_date=f"{date.today().year}-01-02",
         )
@@ -119,8 +123,8 @@ class TestDashboardEndpoints(TestCase):
         """Tests the current endpoint when the total price is greater than the budget."""
         shopping_list = ShoppingList.objects.create(
             user=self.user,
-            name="Test Shopping List",
-            description="Test Shopping List Description",
+            name=TEST_LIST_NAME,
+            description=TEST_DESCRIPTION,
             start_date=date.today() - timedelta(days=1),
             end_date=date.today() + timedelta(days=1),
         )
@@ -137,7 +141,7 @@ class TestDashboardEndpoints(TestCase):
         )
         budget.save()
 
-        response = self.client.get("/api/dashboard/current", headers=self.headers)
+        response = self.client.get(TEST_CURRENT_ENDPOINT, headers=self.headers)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["total"], 11)
         self.assertEqual(response.json()["total_price"], 1100)
