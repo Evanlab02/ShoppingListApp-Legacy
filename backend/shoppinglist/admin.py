@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from .models import ShoppingList, ShoppingBudget
+from .models import ShoppingList, ShoppingBudget, ShoppingItemQuantity
 
 
 class ShoppingListAdmin(admin.ModelAdmin):
@@ -16,3 +16,4 @@ class ShoppingListAdmin(admin.ModelAdmin):
 
 admin.site.register(ShoppingList, ShoppingListAdmin)
 admin.site.register(ShoppingBudget)
+admin.site.register(ShoppingItemQuantity)

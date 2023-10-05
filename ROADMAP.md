@@ -48,7 +48,7 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.10.0
 
-- [ ] Add functionality for multiple shopping items on a shopping list
+- [x] Add functionality for multiple shopping items on a shopping list
 - [ ] View all items created by yourself
 - [ ] View all items
 - [ ] View all stores created by yourself

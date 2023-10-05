@@ -8,7 +8,7 @@ from django.test import TestCase, Client as DjangoClient
 
 from authenticationapp.models import Client as AuthClient
 from shoppingitem.models import ShoppingItem, ShoppingStore
-from shoppinglist.models import ShoppingList, ShoppingBudget
+from shoppinglist.models import ShoppingList, ShoppingBudget, ShoppingItemQuantity
 
 
 class TestDashboardEndpoints(TestCase):
@@ -49,6 +49,11 @@ class TestDashboardEndpoints(TestCase):
             start_date=date.today() - timedelta(days=1),
             end_date=date.today() + timedelta(days=1),
         )
+
+        self.item_quantity = ShoppingItemQuantity.objects.create(
+            shopping_item=self.item, quantity=1, shopping_list=shopping_list
+        )
+        self.item_quantity.save()
         shopping_list.items.add(self.item)
         shopping_list.save()
 
@@ -88,6 +93,10 @@ class TestDashboardEndpoints(TestCase):
             start_date=f"{date.today().year}-01-01",
             end_date=f"{date.today().year}-01-02",
         )
+        self.item_quantity = ShoppingItemQuantity.objects.create(
+            shopping_item=self.item, quantity=1, shopping_list=shopping_list
+        )
+        self.item_quantity.save()
         shopping_list.items.add(self.item)
         shopping_list.save()
 
@@ -103,3 +112,34 @@ class TestDashboardEndpoints(TestCase):
         self.assertEqual(response.json()["datasets"][0]["data"][0], 100)
         self.assertEqual(response.json()["datasets"][1]["label"], "Budget")
         self.assertEqual(response.json()["datasets"][1]["data"][0], 1000)
+
+    def test_get_current_shopping_list_dashboard_data_budget_is_not_lower_than_zero(
+        self,
+    ):
+        """Tests the current endpoint when the total price is greater than the budget."""
+        shopping_list = ShoppingList.objects.create(
+            user=self.user,
+            name="Test Shopping List",
+            description="Test Shopping List Description",
+            start_date=date.today() - timedelta(days=1),
+            end_date=date.today() + timedelta(days=1),
+        )
+
+        self.item_quantity = ShoppingItemQuantity.objects.create(
+            shopping_item=self.item, quantity=11, shopping_list=shopping_list
+        )
+        self.item_quantity.save()
+        shopping_list.items.add(self.item)
+        shopping_list.save()
+
+        budget = ShoppingBudget.objects.create(
+            user=self.user, shopping_list=shopping_list, amount=1000
+        )
+        budget.save()
+
+        response = self.client.get("/api/dashboard/current", headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["total"], 11)
+        self.assertEqual(response.json()["total_price"], 1100)
+        self.assertEqual(response.json()["budget_remaining"], 0)
+        self.assertEqual(response.json()["average_item_price"], 100)

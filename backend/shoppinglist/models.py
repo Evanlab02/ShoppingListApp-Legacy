@@ -18,7 +18,9 @@ class ShoppingList(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(ShoppingItem, blank=True)
+    items = models.ManyToManyField(
+        ShoppingItem, blank=True, through="ShoppingItemQuantity"
+    )
 
     def __str__(self):
         """Return a string representation of the shopping list."""
@@ -37,6 +39,14 @@ class ShoppingList(models.Model):
             .filter(end_date__gte=timezone.now().date())
             .first()
         )
+
+
+class ShoppingItemQuantity(models.Model):
+    """Represents a shopping item quantity."""
+
+    quantity = models.IntegerField()
+    shopping_item = models.ForeignKey(ShoppingItem, on_delete=models.CASCADE)
+    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
 
 
 class ShoppingBudget(models.Model):
