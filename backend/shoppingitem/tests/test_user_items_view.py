@@ -11,6 +11,7 @@ TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
 USER_ITEMS_URL = "/items/me"
 
+
 class TestLoginView(TestCase):
     """Test the login view."""
 
