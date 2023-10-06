@@ -25,7 +25,7 @@ COPY ./frontend /frontend
 
 WORKDIR /frontend
 
-RUN npm install
+RUN npm ci
 RUN npm run build
 RUN mkdir -p ../server/site/
 RUN cp -r dist/* ../server/site/
