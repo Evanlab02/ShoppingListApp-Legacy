@@ -11,6 +11,7 @@ TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
 STORE_DETAIL_URL = "/items/stores/detail"
 
+
 class TestStoreDetailView(TestCase):
     """Test the store detail view."""
 
@@ -67,22 +68,31 @@ class TestStoreDetailView(TestCase):
 
         # Contains info on item name
         self.assertContains(response, '<p class="value">Store</p>')
-        self.assertContains(response, f'<p id="store-name-sub-value" class="sub-value">{store.name}</p>')
+        self.assertContains(
+            response, f'<p id="store-name-sub-value" class="sub-value">{store.name}</p>'
+        )
 
         # Contains info on item store
         self.assertContains(response, '<p class="value">Store Type</p>')
-        self.assertContains(response, '<p id="store-type-sub-value" class="sub-value">Online</p>')
+        self.assertContains(
+            response, '<p id="store-type-sub-value" class="sub-value">Online</p>'
+        )
 
         # Contains info on item price
         self.assertContains(response, '<p class="value">Number of items</p>')
-        self.assertContains(response, '<p id="number-of-items-sub-value" class="sub-value">1</p>')
+        self.assertContains(
+            response, '<p id="number-of-items-sub-value" class="sub-value">1</p>'
+        )
 
         # Contains info on number of lists this item is in
         self.assertContains(response, '<p class="value">Created on</p>')
 
         # Contains info on item owner
         self.assertContains(response, '<p class="value">Created by</p>')
-        self.assertContains(response, f'<p id="user-sub-value" class="sub-value">{item.user.username}</p>')
+        self.assertContains(
+            response,
+            f'<p id="user-sub-value" class="sub-value">{item.user.username}</p>',
+        )
 
         # Contains info on item last updated date
         self.assertContains(response, '<p class="value">Last updated</p>')

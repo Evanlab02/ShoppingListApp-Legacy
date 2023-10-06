@@ -11,6 +11,7 @@ TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
 ITEMS_DETAIL_URL = "/items/detail"
 
+
 class TestItemDetailView(TestCase):
     """Test the item detail view."""
 
@@ -67,22 +68,33 @@ class TestItemDetailView(TestCase):
 
         # Contains info on item name
         self.assertContains(response, '<p class="value">Item Name</p>')
-        self.assertContains(response, f'<p id="item-name-sub-value" class="sub-value">{item.name}</p>')
+        self.assertContains(
+            response, f'<p id="item-name-sub-value" class="sub-value">{item.name}</p>'
+        )
 
         # Contains info on item store
         self.assertContains(response, '<p class="value">Store</p>')
-        self.assertContains(response, f'<p id="item-store-sub-value" class="sub-value">{item.store.name}</p>')
+        self.assertContains(
+            response,
+            f'<p id="item-store-sub-value" class="sub-value">{item.store.name}</p>',
+        )
 
         # Contains info on item price
         self.assertContains(response, '<p class="value">Price</p>')
-        self.assertContains(response, f'<p id="item-price-sub-value" class="sub-value">{item.price}.00</p>')
+        self.assertContains(
+            response,
+            f'<p id="item-price-sub-value" class="sub-value">{item.price}.00</p>',
+        )
 
         # Contains info on number of lists this item is in
         self.assertContains(response, '<p class="value">On 0 shopping lists</p>')
 
         # Contains info on item owner
         self.assertContains(response, '<p class="value">Created by</p>')
-        self.assertContains(response, f'<p id="user-sub-value" class="sub-value">{item.user.username}</p>')
+        self.assertContains(
+            response,
+            f'<p id="user-sub-value" class="sub-value">{item.user.username}</p>',
+        )
 
         # Contains info on item last updated date
         self.assertContains(response, '<p class="value">Last updated</p>')

@@ -56,6 +56,7 @@ def get_budget_remaining_of_shopping_list(user: User, shopping_list: ShoppingLis
 
     return budget_remaining
 
+
 def get_number_of_shopping_lists_linked_to_item(item: ShoppingItem):
     """
     Return the number of shopping lists that an item is linked to.
@@ -66,5 +67,7 @@ def get_number_of_shopping_lists_linked_to_item(item: ShoppingItem):
     Returns:
         int: The number of shopping lists that an item is linked to.
     """
-    number_of_lists = ShoppingList.objects.filter(shoppingitemquantity__shopping_item=item.id).count()
+    number_of_lists = ShoppingList.objects.filter(
+        shoppingitemquantity__shopping_item=item.id
+    ).count()
     return number_of_lists

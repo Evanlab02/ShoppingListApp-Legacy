@@ -189,6 +189,7 @@ def render_store_overview_page(
         },
     )
 
+
 @require_http_methods(["GET"])
 def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
     """
@@ -212,6 +213,7 @@ def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
             "number_of_lists": number_of_lists,
         },
     )
+
 
 @require_http_methods(["GET"])
 def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
