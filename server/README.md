@@ -30,6 +30,8 @@ DJANGO_DATABASE_USER="django-postgres-admin"
 DJANGO_DATABASE_PASSWORD="django-postgres-password"
 DJANGO_DATABASE_NAME="django-postgres"
 DJANGO_KEY="django-admin-secret-key"
+PGADMIN_DEFAULT_EMAIL="example@gmail.com"
+PGADMIN_DEFAULT_PASSWORD="example-password"
 ```
 
 Please do not copy the above, make your credentials unique and secure.
@@ -38,7 +40,7 @@ Please do not copy the above, make your credentials unique and secure.
 
 You will need your port 80 to be available to start the server. If you have any other services running on port 80, please stop them before continuing or change the port in the `docker-compose.yml` file.
 
-You will also need port 5432 and 8000 to be available. If you have any other services running on these ports, please stop them before continuing or change the ports in the `docker-compose.yml` file.
+You will also need port 5432, 8000 and 5050 to be available. If you have any other services running on these ports, please stop them before continuing or change the ports in the `docker-compose.yml` file.
 
 To start the server, run the following command in the root of the repository:
 

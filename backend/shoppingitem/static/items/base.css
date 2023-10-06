@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 0.875rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    display: grid;
+}
+
+header {
+    margin: 0;
+}
+
+.navbar {
+    background-color: #fff;
+    min-height: 80px;
+    display: flex;
+    grid-column-start: 1;
+    grid-column-end: 12;
+}
+
+.navbar-item {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    padding-left: 1rem;
+}
+
+.menu-list-button {
+    background-color: #deabd3;
+    border-radius: 0.6rem;
+    margin-left: 1rem;
+}
+
+.menu-list-button:hover {
+    background-color: #813d9c;
+    border-radius: 0.6rem;
+}

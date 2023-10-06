@@ -5,9 +5,9 @@ import { Grid } from "@mui/material";
 import DataRepo from "../api/dataRepository";
 import { BarChartProps } from "../components/BarChart/helpers/intefaces";
 import { ButtonProps } from "../components/ButtonDialog/helpers/interfaces";
+import { DetailPanelProps } from "../components/DetailPanel/helpers/interfaces";
 import { DashboardCurrent } from "../helpers/apiInterfaces";
 import "../styles/Dashboard.scss";
-import { DetailPanelProps } from "../components/DetailPanel/helpers/interfaces";
 
 const BarChart = lazy(() => import("../components/BarChart/BarChart"));
 const ButtonDialog = lazy(() => import("../components/ButtonDialog/ButtonDialog"));
@@ -83,7 +83,7 @@ export default function Dashboard() {
             variant: "primary",
             onClick: () => {
                 setOpenItemsDialog(false);
-                open("/items", "_parent");
+                open("/items/me", "_parent");
             }
         },
         {
@@ -148,7 +148,7 @@ export default function Dashboard() {
                             subText="Total items on current shopping list"
                             backgroundColor="#602786"
                             iconBackgroundColor="#562f6f"
-                            directLink="/items"
+                            directLink="/items/me"
                             onClick={() => { setOpenItemsDialog(true) }}
                         />
                     </Grid>

@@ -33,4 +33,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", api.urls),
     path("", include("authenticationapp.urls")),
+    path("items/", include("shoppingitem.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

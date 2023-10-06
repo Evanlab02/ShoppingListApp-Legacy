@@ -10,7 +10,11 @@ from authenticationapp.auth.app_auth import ApiKey
 from shoppingitem.helpers.utilities import get_recent_items
 
 from ..helpers.constants import MONTH_MAPPING
-from ..models import ShoppingList, ShoppingBudget
+from ..helpers.utilities import (
+    get_price_info_of_list,
+    get_budget_remaining_of_shopping_list,
+)
+from ..models import ShoppingList, ShoppingBudget, ShoppingItemQuantity
 from ..schemas.schemas import (
     DashboardCurrentSchema,
     DashboardRecentSchema,
@@ -37,28 +41,14 @@ def get_current_shopping_list_dashboard_data(request: HttpRequest):
     if shopping_list is None:
         return DashboardCurrentSchema()
 
-    budget: ShoppingBudget = ShoppingBudget.objects.get(
-        user=user, shopping_list=shopping_list.id
-    )
-    list_items = shopping_list.items.all()
-    total = len(list_items)
-    total_price = sum([item.price for item in list_items])
-    budget_remaining = None
-
-    if budget is not None:
-        budget_remaining = budget.amount - total_price
-
-    average_item_price = 0
-
-    if total != 0:
-        average_item_price = total_price / total
-        average_item_price = round(average_item_price, 2)
+    total_items, total_price, average_price = get_price_info_of_list(shopping_list)
+    budget_remaining = get_budget_remaining_of_shopping_list(user, shopping_list)
 
     return DashboardCurrentSchema(
-        total=total,
+        total=total_items,
         total_price=total_price,
         budget_remaining=budget_remaining,
-        average_item_price=average_item_price,
+        average_item_price=average_price,
     )
 
 
@@ -102,8 +92,10 @@ def get_shopping_list_history(request: HttpRequest):
     for shopping_list in shopping_lists:
         end_date = shopping_list.end_date
         month = end_date.month
-        shopping_list_items = shopping_list.items.all()
-        total_price = sum([item.price for item in shopping_list_items])
+        list_items = ShoppingItemQuantity.objects.filter(shopping_list=shopping_list)
+        total_price = sum(
+            [item.shopping_item.price * item.quantity for item in list_items]
+        )
         list_data[month - 1] += total_price
         list_ids.append(shopping_list.id)
 

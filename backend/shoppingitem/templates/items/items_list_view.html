@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'items/base.css' %}">
+    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+</head>
+
+<body class="body-block">
+    <header class="navbar">
+        <div class="navbar-item">
+            <h2>{{ page_title }}</h2>
+            <div class="menu-list-button">
+                <sl-icon-button name="speedometer" onclick="window.location.href='/shopping/dashboard/'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="person" onclick="window.location.href='/items/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="people" onclick="window.location.href='/items/'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="shop-window" onclick="window.location.href='/stores/me'" />
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="card-wrapper">
+            <div class="mini-card total-card">
+                <div class="mini-card-icon total-card-icon">
+                    <sl-icon name="bag" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Total items</p>
+                    <p id="total-items-sub-value" class="sub-value">{{ total }}</p>
+                </div>
+            </div>
+            <div class="mini-card total-price-card">
+                <div class="mini-card-icon total-price-icon">
+                    <sl-icon name="wallet2" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Total price of items</p>
+                    <p id="total-price-sub-value" class="sub-value">{{ total_price }}</p>
+                </div>
+            </div>
+            <div class="mini-card average-price-card">
+                <div class="mini-card-icon average-price-card-icon">
+                    <sl-icon name="cash-stack" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Average price of items</p>
+                    <p id="average-price-sub-value" class="sub-value">{{ average_price }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="overview-table">
+                <caption>{{user}}'s Items</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Store</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td><a href="/items/detail/{{ item.id }}">{{ item.name }}</a></td>
+                        <td><a href="/stores/detail/{{ item.store.id }}">{{ item.store }}</td>
+                        <td>{{ item.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ previous_page_no }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_no }} of {{ total_pages }}.
+                </span>
+
+                {% if has_next %}
+                <a href="?page={{ next_page_no }}">next</a>
+                <a href="?page={{ total_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>

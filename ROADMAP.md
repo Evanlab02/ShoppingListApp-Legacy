@@ -48,8 +48,8 @@ Find below the roadmap for the project. It is subject to change.
 
 ## Backend - V0.10.0
 
-- [ ] Add functionality for multiple shopping items on a shopping list
-- [ ] View all items created by yourself
+- [x] Add functionality for multiple shopping items on a shopping list
+- [x] View all items created by yourself
 - [ ] View all items
 - [ ] View all stores created by yourself
 - [ ] View all stores
@@ -61,6 +61,10 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Edit items
 - [ ] Delete stores
 - [ ] Delete items
+
+## Frontend - V0.7.1
+
+- [x] Link Dashboard to user items page
 
 ## Backend - V1.1.0
 

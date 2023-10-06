@@ -1,0 +1,122 @@
+.content-wrapper {
+    width: 96vw;
+    background-color: #e3f2fd;
+    border-radius: .5rem;
+    border-color: #fff;
+    border-width: 3rem;
+    padding: 1rem;
+    margin: 1rem;
+    display: grid;
+}
+
+caption {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.table-wrapper {
+    grid-column-start: 1;
+    grid-column-end: 12;
+    margin: 8px;
+}
+
+th {
+    height: 40px;
+    border: 1px solid;
+    border-radius: 0.5rem;
+}
+
+td {
+    height: 40px;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+}
+
+.overview-table {
+    background-color: #fff;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+.card-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    width: 96vw;
+}
+
+.mini-card {
+    margin: 0.3rem;
+    border-radius: 0.5rem;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    width: 33%;
+}
+
+.mini-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    margin: 0.5rem;
+    margin-left: 1rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 0.3rem;
+}
+
+.total-card {
+    background-color: #602786;
+    color: #ffffff;
+}
+
+.total-price-card {
+    background-color: #3b5fe2;
+    color: #fff;
+}
+
+.average-price-card {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.total-card-icon {
+    background-color: #562f6f;
+}
+
+.total-price-icon {
+    background-color: #2f48a2;
+}
+
+.average-price-card-icon {
+    background-color: #FFC107;
+}
+
+.value {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0rem;
+    margin: 0rem;
+    font-weight: bold;
+}
+
+.sub-value {
+    line-height: 1.5;
+    padding: 0rem;
+    margin: 0rem;
+    font-weight: 400;
+}
+
+a {
+    color: #2f48a2;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
