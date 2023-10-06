@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'items/base.css' %}">
+    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'items/detail.css' %}">
+</head>
+
+<body class="body-block">
+    <header class="navbar">
+        <div class="navbar-item">
+            <h2>Store - {{store.name}}</h2>
+            <div class="menu-list-button">
+                <sl-icon-button name="speedometer" onclick="window.location.href='/shopping/dashboard/'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="bag" onclick="window.location.href='/items/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper-soft">
+        <div class="card-wrapper">
+            <div class="mini-card name-card">
+                <div class="mini-card-icon name-card-icon">
+                    <sl-icon name="shop" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Store</p>
+                    <p id="store-name-sub-value" class="sub-value">{{ store.name }}</p>
+                </div>
+            </div>
+            <div class="mini-card store-card">
+                <div class="mini-card-icon store-card-icon">
+                    <sl-icon name="globe" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Store Type</p>
+                    {% if store.store_type == 1 %}
+                    <p id="store-type-sub-value" class="sub-value">Online</p>
+                    {% elif store.store_type == 2 %}
+                    <p id="store-type-sub-value" class="sub-value">In-Store</p>
+                    {% else %}
+                    <p id="store-type-sub-value" class="sub-value">Online & In-Store</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mini-card number-of-items-card">
+                <div class="mini-card-icon number-of-items-card-icon">
+                    <sl-icon name="bag" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Number of items</p>
+                    <p id="number-of-items-sub-value" class="sub-value">{{ number_of_items }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper">
+            <div class="mini-card created-on-card">
+                <div class="mini-card-icon created-on-card-icon">
+                    <sl-icon name="clock-history" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Created on</p>
+                    <p id="created-on-sub-value" class="sub-value">{{store.created_at}}</p>
+                </div>
+            </div>
+            <div class="mini-card user-card">
+                <div class="mini-card-icon user-card-icon">
+                    <sl-icon name="person-circle" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Created by</p>
+                    <p id="user-sub-value" class="sub-value">{{ store.user.username }}</p>
+                </div>
+            </div>
+            <div class="mini-card last-updated-card">
+                <div class="mini-card-icon last-updated-card-icon">
+                    <sl-icon name="clock" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Last updated</p>
+                    <p id="last-updated-sub-value" class="sub-value">{{ store.updated_at }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table class="overview-table">
+                <caption>Store Items</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Owner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td><a href="/items/detail/{{ item.id }}">{{ item.name }}</a></td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.user.username }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ previous_page_no }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_no }} of {{ total_pages }}.
+                </span>
+
+                {% if has_next %}
+                <a href="?page={{ next_page_no }}">next</a>
+                <a href="?page={{ total_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+</body>

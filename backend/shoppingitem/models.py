@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class ShoppingStore(models.Model):
+class ShoppingStore(
+    models.Model
+):  # Name, store_type, number_of_items, updated_at, user, created_at
     """Model for a shopping store."""
 
     name = models.CharField(max_length=100, unique=True)

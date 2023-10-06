@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'items/base.css' %}">
+    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'items/detail.css' %}">
+</head>
+
+<body class="body-block">
+    <header class="navbar">
+        <div class="navbar-item">
+            <h2>Item - {{item.name}}</h2>
+            <div class="menu-list-button">
+                <sl-icon-button name="speedometer" onclick="window.location.href='/shopping/dashboard/'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="bag" onclick="window.location.href='/items/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="card-wrapper">
+            <div class="mini-card name-card">
+                <div class="mini-card-icon name-card-icon">
+                    <sl-icon name="bag" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Item Name</p>
+                    <p id="item-name-sub-value" class="sub-value">{{ item.name }}</p>
+                </div>
+            </div>
+            <div class="mini-card store-card">
+                <div class="mini-card-icon store-card-icon">
+                    <sl-icon name="shop" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Store</p>
+                    <p id="item-store-sub-value" class="sub-value">{{ item.store }}</p>
+                </div>
+            </div>
+            <div class="mini-card price-card">
+                <div class="mini-card-icon price-card-icon">
+                    <sl-icon name="cash-stack" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Price</p>
+                    <p id="item-price-sub-value" class="sub-value">{{ item.price }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-wrapper">
+            <div class="mini-card number-of-lists-card">
+                <div class="mini-card-icon number-of-lists-card-icon">
+                    <sl-icon name="card-checklist" />
+                </div>
+                <div class="mini-card-content">
+                    {% if number_of_lists == 0 or number_of_lists > 1 %}
+                    <p class="value">On {{number_of_lists}} shopping lists</p>
+                    {% else %}
+                    <p class="value">On {{number_of_lists}} shopping list</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="mini-card user-card">
+                <div class="mini-card-icon user-card-icon">
+                    <sl-icon name="person-circle" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Created by</p>
+                    <p id="user-sub-value" class="sub-value">{{ item.user.username }}</p>
+                </div>
+            </div>
+            <div class="mini-card last-updated-card">
+                <div class="mini-card-icon last-updated-card-icon">
+                    <sl-icon name="clock" />
+                </div>
+                <div class="mini-card-content">
+                    <p class="value">Last updated</p>
+                    <p id="last-updated-sub-value" class="sub-value">{{ item.updated_at }}</p>
+                </div>
+            </div>
+        </div>
+</body>

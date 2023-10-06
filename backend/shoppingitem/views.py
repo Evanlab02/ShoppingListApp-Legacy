@@ -5,6 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
+from shoppinglist.helpers.utilities import get_number_of_shopping_lists_linked_to_item
 from .models import ShoppingItem, ShoppingStore
 
 
@@ -185,5 +186,70 @@ def render_store_overview_page(
             "add_user_col": add_user_col,
             "in_store_stores": in_store_stores,
             "online_stores": online_stores,
+        },
+    )
+
+
+@require_http_methods(["GET"])
+def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
+    """
+    Render the item detail view.
+
+    Args:
+        request(HttpRequest): The request object.
+        item_id(int): The id of the item to render.
+
+    Returns:
+        HttpResponse: The rendered item detail view.
+    """
+    item = ShoppingItem.objects.get(id=item_id)
+    number_of_lists = get_number_of_shopping_lists_linked_to_item(item)
+
+    return render(
+        request,
+        "items/item_detail.html",
+        context={
+            "item": item,
+            "number_of_lists": number_of_lists,
+        },
+    )
+
+
+@require_http_methods(["GET"])
+def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
+    """
+    Render the store detail view.
+
+    Args:
+        request(HttpRequest): The request object.
+        store_id(int): The id of the store to render.
+
+    Returns:
+        HttpResponse: The rendered store detail view.
+    """
+    store = ShoppingStore.objects.get(id=store_id)
+    number_of_items = ShoppingItem.objects.filter(store=store).count()
+    items = ShoppingItem.objects.filter(store=store).order_by("-updated_at")
+
+    page_no = request.GET.get("page", 1)
+    paginator = Paginator(items, 10)
+    page = paginator.get_page(page_no)
+    items = page.object_list
+
+    return render(
+        request,
+        "items/store_detail.html",
+        context={
+            "store": store,
+            "number_of_items": number_of_items,
+            "items": items,
+            "page_no": page_no,
+            "total_pages": paginator.num_pages,
+            "has_next": page.has_next(),
+            "has_previous": page.has_previous(),
+            "previous_page_no": page.previous_page_number()
+            if page.has_previous()
+            else None,
+            "next_page_no": page.next_page_number() if page.has_next() else None,
         },
     )

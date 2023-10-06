@@ -1,0 +1,72 @@
+.content-wrapper-soft {
+    width: 96vw;
+    background-color: #e3f2fd;
+    border-radius: .5rem;
+    border-color: #fff;
+    border-width: 3rem;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.name-card {
+    background-color: #602786;
+    color: #ffffff;
+}
+
+.name-card-icon {
+    background-color: #562f6f;
+}
+
+.store-card {
+    background-color: #3b5fe2;
+    color: #fff;
+}
+
+.store-card-icon {
+    background-color: #2f48a2;
+}
+
+.number-of-items-card,
+.price-card {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.number-of-items-card-icon,
+.price-card-icon {
+    background-color: #FFC107;
+}
+
+.created-on-card,
+.number-of-lists-card {
+    background-color: #08c402;
+    color: #fff;
+}
+
+.created-on-card-icon,
+.number-of-lists-card-icon {
+    background-color: #058701;
+}
+
+.user-card {
+    background-color: #f29130;
+    color: #fff;
+}
+
+.user-card-icon {
+    background-color: #ad5905;
+}
+
+.last-updated-card {
+    background-color: #fff;
+    color: #000;
+}
+
+.last-updated-card-icon {
+    background-color: #562f6f;
+}
+
+sl-icon {
+    height: 20px;
+    width: 20px;
+}

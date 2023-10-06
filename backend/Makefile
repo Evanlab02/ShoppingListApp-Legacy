@@ -16,6 +16,18 @@ test:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
 	pytest -v --cov=. --cov-report term-missing
 
+auth-tests:
+	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+	pytest -v authenticationapp/tests/
+
+list-tests:
+	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+	pytest -v shoppinglist/tests/
+
+item-tests:
+	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
+	pytest -v shoppingitem/tests/
+
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
 
