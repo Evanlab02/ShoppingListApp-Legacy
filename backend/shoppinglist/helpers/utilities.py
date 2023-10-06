@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import User
 
+from shoppingitem.models import ShoppingItem
 from ..models import ShoppingList, ShoppingItemQuantity, ShoppingBudget
 
 
@@ -54,3 +55,16 @@ def get_budget_remaining_of_shopping_list(user: User, shopping_list: ShoppingLis
         budget_remaining = 0
 
     return budget_remaining
+
+def get_number_of_shopping_lists_linked_to_item(item: ShoppingItem):
+    """
+    Return the number of shopping lists that an item is linked to.
+
+    Args:
+        item (ShoppingItem): The shopping item.
+
+    Returns:
+        int: The number of shopping lists that an item is linked to.
+    """
+    number_of_lists = ShoppingList.objects.filter(shoppingitemquantity__shopping_item=item.id).count()
+    return number_of_lists
