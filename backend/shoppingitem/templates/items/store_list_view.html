@@ -24,15 +24,15 @@
             </div>
             {% if add_user_col %}
             <div class="menu-list-button">
-                <sl-icon-button name="person" onclick="window.location.href='/items/me'" />
+                <sl-icon-button name="person" onclick="window.location.href='/items/stores/me'" />
             </div>
             {% else %}
             <div class="menu-list-button">
-                <sl-icon-button name="people" onclick="window.location.href='/items/'" />
+                <sl-icon-button name="people" onclick="window.location.href='/items/stores'" />
             </div>
             {% endif %}
             <div class="menu-list-button">
-                <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+                <sl-icon-button name="bag" onclick="window.location.href='/items/me'" />
             </div>
         </div>
     </header>
@@ -40,29 +40,29 @@
         <div class="card-wrapper">
             <div class="mini-card total-card">
                 <div class="mini-card-icon total-card-icon">
-                    <sl-icon name="bag" />
+                    <sl-icon name="shop-window" />
                 </div>
                 <div class="mini-card-content">
-                    <p class="value">Total items</p>
+                    <p class="value">Total stores</p>
                     <p id="total-items-sub-value" class="sub-value">{{ total }}</p>
                 </div>
             </div>
             <div class="mini-card total-price-card">
                 <div class="mini-card-icon total-price-icon">
-                    <sl-icon name="wallet2" />
+                    <sl-icon name="cart4" />
                 </div>
                 <div class="mini-card-content">
-                    <p class="value">Total price of items</p>
-                    <p id="total-price-sub-value" class="sub-value">{{ total_price }}</p>
+                    <p class="value">Total in-store stores</p>
+                    <p id="total-price-sub-value" class="sub-value">{{ in_store_stores }}</p>
                 </div>
             </div>
             <div class="mini-card average-price-card">
                 <div class="mini-card-icon average-price-card-icon">
-                    <sl-icon name="cash-stack" />
+                    <sl-icon name="browser-chrome" />
                 </div>
                 <div class="mini-card-content">
-                    <p class="value">Average price of items</p>
-                    <p id="average-price-sub-value" class="sub-value">{{ average_price }}</p>
+                    <p class="value">Total online stores</p>
+                    <p id="average-price-sub-value" class="sub-value">{{ online_stores }}</p>
                 </div>
             </div>
         </div>
@@ -72,21 +72,34 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Store</th>
-                        <th>Price</th>
+                        <th>Store Type</th>
+                        <th>Description</th>
                         {% if add_user_col %}
                         <th>Owner</th>
                         {% endif %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
+                    {% for store in stores %}
                     <tr>
-                        <td><a href="/items/detail/{{ item.id }}">{{ item.name }}</a></td>
-                        <td><a href="/items/stores/detail/{{ item.store.id }}">{{ item.store }}</a></td>
-                        <td>{{ item.price }}</td>
+                        <td><a href="/items/stores/detail/{{ store.id }}">{{ store.name }}</a></td>
+
+                        {% if store.store_type == 1 %}
+                        <td>Online</td>
+                        {% elif store.store_type == 2 %}
+                        <td>In-Store</td>
+                        {% else %}
+                        <td>Online & In-Store</td>
+                        {% endif %}
+
+                        {% if store.description != "" %}
+                        <td>{{ store.description }}</td>
+                        {% else %}
+                        <td>No description</td>
+                        {% endif %}
+
                         {% if add_user_col %}
-                        <td>{{ item.user.username }}</td>
+                        <td>{{ store.user.username }}</td>
                         {% endif %}
                     </tr>
                     {% endfor %}
