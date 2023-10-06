@@ -59,6 +59,17 @@ services:
       - postgres-django-network
     restart: always
 
+  shopping-app-pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    networks:
+      - postgres-django-network
+    restart: always
+
 networks:
   postgres-django-network:
     driver: bridge
