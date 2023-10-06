@@ -62,6 +62,10 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Delete stores
 - [ ] Delete items
 
+## Frontend - V0.7.1
+
+- [x] Link Dashboard to user items page
+
 ## Backend - V1.1.0
 
 - [ ] Add functionality for wishlists
