@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 
-from .models import ShoppingItem
+from .models import ShoppingItem, ShoppingStore
 
 
 @require_http_methods(["GET"])
@@ -84,4 +84,90 @@ def render_item_overview_page(req: HttpRequest, items: list[ShoppingItem], is_us
             "table_caption": table_caption,      
             "add_user_col": add_user_col,
         },
+    )
+
+@require_http_methods(["GET"])
+def get_user_store_view(request: HttpRequest) -> HttpRequest:
+    """
+    Render the user store view.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: The rendered user store view.
+    """
+    stores = ShoppingStore.objects.filter(user=request.user).order_by("-updated_at")
+    return render_store_overview_page(request, stores, True)
+
+@require_http_methods(["GET"])
+def get_store_view(request: HttpRequest) -> HttpRequest:
+    """
+    Render the store view.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: The rendered store view.
+    """
+    stores = ShoppingStore.objects.all().order_by("-updated_at")
+    return render_store_overview_page(request, stores)
+
+def render_store_overview_page(req:HttpRequest, stores: list[ShoppingStore], is_user_page: bool = False) -> HttpResponse:
+    """
+    Render the store overview page based on the values passed in.
+
+    Args:
+        req(HttpRequest): The request object.
+        stores(list[ShoppingStore]): The stores to render.
+
+    Returns:
+        HttpResponse: The rendered store overview page.
+    """
+    total_stores = stores.count()
+
+    page_no = req.GET.get("page", 1)
+    paginator = Paginator(stores, 10)
+    page = paginator.get_page(page_no)
+    stores = page.object_list
+
+    page_title = "Your Stores" if is_user_page else "All Stores"
+    table_caption = f"{req.user.username}'s Stores" if is_user_page else "All Stores"
+    add_user_col = not is_user_page
+
+    in_store_stores = 0
+    online_stores = 0
+
+    if (add_user_col):
+        in_store_stores = ShoppingStore.objects.filter(store_type=2).count()
+        online_stores = ShoppingStore.objects.filter(store_type=1).count()
+        in_store_stores += ShoppingStore.objects.filter(store_type=3).count()
+        online_stores += ShoppingStore.objects.filter(store_type=3).count()
+    else:
+        in_store_stores = ShoppingStore.objects.filter(store_type=2, user=req.user).count()
+        online_stores = ShoppingStore.objects.filter(store_type=1, user=req.user).count()
+        in_store_stores += ShoppingStore.objects.filter(store_type=3, user=req.user).count()
+        online_stores += ShoppingStore.objects.filter(store_type=3, user=req.user).count()
+
+    return render(
+        req,
+        "items/store_list_view.html",
+        context={
+            "stores": stores,
+            "total": total_stores,
+            "page_title": page_title,
+            "page_no": page_no,
+            "total_pages": paginator.num_pages,
+            "has_next": page.has_next(),
+            "has_previous": page.has_previous(),
+            "previous_page_no": page.previous_page_number()
+            if page.has_previous()
+            else None,
+            "next_page_no": page.next_page_number() if page.has_next() else None,
+            "table_caption": table_caption,      
+            "add_user_col": add_user_col,
+            "in_store_stores": in_store_stores,
+            "online_stores": online_stores,
+        }
     )

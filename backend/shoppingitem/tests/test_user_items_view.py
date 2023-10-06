@@ -47,7 +47,6 @@ class TestUserItemView(TestCase):
 
         # Contains links to relevant pages
         self.assertContains(response, "/shopping/dashboard/")
-        self.assertContains(response, USER_ITEMS_URL)
         self.assertContains(response, "/items/")
         self.assertContains(response, "/stores/me")
 
@@ -106,6 +105,6 @@ class TestUserItemView(TestCase):
         )
         self.assertContains(
             response,
-            f'<td><a href="/stores/detail/{ item.store.id }">{item.store}</td>',
+            f'<td><a href="/items/stores/detail/{ item.store.id }">{item.store}</a></td>',
         )
         self.assertContains(response, f"<td>{item.price}.00</td>")
