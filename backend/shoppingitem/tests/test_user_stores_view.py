@@ -101,10 +101,11 @@ class TestUserStoreView(TestCase):
 
         # Contains data for item
         self.assertContains(
-            response, f'<td><a href="/items/stores/detail/{store.id}">{store.name}</a></td>'
+            response,
+            f'<td><a href="/items/stores/detail/{store.id}">{store.name}</a></td>',
         )
         self.assertContains(
             response,
-            f'<td>Online</td>',
+            "<td>Online</td>",
         )
         self.assertContains(response, "<td>Test Description</td>")

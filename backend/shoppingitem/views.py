@@ -22,6 +22,7 @@ def item_user_overview_page(request: HttpRequest) -> HttpResponse:
     items = ShoppingItem.objects.filter(user=request.user).order_by("-updated_at")
     return render_item_overview_page(request, items, True)
 
+
 @require_http_methods(["GET"])
 def item_overview_page(request: HttpRequest) -> HttpResponse:
     """
@@ -35,9 +36,11 @@ def item_overview_page(request: HttpRequest) -> HttpResponse:
     """
     items = ShoppingItem.objects.all().order_by("-updated_at")
     return render_item_overview_page(request, items)
-    
 
-def render_item_overview_page(req: HttpRequest, items: list[ShoppingItem], is_user_page: bool = False) -> HttpResponse:
+
+def render_item_overview_page(
+    req: HttpRequest, items: list[ShoppingItem], is_user_page: bool = False
+) -> HttpResponse:
     """
     Render the overview page based on the values passed in.
 
@@ -81,10 +84,11 @@ def render_item_overview_page(req: HttpRequest, items: list[ShoppingItem], is_us
             if page.has_previous()
             else None,
             "next_page_no": page.next_page_number() if page.has_next() else None,
-            "table_caption": table_caption,      
+            "table_caption": table_caption,
             "add_user_col": add_user_col,
         },
     )
+
 
 @require_http_methods(["GET"])
 def get_user_store_view(request: HttpRequest) -> HttpRequest:
@@ -100,6 +104,7 @@ def get_user_store_view(request: HttpRequest) -> HttpRequest:
     stores = ShoppingStore.objects.filter(user=request.user).order_by("-updated_at")
     return render_store_overview_page(request, stores, True)
 
+
 @require_http_methods(["GET"])
 def get_store_view(request: HttpRequest) -> HttpRequest:
     """
@@ -114,7 +119,10 @@ def get_store_view(request: HttpRequest) -> HttpRequest:
     stores = ShoppingStore.objects.all().order_by("-updated_at")
     return render_store_overview_page(request, stores)
 
-def render_store_overview_page(req:HttpRequest, stores: list[ShoppingStore], is_user_page: bool = False) -> HttpResponse:
+
+def render_store_overview_page(
+    req: HttpRequest, stores: list[ShoppingStore], is_user_page: bool = False
+) -> HttpResponse:
     """
     Render the store overview page based on the values passed in.
 
@@ -139,16 +147,24 @@ def render_store_overview_page(req:HttpRequest, stores: list[ShoppingStore], is_
     in_store_stores = 0
     online_stores = 0
 
-    if (add_user_col):
+    if add_user_col:
         in_store_stores = ShoppingStore.objects.filter(store_type=2).count()
         online_stores = ShoppingStore.objects.filter(store_type=1).count()
         in_store_stores += ShoppingStore.objects.filter(store_type=3).count()
         online_stores += ShoppingStore.objects.filter(store_type=3).count()
     else:
-        in_store_stores = ShoppingStore.objects.filter(store_type=2, user=req.user).count()
-        online_stores = ShoppingStore.objects.filter(store_type=1, user=req.user).count()
-        in_store_stores += ShoppingStore.objects.filter(store_type=3, user=req.user).count()
-        online_stores += ShoppingStore.objects.filter(store_type=3, user=req.user).count()
+        in_store_stores = ShoppingStore.objects.filter(
+            store_type=2, user=req.user
+        ).count()
+        online_stores = ShoppingStore.objects.filter(
+            store_type=1, user=req.user
+        ).count()
+        in_store_stores += ShoppingStore.objects.filter(
+            store_type=3, user=req.user
+        ).count()
+        online_stores += ShoppingStore.objects.filter(
+            store_type=3, user=req.user
+        ).count()
 
     return render(
         req,
@@ -165,9 +181,9 @@ def render_store_overview_page(req:HttpRequest, stores: list[ShoppingStore], is_
             if page.has_previous()
             else None,
             "next_page_no": page.next_page_number() if page.has_next() else None,
-            "table_caption": table_caption,      
+            "table_caption": table_caption,
             "add_user_col": add_user_col,
             "in_store_stores": in_store_stores,
             "online_stores": online_stores,
-        }
+        },
     )
