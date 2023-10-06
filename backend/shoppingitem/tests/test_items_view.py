@@ -1,4 +1,4 @@
-"""Contains tests for the user items view."""
+"""Contains tests for the items view."""
 
 import pytest
 
@@ -9,11 +9,11 @@ from ..models import ShoppingItem, ShoppingStore
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
-USER_ITEMS_URL = "/items/me"
+ITEMS_URL = "/items/"
 
 
-class TestUserItemView(TestCase):
-    """Test the user items view."""
+class TestItemView(TestCase):
+    """Test the items view."""
 
     @pytest.mark.django_db(transaction=True)
     def setUp(self):
@@ -31,7 +31,7 @@ class TestUserItemView(TestCase):
 
     def test_view_with_no_items(self):
         """Test the user items view with no items."""
-        response = self.client.get(USER_ITEMS_URL)
+        response = self.client.get(ITEMS_URL)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "items/items_list_view.html")
@@ -43,11 +43,11 @@ class TestUserItemView(TestCase):
         self.assertContains(response, "<title>Shopping App</title>")
 
         # Contains correct page header
-        self.assertContains(response, "<h2>Your Shopping Items</h2>")
+        self.assertContains(response, "<h2>All Shopping Items</h2>")
 
         # Contains links to relevant pages
         self.assertContains(response, "/shopping/dashboard/")
-        self.assertContains(response, USER_ITEMS_URL)
+        self.assertContains(response, ITEMS_URL)
         self.assertContains(response, "/items/")
         self.assertContains(response, "/stores/me")
 
@@ -70,7 +70,7 @@ class TestUserItemView(TestCase):
         )
 
         # Contains caption for table
-        self.assertContains(response, "<caption>testuser&#x27;s Items</caption>")
+        self.assertContains(response, "<caption>All Items</caption>")
 
         # Contains table headers
         self.assertContains(response, "<th>Name</th>")
@@ -95,7 +95,7 @@ class TestUserItemView(TestCase):
         )
         item.save()
 
-        response = self.client.get(USER_ITEMS_URL)
+        response = self.client.get(ITEMS_URL)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "items/items_list_view.html")
