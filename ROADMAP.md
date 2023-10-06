@@ -50,9 +50,9 @@ Find below the roadmap for the project. It is subject to change.
 
 - [x] Add functionality for multiple shopping items on a shopping list
 - [x] View all items created by yourself
-- [ ] View all items
-- [ ] View all stores created by yourself
-- [ ] View all stores
+- [x] View all items
+- [x] View all stores created by yourself
+- [x] View all stores
 - [ ] View store details
 - [ ] View item details
 - [ ] Create stores
@@ -65,6 +65,10 @@ Find below the roadmap for the project. It is subject to change.
 ## Frontend - V0.7.1
 
 - [x] Link Dashboard to user items page
+
+## Server - V0.5.0
+
+- [x] PGadmin now gets started with docker-compose
 
 ## Backend - V1.1.0
 
