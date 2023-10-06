@@ -40,8 +40,8 @@
                     <sl-icon name="bag" />
                 </div>
                 <div class="mini-card-content">
-                    <p class="value">Total Items</p>
-                    <p class="sub-value">{{ total }}</p>
+                    <p class="value">Total items</p>
+                    <p id="total-items-sub-value" class="sub-value">{{ total }}</p>
                 </div>
             </div>
             <div class="mini-card total-price-card">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="mini-card-content">
                     <p class="value">Total price of items</p>
-                    <p class="sub-value">{{ total_price }}</p>
+                    <p id="total-price-sub-value" class="sub-value">{{ total_price }}</p>
                 </div>
             </div>
             <div class="mini-card average-price-card">
@@ -59,12 +59,13 @@
                 </div>
                 <div class="mini-card-content">
                     <p class="value">Average price of items</p>
-                    <p class="sub-value">{{ average_price }}</p>
+                    <p id="average-price-sub-value" class="sub-value">{{ average_price }}</p>
                 </div>
             </div>
         </div>
         <div class="table-wrapper">
             <table class="overview-table">
+                <caption>{{user}}'s Items</caption>
                 <thead>
                     <tr>
                         <th>Name</th>
