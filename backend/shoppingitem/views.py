@@ -44,7 +44,9 @@ def item_user_overview_page(request: HttpRequest) -> HttpResponse:
             "total_pages": paginator.num_pages,
             "has_next": page.has_next(),
             "has_previous": page.has_previous(),
-            "previous_page_no": page.previous_page_number() if page.has_previous() else None,
+            "previous_page_no": page.previous_page_number()
+            if page.has_previous()
+            else None,
             "next_page_no": page.next_page_number() if page.has_next() else None,
         },
     )
