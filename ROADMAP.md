@@ -53,8 +53,8 @@ Find below the roadmap for the project. It is subject to change.
 - [x] View all items
 - [x] View all stores created by yourself
 - [x] View all stores
-- [ ] View store details
-- [ ] View item details
+- [x] View store details
+- [x] View item details
 - [ ] Create stores
 - [ ] Create items
 - [ ] Edit stores
@@ -73,3 +73,8 @@ Find below the roadmap for the project. It is subject to change.
 ## Backend - V1.1.0
 
 - [ ] Add functionality for wishlists
+- [ ] Add functionality for linking to online stores
+
+## Frontend - V1.0.1
+
+- [ ] Change average item price to total budget amount
