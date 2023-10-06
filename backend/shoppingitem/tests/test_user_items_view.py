@@ -10,6 +10,7 @@ from ..models import ShoppingItem, ShoppingStore
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
 
+
 class TestLoginView(TestCase):
     """Test the login view."""
 
@@ -50,16 +51,22 @@ class TestLoginView(TestCase):
         self.assertContains(response, "/stores/me")
 
         # Contains info on total items
-        self.assertContains(response, "<p class=\"value\">Total items</p>")
-        self.assertContains(response, "<p id=\"total-items-sub-value\" class=\"sub-value\">0</p>")
+        self.assertContains(response, '<p class="value">Total items</p>')
+        self.assertContains(
+            response, '<p id="total-items-sub-value" class="sub-value">0</p>'
+        )
 
         # Contains info on total price
-        self.assertContains(response, "<p class=\"value\">Total price of items</p>")
-        self.assertContains(response, "<p id=\"total-price-sub-value\" class=\"sub-value\">0</p>")
+        self.assertContains(response, '<p class="value">Total price of items</p>')
+        self.assertContains(
+            response, '<p id="total-price-sub-value" class="sub-value">0</p>'
+        )
 
         # Contains info on average price
-        self.assertContains(response, "<p class=\"value\">Average price of items</p>")
-        self.assertContains(response, "<p id=\"average-price-sub-value\" class=\"sub-value\">0</p>")
+        self.assertContains(response, '<p class="value">Average price of items</p>')
+        self.assertContains(
+            response, '<p id="average-price-sub-value" class="sub-value">0</p>'
+        )
 
         # Contains caption for table
         self.assertContains(response, "<caption>testuser's Items</caption>")
@@ -93,6 +100,11 @@ class TestLoginView(TestCase):
         self.assertTemplateUsed(response, "items/items_list_view.html")
 
         # Contains data for item
-        self.assertContains(response, f"<td><a href=\"/items/detail/{item.id}\">{item.name}</a></td>")
-        self.assertContains(response, f"<td><a href=\"/stores/detail/{ item.store.id }\">{item.store}</td>")
+        self.assertContains(
+            response, f'<td><a href="/items/detail/{item.id}">{item.name}</a></td>'
+        )
+        self.assertContains(
+            response,
+            f'<td><a href="/stores/detail/{ item.store.id }">{item.store}</td>',
+        )
         self.assertContains(response, f"<td>{item.price}.00</td>")

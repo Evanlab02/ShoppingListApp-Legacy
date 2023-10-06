@@ -7,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 
 from .models import ShoppingItem
 
+
 @require_http_methods(["GET"])
 def item_user_overview_page(request: HttpRequest) -> HttpResponse:
     """
