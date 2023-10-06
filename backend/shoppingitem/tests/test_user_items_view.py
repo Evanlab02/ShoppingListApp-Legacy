@@ -9,7 +9,7 @@ from ..models import ShoppingItem, ShoppingStore
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
-
+USER_ITEMS_URL = "/items/me"
 
 class TestLoginView(TestCase):
     """Test the login view."""
@@ -30,7 +30,7 @@ class TestLoginView(TestCase):
 
     def test_view_with_no_items(self):
         """Test the user items view with no items."""
-        response = self.client.get("/items/me")
+        response = self.client.get(USER_ITEMS_URL)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "items/items_list_view.html")
@@ -46,7 +46,7 @@ class TestLoginView(TestCase):
 
         # Contains links to relevant pages
         self.assertContains(response, "/shopping/dashboard/")
-        self.assertContains(response, "/items/me")
+        self.assertContains(response, USER_ITEMS_URL)
         self.assertContains(response, "/items/")
         self.assertContains(response, "/stores/me")
 
@@ -94,7 +94,7 @@ class TestLoginView(TestCase):
         )
         item.save()
 
-        response = self.client.get("/items/me")
+        response = self.client.get(USER_ITEMS_URL)
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "items/items_list_view.html")
