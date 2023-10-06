@@ -1,4 +1,4 @@
-"""Contains tests for the user items view."""
+"""Contains tests for the stores view."""
 
 import pytest
 
@@ -9,10 +9,10 @@ from ..models import ShoppingItem, ShoppingStore
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
-USER_ITEMS_URL = "/items/me"
+STORES_URL = "/items/stores"
 
 
-class TestUserItemView(TestCase):
+class TestStoreView(TestCase):
     """Test the user items view."""
 
     @pytest.mark.django_db(transaction=True)
@@ -29,12 +29,12 @@ class TestUserItemView(TestCase):
         self.user.save()
         self.client.login(username="testuser", password="testpassword")
 
-    def test_view_with_no_items(self):
-        """Test the user items view with no items."""
-        response = self.client.get(USER_ITEMS_URL)
+    def test_view_with_no_stores(self):
+        """Test the user stores view with no stores."""
+        response = self.client.get(STORES_URL)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "items/items_list_view.html")
+        self.assertTemplateUsed(response, "items/store_list_view.html")
 
         # Contains font link
         self.assertContains(response, FONT)
@@ -43,40 +43,41 @@ class TestUserItemView(TestCase):
         self.assertContains(response, "<title>Shopping App</title>")
 
         # Contains correct page header
-        self.assertContains(response, "<h2>Your Shopping Items</h2>")
+        self.assertContains(response, "<h2>All Stores</h2>")
 
         # Contains links to relevant pages
         self.assertContains(response, "/shopping/dashboard/")
-        self.assertContains(response, "/items/")
-        self.assertContains(response, "/stores/me")
+        self.assertContains(response, "/items/stores/me")
+        self.assertContains(response, "/items/me")
 
-        # Contains info on total items
-        self.assertContains(response, '<p class="value">Total items</p>')
+        # Contains info on total stores
+        self.assertContains(response, '<p class="value">Total stores</p>')
         self.assertContains(
             response, '<p id="total-items-sub-value" class="sub-value">0</p>'
         )
 
         # Contains info on total price
-        self.assertContains(response, '<p class="value">Total price of items</p>')
+        self.assertContains(response, '<p class="value">Total in-store stores</p>')
         self.assertContains(
             response, '<p id="total-price-sub-value" class="sub-value">0</p>'
         )
 
         # Contains info on average price
-        self.assertContains(response, '<p class="value">Average price of items</p>')
+        self.assertContains(response, '<p class="value">Total online stores</p>')
         self.assertContains(
             response, '<p id="average-price-sub-value" class="sub-value">0</p>'
         )
 
         # Contains caption for table
-        self.assertContains(response, "<caption>testuser&#x27;s Items</caption>")
+        self.assertContains(response, "<caption>All Stores</caption>")
 
         # Contains table headers
         self.assertContains(response, "<th>Name</th>")
-        self.assertContains(response, "<th>Store</th>")
-        self.assertContains(response, "<th>Price</th>")
+        self.assertContains(response, "<th>Store Type</th>")
+        self.assertContains(response, "<th>Description</th>")
+        self.assertContains(response, "<th>Owner</th>")
 
-    def test_item_view_with_items(self):
+    def test_store_view_with_stores(self):
         """Tests the user items view with items."""
         store = ShoppingStore.objects.create(
             name="Test Store",
@@ -94,17 +95,19 @@ class TestUserItemView(TestCase):
         )
         item.save()
 
-        response = self.client.get(USER_ITEMS_URL)
+        response = self.client.get(STORES_URL)
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "items/items_list_view.html")
+        self.assertTemplateUsed(response, "items/store_list_view.html")
 
         # Contains data for item
         self.assertContains(
-            response, f'<td><a href="/items/detail/{item.id}">{item.name}</a></td>'
+            response,
+            f'<td><a href="/items/stores/detail/{store.id}">{store.name}</a></td>',
         )
         self.assertContains(
             response,
-            f'<td><a href="/items/stores/detail/{ item.store.id }">{item.store}</a></td>',
+            "<td>Online</td>",
         )
-        self.assertContains(response, f"<td>{item.price}.00</td>")
+        self.assertContains(response, "<td>Test Description</td>")
+        self.assertContains(response, "<td>testuser</td>")
