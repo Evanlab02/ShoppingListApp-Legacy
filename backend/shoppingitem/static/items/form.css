@@ -1,0 +1,94 @@
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0;
+    border: 0px solid #000000;
+    border-radius: 5px;
+    margin: 8px auto;
+    width: 28rem;
+    min-width: 300px;
+    height: auto;
+    font-family: "Roboto", sans-serif;
+}
+
+.form-top {
+    height: auto;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px 5px 0 0;
+}
+
+.create-top {
+    color: #fff;
+    background-color: #3b5fe2;
+}
+
+.form-middle {
+    font-weight: bold;
+    color: #fff;
+    background-color: red;
+    padding: 8px;
+}
+
+.form-bottom {
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.form-row {
+    padding: 8px 0;
+}
+
+#form-heading {
+    padding: 0;
+    margin: 0;
+}
+
+fieldset {
+    border: 0px;
+}
+
+label {
+    display: block;
+}
+
+legend {
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: #e8ebe8;
+    border: 1px #353535 solid;
+    border-radius: 5px;
+    color: #000000;
+}
+
+.submit-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: #3b5fe2;
+    border: 1px #353535 solid;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.cancel-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: red;
+    border: 1px #353535 solid;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping App</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/themes/light.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.9.0/cdn/shoelace-autoloader.js"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'items/base.css' %}">
+    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'items/form.css' %}">
+</head>
+
+<body class="body-block">
+    <header class="navbar">
+        <div class="navbar-item">
+            <h2>Create Item</h2>
+            <div class="menu-list-button">
+                <sl-icon-button name="speedometer" onclick="window.location.href='/shopping/dashboard/'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="bag" onclick="window.location.href='/items/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="plus-circle" onclick="window.location.href='/items/create'" />
+            </div>
+        </div>
+    </header>
+    <div class="content-wrapper">
+        <div class="form-wrapper">
+            <div class="form-top create-top">
+                <h2 id="form-heading">Create Shopping Item</h2>
+            </div>
+            {% if error %}
+            <div class="form-middle">
+                <p class="error-message">{{ error }}</p>
+            </div>
+            {% endif %}
+            <form class="form-bottom" action="{% url 'create_item_action' %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <div class="form-row">
+                        <legend>Shopping Item Details</legend>
+                    </div>
+                    <div class="form-row">
+                        <label for="item-input">Item:</label>
+                        <input class="text-input" type="text" name="item-input" id="item-input">
+                    </div>
+                    <div class="form-row">
+                        <label for="store-input">Store:</label>
+                        <select class="text-input" name="store-input" id="store-input">
+                            {% for store in stores %}
+                            <option value={{store.name}}>{{store.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="price-input">Price:</label>
+                        <input class="text-input" type="number" name="price-input" id="price-input">
+                    </div>
+                    <div class="form-row submit-row">
+                        <input class="submit-input" type="submit" value="Create Item">
+                    </div>
+                    <div class="form-row submit-row">
+                        <input class="cancel-input" type="button" value="Cancel"
+                            onclick="window.location.href='/items/me'">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</body>

@@ -61,10 +61,12 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Edit items
 - [ ] Delete stores
 - [ ] Delete items
+- [ ] Change dashboard current endpoint to return total budget amount instead of average item price
 
 ## Frontend - V0.7.1
 
 - [x] Link Dashboard to user items page
+- [ ] Change average item price to total budget amount
 
 ## Server - V0.5.0
 
@@ -74,7 +76,3 @@ Find below the roadmap for the project. It is subject to change.
 
 - [ ] Add functionality for wishlists
 - [ ] Add functionality for linking to online stores
-
-## Frontend - V1.0.1
-
-- [ ] Change average item price to total budget amount
