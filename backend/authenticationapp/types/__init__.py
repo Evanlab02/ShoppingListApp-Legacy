@@ -14,7 +14,6 @@ __all__ = [
     "Router",
     "Schema",
     "Model",
-    "models",
     "OneToOneField",
     "CharField",
     "DateTimeField",

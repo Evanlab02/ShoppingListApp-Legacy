@@ -125,9 +125,11 @@ class UserRepository:
         Returns:
             HttpResponse | HttpResponsePermanentRedirect: The rendered template or the redirect.
         """
-        if self.is_authenticated(request.user) and auth:
-            return HttpResponsePermanentRedirect(redirect_url)
-        elif not self.is_authenticated(request.user) and not auth:
+        is_authenticated = self.is_authenticated(request.user)
+        redirect_if_logged_in = is_authenticated and auth
+        redirect_if_not_logged_in = not is_authenticated and not auth
+
+        if redirect_if_logged_in or redirect_if_not_logged_in:
             return HttpResponsePermanentRedirect(redirect_url)
 
         return render(request, template_to_render, context)
