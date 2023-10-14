@@ -63,6 +63,12 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Delete items
 - [ ] Change dashboard current endpoint to return total budget amount instead of average item price
 
+### Refactoring and Improvements
+
+- [ ] Add to register endpoint to check for matching passwords
+- [ ] Refactpr authentication app routes tests
+- [ ] Refactor authentication app views tests
+
 ## Frontend - V0.7.1
 
 - [x] Link Dashboard to user items page

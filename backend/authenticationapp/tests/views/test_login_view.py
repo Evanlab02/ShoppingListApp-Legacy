@@ -5,7 +5,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from ..models import Client as ClientModel
+from authenticationapp.models import Client as ClientModel
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
@@ -40,19 +40,16 @@ class TestLoginView(TestCase):
 
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
-        )
-        self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'
         )
         self.assertContains(
             response,
             FONT,
         )
-        self.assertContains(response, '<h2 id="login-heading">Shopping App Login</h2>')
+        self.assertContains(response, '<h2 id="auth-heading">Shopping App Login</h2>')
         self.assertContains(
             response,
-            f'<form class="login-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
+            f'<form class="auth-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
         )
         self.assertContains(response, '<label for="username-input">Username:</label>')
         self.assertContains(
@@ -85,19 +82,16 @@ class TestLoginView(TestCase):
 
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
-        )
-        self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'
         )
         self.assertContains(
             response,
             FONT,
         )
-        self.assertContains(response, '<h2 id="login-heading">Shopping App Login</h2>')
+        self.assertContains(response, '<h2 id="auth-heading">Shopping App Login</h2>')
         self.assertContains(
             response,
-            f'<form class="login-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
+            f'<form class="auth-bottom" action="{LOGIN_ACTION_ROUTE}" method="post">',
         )
         self.assertContains(response, '<label for="username-input">Username:</label>')
         self.assertContains(
@@ -114,9 +108,7 @@ class TestLoginView(TestCase):
         )
         self.assertContains(response, "<legend>Login Details</legend>")
 
-        self.assertContains(
-            response, '<p class="error-message">Invalid username or password.</p>'
-        )
+        self.assertContains(response, "<p>Invalid username or password.</p>")
         self.assertEqual(response.context["error"], "Invalid username or password.")
 
     def test_get_login_page_with_error_redirects_when_logged_in(self):

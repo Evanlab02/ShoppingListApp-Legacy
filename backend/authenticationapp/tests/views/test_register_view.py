@@ -5,7 +5,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from ..models import Client as ClientModel
+from authenticationapp.models import Client as ClientModel
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
@@ -42,17 +42,14 @@ class TestRegisterView(TestCase):
         self.assertContains(response, FONT)
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
-        )
-        self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'
         )
         self.assertContains(
-            response, '<h2 id="login-heading">Shopping App Register</h2>'
+            response, '<h2 id="auth-heading">Shopping App Register</h2>'
         )
         self.assertContains(
             response,
-            '<form class="login-bottom" action="/register/action" method="post">',
+            '<form class="auth-bottom" action="/register/action" method="post">',
         )
         self.assertContains(response, "<legend>User Details</legend>")
         self.assertContains(response, '<label for="username-input">Username:</label>')

@@ -254,6 +254,7 @@ def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
         },
     )
 
+
 @require_http_methods(["GET"])
 def get_item_create_page(request: HttpRequest) -> HttpResponse:
     """
@@ -273,6 +274,7 @@ def get_item_create_page(request: HttpRequest) -> HttpResponse:
             "stores": stores,
         },
     )
+
 
 @require_http_methods(["GET"])
 def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
@@ -296,6 +298,7 @@ def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
         },
     )
 
+
 @require_http_methods(["POST"])
 def create_item(request: HttpRequest) -> HttpResponse:
     """
@@ -312,20 +315,28 @@ def create_item(request: HttpRequest) -> HttpResponse:
     price = request.POST.get("price-input")
 
     if not name or not store_name or not price:
-        return HttpResponsePermanentRedirect("/items/create/error?error=Please fill in all fields.")
+        return HttpResponsePermanentRedirect(
+            "/items/create/error?error=Please fill in all fields."
+        )
 
     store = ShoppingStore.objects.get(name=store_name)
     clone_exists = ShoppingItem.objects.filter(name=name, store=store).exists()
 
     if clone_exists:
-        return HttpResponsePermanentRedirect("/items/create/error?error=Item already exists.")
+        return HttpResponsePermanentRedirect(
+            "/items/create/error?error=Item already exists."
+        )
 
     if not price.isnumeric():
-        return HttpResponsePermanentRedirect("/items/create/error?error=Price must be a number.")
+        return HttpResponsePermanentRedirect(
+            "/items/create/error?error=Price must be a number."
+        )
 
     if float(price) <= 0:
-        return HttpResponsePermanentRedirect("/items/create/error?error=Price cannot be negative and must be greater than 0.")
-    
+        return HttpResponsePermanentRedirect(
+            "/items/create/error?error=Price cannot be negative and must be greater than 0."
+        )
+
     item = ShoppingItem.objects.create(
         name=name,
         store=store,

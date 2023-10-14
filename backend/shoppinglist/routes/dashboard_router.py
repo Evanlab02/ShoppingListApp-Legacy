@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpRequest
 from ninja import Router
 
-from authenticationapp.auth.app_auth import ApiKey
+from authenticationapp.auth import ApiKey
 from shoppingitem.helpers.utilities import get_recent_items
 
 from ..helpers.constants import MONTH_MAPPING

@@ -5,7 +5,7 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from ..models import Client as ClientModel
+from authenticationapp.models import Client as ClientModel
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
@@ -66,19 +66,16 @@ class TestLogoutView(TestCase):
 
         self.assertContains(response, "<title>Shopping App</title>")
         self.assertContains(
-            response, '<link rel="stylesheet" href="/static/auth/auth.css">'
-        )
-        self.assertContains(
             response, '<link rel="stylesheet" href="/static/auth/base.css">'
         )
         self.assertContains(
             response,
             FONT,
         )
-        self.assertContains(response, '<h2 id="login-heading">Shopping App Logout</h2>')
+        self.assertContains(response, '<h2 id="auth-heading">Shopping App Logout</h2>')
         self.assertContains(
             response,
-            '<form class="login-bottom" action="/logout/action" method="post">',
+            '<form class="auth-bottom" action="/logout/action" method="post">',
         )
         self.assertContains(response, "<legend>Confirm Logout</legend>")
         self.assertContains(

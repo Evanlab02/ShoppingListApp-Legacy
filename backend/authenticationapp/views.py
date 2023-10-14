@@ -1,16 +1,15 @@
 """Contains views for the authentication app."""
 
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.http import HttpRequest, HttpResponsePermanentRedirect
-from django.shortcuts import render
-from django.views.decorators.http import require_http_methods
+from .database import UserRepository
+from .helpers import authenticate, login, logout, render, require_http_methods
+from .types import User, HttpRequest, HttpResponsePermanentRedirect, HttpResponse
 
+USER_REPOSITORY = UserRepository()
 DASHBOARD_ROUTE = "/shopping/dashboard/"
 
 
 @require_http_methods(["GET"])
-def login_page(request: HttpRequest):
+def login_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpResponse:
     """
     Render the login page.
 
@@ -21,14 +20,15 @@ def login_page(request: HttpRequest):
         HttpResponsePermanentRedirect: Redirects the user to the dashboard.
         HttpResponse: The rendered login page.
     """
-    if request.user.is_authenticated:
-        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
-
-    return render(request, "auth/index.html")
+    return USER_REPOSITORY.render_or_redirect(
+        request, DASHBOARD_ROUTE, "auth/index.html"
+    )
 
 
 @require_http_methods(["GET"])
-def login_page_with_error(request: HttpRequest):
+def login_page_with_error(
+    request: HttpRequest,
+) -> HttpResponsePermanentRedirect | HttpResponse:
     """
     Render the login page with an error message.
 
@@ -39,16 +39,16 @@ def login_page_with_error(request: HttpRequest):
         HttpResponsePermanentRedirect: Redirects the user to the dashboard.
         HttpResponse: The rendered login page with an error message.
     """
-    if request.user.is_authenticated:
-        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
-
-    return render(
-        request, "auth/index.html", {"error": "Invalid username or password."}
+    return USER_REPOSITORY.render_or_redirect(
+        request,
+        DASHBOARD_ROUTE,
+        "auth/index.html",
+        {"error": "Invalid username or password."},
     )
 
 
 @require_http_methods(["POST"])
-def login_action(request: HttpRequest):
+def login_action(request: HttpRequest) -> HttpResponsePermanentRedirect:
     """
     Log the user in.
 
@@ -58,7 +58,7 @@ def login_action(request: HttpRequest):
     Returns:
         HttpResponsePermanentRedirect: Redirects the user to the dashboard or the error page.
     """
-    if request.user.is_authenticated:
+    if USER_REPOSITORY.is_authenticated(request.user):
         return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
 
     username = request.POST.get("username-input")
@@ -73,7 +73,7 @@ def login_action(request: HttpRequest):
 
 
 @require_http_methods(["GET"])
-def logout_page(request: HttpRequest):
+def logout_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpResponse:
     """
     Log the user out.
 
@@ -83,10 +83,9 @@ def logout_page(request: HttpRequest):
     Returns:
         HttpResponse: The rendered logout page.
     """
-    if not request.user.is_authenticated:
-        return HttpResponsePermanentRedirect("/")
-
-    return render(request, "auth/logout.html")
+    return USER_REPOSITORY.render_or_redirect(
+        request, "/", "auth/logout.html", auth=False
+    )
 
 
 @require_http_methods(["POST"])
@@ -100,7 +99,7 @@ def logout_action(request: HttpRequest):
     Returns:
         HttpResponsePermanentRedirect: Redirects the user to the login page.
     """
-    if not request.user.is_authenticated:
+    if not USER_REPOSITORY.is_authenticated(request.user):
         return HttpResponsePermanentRedirect("/")
 
     logout(request)
@@ -119,10 +118,9 @@ def register_page(request: HttpRequest):
         HttpResponsePermanentRedirect: Redirects the user to the dashboard.
         HttpResponse: The rendered register page.
     """
-    if request.user.is_authenticated:
-        return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
-
-    return render(request, "auth/register.html")
+    return USER_REPOSITORY.render_or_redirect(
+        request, DASHBOARD_ROUTE, "auth/register.html"
+    )
 
 
 @require_http_methods(["POST"])
@@ -136,7 +134,7 @@ def register_action(request: HttpRequest):
     Returns:
         HttpResponsePermanentRedirect: Redirects the user to the login or error page.
     """
-    if request.user.is_authenticated:
+    if USER_REPOSITORY.is_authenticated(request.user):
         return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
 
     username = request.POST.get("username-input")
@@ -178,7 +176,7 @@ def register_page_error(request: HttpRequest, error: str):
         HttpResponsePermanentRedirect: Redirects the user to the dashboard.
         HttpResponse: The rendered register page with an error message.
     """
-    if request.user.is_authenticated:
+    if USER_REPOSITORY.is_authenticated(request.user):
         return HttpResponsePermanentRedirect(DASHBOARD_ROUTE)
 
     if (error) == "non-matching-passwords":

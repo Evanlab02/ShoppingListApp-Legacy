@@ -1,18 +1,27 @@
 """Contains models for the authentication app."""
 
-from uuid import uuid4
 
-from django.contrib.auth.models import User
-from django.db import models
-from django.utils import timezone
+from .helpers import uuid4, timezone
+from .types import User, Model, OneToOneField, CharField, DateTimeField, CASCADE
 
 
-class Client(models.Model):
-    """Model for a client."""
+class Client(Model):
+    """
+    Model for a client, a wrapper around a user.
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=100, blank=True)
-    token_expiration = models.DateTimeField(blank=True, null=True)
+    Attributes:
+        user (User): The user that the client is wrapping.
+        token (str): The token for the client.
+        token_expiration (datetime): The expiration date of the token.
+
+    Methods:
+        __str__: Returns the string representation of the client.
+        generate_token: Generates a token for the client.
+    """
+
+    user = OneToOneField(User, on_delete=CASCADE)
+    token = CharField(max_length=100, blank=True)
+    token_expiration = DateTimeField(blank=True, null=True)
 
     def __str__(self):
         """Return the string representation of the client."""

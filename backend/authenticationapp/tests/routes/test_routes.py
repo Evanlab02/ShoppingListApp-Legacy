@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase, Client
 
-from ..models import Client as ClientModel
+from authenticationapp.models import Client as ClientModel
 
 TEST_EMAIL = "test@login.com"
 CONTENT_TYPE = "application/json"
@@ -34,6 +34,40 @@ class TestAuthentication(TestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
+
+    def test_register_with_existing_username(self):
+        """Test the register endpoint with an existing username."""
+        client = Client()
+
+        response = client.post(
+            REGISTER_ENDPOINT,
+            {
+                "username": "test",
+                "email": "test@testuser.com",
+                "password": "testpassword",
+                "first_name": "test",
+                "last_name": "user",
+            },
+            content_type=CONTENT_TYPE,
+        )
+
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json(), {"message": SUCCESS_REGISTER_MESSAGE})
+
+        response = client.post(
+            REGISTER_ENDPOINT,
+            {
+                "username": "test",
+                "email": "test@gmail.com",
+                "password": "testpassword",
+                "first_name": "test",
+                "last_name": "user",
+            },
+            content_type=CONTENT_TYPE,
+        )
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json(), {"detail": "Username already exists."})
 
     def test_login_invalid_credentials(self):
         """Test the login endpoint."""

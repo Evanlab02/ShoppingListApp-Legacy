@@ -18,7 +18,7 @@ test:
 
 auth-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v authenticationapp/tests/
+	pytest -v --cov=authenticationapp/ --cov-report term-missing authenticationapp/tests/
 
 list-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
