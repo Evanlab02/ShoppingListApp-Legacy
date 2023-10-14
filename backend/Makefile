@@ -41,3 +41,6 @@ migrate:
 clean:
 	rm -rf .coverage coverage.xml .pytest_cache
 	rm -rf **/migrations/0*.py
+
+super-user:
+	python manage.py createsuperuser --settings=shoppingapp.settings.local_settings

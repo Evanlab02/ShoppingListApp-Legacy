@@ -10,7 +10,7 @@ Below you will find a step by step guide to get the backend running locally.
 
 As part of the server setup, you need to create .env file in the root of the project. You can copy that .env file and put it in the root of the backend folder.
 
-Make sure the credentials between the two .env files match as this is needed to connect to postgres.
+Make sure the credentials between the two .env files match as this is needed to connect to postgres. Please note that when running locally, you should be using the dev database.
 
 ## Install dependencies
 
@@ -37,19 +37,13 @@ pip install -r dev-requirements.txt
 Once you have the dependencies installed, you can run the backend using the following command:
 
 ```bash
-python manage.py runserver
+python manage.py runserver --settings=shoppingapp.settings.local_settings
 ```
 
 If you are using pipenv, you can run the backend using the following command:
 
 ```bash
-pipenv run python manage.py runserver
-```
-
-Want to run the server as if it was in production? You can do that by running the following command:
-
-```bash
-python -m uvicorn shoppingapp.configs.asgi:application --host 0.0.0.0 --port 8000
+pipenv run python manage.py runserver --settings=shoppingapp.settings.local_settings
 ```
 
 ## Accessing the API

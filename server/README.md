@@ -30,6 +30,12 @@ DJANGO_DATABASE_USER="django-postgres-admin"
 DJANGO_DATABASE_PASSWORD="django-postgres-password"
 DJANGO_DATABASE_NAME="django-postgres"
 DJANGO_KEY="django-admin-secret-key"
+
+DEV_DJANGO_DATABASE_USER="django-postgres-admin"
+DEV_DJANGO_DATABASE_PASSWORD="django-postgres-password"
+DEV_DJANGO_DATABASE_NAME="django-postgres"
+DEV_DJANGO_KEY="django-admin-secret-key"
+
 PGADMIN_DEFAULT_EMAIL="example@gmail.com"
 PGADMIN_DEFAULT_PASSWORD="example-password"
 ```
