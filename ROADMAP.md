@@ -69,6 +69,7 @@ Find below the roadmap for the project. It is subject to change.
 - [ ] Refactpr authentication app routes tests
 - [ ] Refactor authentication app views tests
 - [ ] Change API Key Header to be based on application.properties
+- [ ] Add support for different environments (dev, prod)
 
 ## Frontend - V0.7.1
 
@@ -78,6 +79,8 @@ Find below the roadmap for the project. It is subject to change.
 ## Server - V0.5.0
 
 - [x] PGadmin now gets started with docker-compose
+- [ ] Create a dev and production database
+- [ ] Create maintenance page for when the server is down
 
 ## Backend - V1.1.0
 
