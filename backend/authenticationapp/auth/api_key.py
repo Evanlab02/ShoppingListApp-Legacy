@@ -1,5 +1,6 @@
 """Contains the API key authentication helper class."""
 
+from ..constants import API_KEY_PARAM
 from ..database import ClientRepository, UserRepository
 from ..models import Client
 from ..types import APIKeyHeader, HttpRequest
@@ -19,7 +20,7 @@ class ApiKey(APIKeyHeader):
         authenticate(request: HttpRequest, key: str) -> Client | None
     """
 
-    param_name = "X-API-Key"
+    param_name = API_KEY_PARAM
 
     def authenticate(self, request: HttpRequest, key: str) -> Client | None:
         """

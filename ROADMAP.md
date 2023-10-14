@@ -66,9 +66,9 @@ Find below the roadmap for the project. It is subject to change.
 ### Refactoring and Improvements
 
 - [ ] Add to register endpoint to check for matching passwords
-- [ ] Refactpr authentication app routes tests
+- [ ] Refactor authentication app routes tests
 - [ ] Refactor authentication app views tests
-- [ ] Change API Key Header to be based on application.properties
+- [x] Change API Key Header to be based on application.properties
 - [ ] Add support for different environments (dev, prod)
 
 ## Frontend - V0.7.1
