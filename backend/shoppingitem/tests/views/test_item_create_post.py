@@ -115,7 +115,11 @@ class TestCreatePostView(TestCase):
 
         response = self.client.post(
             CREATE_POST_URL,
-            {"item-input": "test-item-two", "store-input": "test-store", "price-input": "a"},
+            {
+                "item-input": "test-item-two",
+                "store-input": "test-store",
+                "price-input": "a",
+            },
         )
 
         self.assertRedirects(
@@ -146,7 +150,11 @@ class TestCreatePostView(TestCase):
 
         response = self.client.post(
             CREATE_POST_URL,
-            {"item-input": "test-item-two", "store-input": "test-store", "price-input": -5},
+            {
+                "item-input": "test-item-two",
+                "store-input": "test-store",
+                "price-input": -5,
+            },
         )
 
         self.assertRedirects(
@@ -177,7 +185,11 @@ class TestCreatePostView(TestCase):
 
         response = self.client.post(
             CREATE_POST_URL,
-            {"item-input": "test-item-two", "store-input": "test-store", "price-input": 0},
+            {
+                "item-input": "test-item-two",
+                "store-input": "test-store",
+                "price-input": 0,
+            },
         )
 
         self.assertRedirects(
@@ -208,7 +220,11 @@ class TestCreatePostView(TestCase):
 
         response = self.client.post(
             CREATE_POST_URL,
-            {"item-input": "test-item-two", "store-input": "test-store", "price-input": 50},
+            {
+                "item-input": "test-item-two",
+                "store-input": "test-store",
+                "price-input": 50,
+            },
         )
 
         item = ShoppingItem.objects.get(name="test-item-two")
