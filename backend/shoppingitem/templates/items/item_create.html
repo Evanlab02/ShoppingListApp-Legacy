@@ -12,7 +12,6 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'items/base.css' %}">
-    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
     <link rel="stylesheet" href="{% static 'items/form.css' %}">
 </head>
 
@@ -58,7 +57,7 @@
                         <label for="store-input">Store:</label>
                         <select class="text-input" name="store-input" id="store-input">
                             {% for store in stores %}
-                            <option value={{store.name}}>{{store.name}}</option>
+                            <option value="{{store.name}}">{{store.name}}</option>
                             {% endfor %}
                         </select>
                     </div>

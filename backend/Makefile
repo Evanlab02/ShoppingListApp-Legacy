@@ -26,7 +26,7 @@ list-tests:
 
 item-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v shoppingitem/tests/
+	pytest -v --cov=shoppingitem/ --cov-report term-missing shoppingitem/tests/
 
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings

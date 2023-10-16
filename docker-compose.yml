@@ -60,7 +60,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      shopping-app-django-postgres-db:
+      shopping-app-django-postgres-db-dev:
         condition: service_healthy
     networks:
       - postgres-django-network

@@ -7,7 +7,7 @@ from django.http import HttpRequest
 from ninja import Router
 
 from authenticationapp.auth import ApiKey
-from shoppingitem.helpers.utilities import get_recent_items
+from shoppingitem.database import ItemRepository
 
 from ..helpers.constants import MONTH_MAPPING
 from ..helpers.utilities import (
@@ -63,7 +63,8 @@ def get_recent_5_items(request: HttpRequest):
     Returns:
         DashboardRecentSchema: The 5 most recent shopping items.
     """
-    recent_items = get_recent_items()
+    item_repo = ItemRepository()
+    recent_items = item_repo.get_recent_items()
     return DashboardRecentSchema(recent_items=recent_items)
 
 

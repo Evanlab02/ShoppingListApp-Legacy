@@ -1,19 +1,19 @@
-"""Contains tests for the item detail view."""
+"""Contains tests for the store detail view."""
 
 import pytest
 
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 
-from ..models import ShoppingItem, ShoppingStore
+from ...models import ShoppingItem, ShoppingStore
 
 TEST_EMAIL = "user@test.com"
 FONT = '<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">'
-ITEMS_DETAIL_URL = "/items/detail"
+STORE_DETAIL_URL = "/items/stores/detail"
 
 
-class TestItemDetailView(TestCase):
-    """Test the item detail view."""
+class TestStoreDetailView(TestCase):
+    """Test the store detail view."""
 
     @pytest.mark.django_db(transaction=True)
     def setUp(self):
@@ -47,10 +47,10 @@ class TestItemDetailView(TestCase):
         )
         item.save()
 
-        response = self.client.get(f"{ITEMS_DETAIL_URL}/{item.id}")
+        response = self.client.get(f"{STORE_DETAIL_URL}/{store.id}")
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "items/item_detail.html")
+        self.assertTemplateUsed(response, "items/store_detail.html")
 
         # Contains font link
         self.assertContains(response, FONT)
@@ -59,7 +59,7 @@ class TestItemDetailView(TestCase):
         self.assertContains(response, "<title>Shopping App</title>")
 
         # Contains correct page header
-        self.assertContains(response, f"<h2>Item - {item.name}</h2>")
+        self.assertContains(response, f"<h2>Store - {store.name}</h2>")
 
         # Contains links to relevant pages
         self.assertContains(response, "/shopping/dashboard/")
@@ -67,27 +67,25 @@ class TestItemDetailView(TestCase):
         self.assertContains(response, "/stores/me")
 
         # Contains info on item name
-        self.assertContains(response, '<p class="value">Item Name</p>')
+        self.assertContains(response, '<p class="value">Store</p>')
         self.assertContains(
-            response, f'<p id="item-name-sub-value" class="sub-value">{item.name}</p>'
+            response, f'<p id="store-name-sub-value" class="sub-value">{store.name}</p>'
         )
 
         # Contains info on item store
-        self.assertContains(response, '<p class="value">Store</p>')
+        self.assertContains(response, '<p class="value">Store Type</p>')
         self.assertContains(
-            response,
-            f'<p id="item-store-sub-value" class="sub-value">{item.store.name}</p>',
+            response, '<p id="store-type-sub-value" class="sub-value">Online</p>'
         )
 
         # Contains info on item price
-        self.assertContains(response, '<p class="value">Price</p>')
+        self.assertContains(response, '<p class="value">Number of items</p>')
         self.assertContains(
-            response,
-            f'<p id="item-price-sub-value" class="sub-value">{item.price}.00</p>',
+            response, '<p id="number-of-items-sub-value" class="sub-value">1</p>'
         )
 
         # Contains info on number of lists this item is in
-        self.assertContains(response, '<p class="value">On 0 shopping lists</p>')
+        self.assertContains(response, '<p class="value">Created on</p>')
 
         # Contains info on item owner
         self.assertContains(response, '<p class="value">Created by</p>')

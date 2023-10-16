@@ -1,8 +1,7 @@
 """Contains schemas for shopping item app."""
 
-from ninja import ModelSchema
-
 from ..models import ShoppingItem
+from ..types import ModelSchema
 
 
 class ShoppingItemModelSchema(ModelSchema):

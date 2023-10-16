@@ -2,7 +2,7 @@
 
 from ninja import Schema
 
-from shoppingitem.schemas.schemas import ShoppingItemModelSchema
+from shoppingitem.schemas import ShoppingItemModelSchema
 
 
 class DashboardCurrentSchema(Schema):

@@ -68,6 +68,6 @@ def get_number_of_shopping_lists_linked_to_item(item: ShoppingItem):
         int: The number of shopping lists that an item is linked to.
     """
     number_of_lists = ShoppingList.objects.filter(
-        shoppingitemquantity__shopping_item=item.id
+        shoppingitemquantity__shopping_item=item
     ).count()
     return number_of_lists

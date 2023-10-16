@@ -56,7 +56,7 @@ Find below the roadmap for the project. It is subject to change.
 - [x] View store details
 - [x] View item details
 - [ ] Create stores
-- [ ] Create items
+- [x] Create items
 - [ ] Edit stores
 - [ ] Edit items
 - [ ] Delete stores
@@ -66,8 +66,6 @@ Find below the roadmap for the project. It is subject to change.
 ### Refactoring and Improvements
 
 - [ ] Add to register endpoint to check for matching passwords
-- [ ] Refactor authentication app routes tests
-- [ ] Refactor authentication app views tests
 - [x] Change API Key Header to be based on application.properties
 - [x] Add support for different environments (dev, prod)
 
