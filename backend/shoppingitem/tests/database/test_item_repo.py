@@ -12,6 +12,9 @@ from ..helpers import (
     create_test_user_client,
 )
 
+TEST_ITEM = "Test Item"
+TEST_DESCRIPTION = "Test Description"
+TEST_LIST = "Test Shopping List"
 
 class TestItemRepo(TestCase):
     """Tests for the item repository."""
@@ -26,7 +29,7 @@ class TestItemRepo(TestCase):
         self.store = ShoppingStore(
             name="Test Store",
             store_type=1,
-            description="Test Description",
+            description=TEST_DESCRIPTION,
             user=self.user,
         )
         self.store.save()
@@ -107,7 +110,7 @@ class TestItemRepo(TestCase):
     def test_get_item_by_id(self):
         """Test the get item by id method."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -116,7 +119,7 @@ class TestItemRepo(TestCase):
 
         item_from_repo = self.repo.get_item_by_id(item.id)
 
-        self.assertEqual(item_from_repo.name, "Test Item")
+        self.assertEqual(item_from_repo.name, TEST_ITEM)
         self.assertEqual(item_from_repo.store, self.store)
         self.assertEqual(item_from_repo.price, 10)
         self.assertEqual(item_from_repo.user, self.user)
@@ -124,7 +127,7 @@ class TestItemRepo(TestCase):
     def test_get_another_user_item_by_id(self):
         """Test the get item by id method for another user's item."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.secondary_user,
@@ -133,7 +136,7 @@ class TestItemRepo(TestCase):
 
         item_from_repo = self.repo.get_item_by_id(item.id)
 
-        self.assertEqual(item_from_repo.name, "Test Item")
+        self.assertEqual(item_from_repo.name, TEST_ITEM)
         self.assertEqual(item_from_repo.store, self.store)
         self.assertEqual(item_from_repo.price, 10)
         self.assertEqual(item_from_repo.user, self.secondary_user)
@@ -141,8 +144,8 @@ class TestItemRepo(TestCase):
     def test_get_number_of_lists_linked_to_item_zero_results(self):
         """Test the get number of lists linked to item method with zero results."""
         shopping_list = ShoppingList(
-            name="Test Shopping List",
-            description="Test Description",
+            name=TEST_LIST,
+            description=TEST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
             user=self.user,
@@ -150,7 +153,7 @@ class TestItemRepo(TestCase):
         shopping_list.save()
 
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -163,8 +166,8 @@ class TestItemRepo(TestCase):
     def test_get_number_of_lists_linked_to_item_one_result(self):
         """Test the get number of lists linked to item method with one result."""
         shopping_list = ShoppingList(
-            name="Test Shopping List",
-            description="Test Description",
+            name=TEST_LIST,
+            description=TEST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
             user=self.user,
@@ -172,7 +175,7 @@ class TestItemRepo(TestCase):
         shopping_list.save()
 
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -191,8 +194,8 @@ class TestItemRepo(TestCase):
     def test_get_number_of_lists_linked_to_item_with_quantity(self):
         """Test the get number of lists linked to item method with quantity."""
         shopping_list = ShoppingList(
-            name="Test Shopping List",
-            description="Test Description",
+            name=TEST_LIST,
+            description=TEST_DESCRIPTION,
             start_date="2021-01-01",
             end_date="2021-01-02",
             user=self.user,
@@ -200,7 +203,7 @@ class TestItemRepo(TestCase):
         shopping_list.save()
 
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -224,7 +227,7 @@ class TestItemRepo(TestCase):
     def test_count_items_from_store_single_result(self):
         """Test the count items from store method with one result."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -265,7 +268,7 @@ class TestItemRepo(TestCase):
     def test_get_items_from_store_single_result(self):
         """Test the get items from store method with one result."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -274,7 +277,7 @@ class TestItemRepo(TestCase):
 
         items = self.repo.get_items_from_store(self.store)
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0].name, "Test Item")
+        self.assertEqual(items[0].name, TEST_ITEM)
         self.assertEqual(items[0].store, self.store)
         self.assertEqual(items[0].price, 10)
         self.assertEqual(items[0].user, self.user)
@@ -314,7 +317,7 @@ class TestItemRepo(TestCase):
     def test_does_item_exist_should_be_false_nothing_matches(self):
         """Test the does item exist method when nothing matches."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -324,7 +327,7 @@ class TestItemRepo(TestCase):
         new_store = ShoppingStore(
             name="New Store",
             store_type=1,
-            description="Test Description",
+            description=TEST_DESCRIPTION,
             user=self.user,
         )
         new_store.save()
@@ -334,7 +337,7 @@ class TestItemRepo(TestCase):
     def test_does_item_exist_should_be_false_name_matches_but_store_does_not(self):
         """Test the does item exist method when the name matches but the store does not."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -344,19 +347,19 @@ class TestItemRepo(TestCase):
         new_store = ShoppingStore(
             name="New Store",
             store_type=1,
-            description="Test Description",
+            description=TEST_DESCRIPTION,
             user=self.user,
         )
         new_store.save()
 
-        self.assertFalse(self.repo.does_item_exist("Test Item", new_store))
+        self.assertFalse(self.repo.does_item_exist(TEST_ITEM, new_store))
 
     def test_does_item_exist_should_be_false_when_name_does_not_match_but_store_does(
         self,
     ):
         """Test the does item exist method when the name does not match but the store does."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
@@ -368,19 +371,19 @@ class TestItemRepo(TestCase):
     def test_does_item_exist_should_be_true_when_name_and_store_match(self):
         """Test the does item exist method when the name and store match."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
         )
         item.save()
 
-        self.assertTrue(self.repo.does_item_exist("Test Item", self.store))
+        self.assertTrue(self.repo.does_item_exist(TEST_ITEM, self.store))
 
     def test_create_item_should_create_item(self):
         """Test the create item method."""
-        item = self.repo.create_item("Test Item", self.store, 10, self.user)
-        self.assertEqual(item.name, "Test Item")
+        item = self.repo.create_item(TEST_ITEM, self.store, 10, self.user)
+        self.assertEqual(item.name, TEST_ITEM)
         self.assertEqual(item.store, self.store)
         self.assertEqual(item.price, 10)
         self.assertEqual(item.user, self.user)

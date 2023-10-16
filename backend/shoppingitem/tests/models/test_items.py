@@ -5,6 +5,7 @@ import pytest
 from shoppingitem.models import ShoppingItem, ShoppingStore
 from ..helpers import TestCase, create_test_user, create_test_user_client
 
+TEST_ITEM = "Test Item"
 
 class TestItemModel(TestCase):
     """Test the ShoppingItem model."""
@@ -26,14 +27,14 @@ class TestItemModel(TestCase):
     def test_item_model(self):
         """Test the item model."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,
         )
         item.save()
 
-        self.assertEqual(item.name, "Test Item")
+        self.assertEqual(item.name, TEST_ITEM)
         self.assertEqual(item.store, self.store)
         self.assertEqual(item.price, 10)
         self.assertEqual(item.user, self.user)
@@ -41,7 +42,7 @@ class TestItemModel(TestCase):
     def test_item_model_str(self):
         """Test the item model string representation."""
         item = ShoppingItem(
-            name="Test Item",
+            name=TEST_ITEM,
             store=self.store,
             price=10,
             user=self.user,

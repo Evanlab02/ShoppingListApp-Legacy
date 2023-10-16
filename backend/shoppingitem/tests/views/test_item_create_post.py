@@ -6,7 +6,7 @@ from shoppingitem.models import ShoppingItem, ShoppingStore
 from ..helpers import TestCase, DjangoClient, create_test_user
 
 CREATE_POST_URL = "/items/create/item/action"
-
+FIELD_ERROR_URL = "/items/create/error?error=Please+fill+in+all+fields."
 
 class TestCreatePostView(TestCase):
     """Test the create post view."""
@@ -24,7 +24,7 @@ class TestCreatePostView(TestCase):
         response = self.client.post(CREATE_POST_URL)
         self.assertRedirects(
             response,
-            "/items/create/error?error=Please+fill+in+all+fields.",
+            FIELD_ERROR_URL,
             301,
             200,
             fetch_redirect_response=False,
@@ -35,7 +35,7 @@ class TestCreatePostView(TestCase):
         response = self.client.post(CREATE_POST_URL, {"item-input": ""})
         self.assertRedirects(
             response,
-            "/items/create/error?error=Please+fill+in+all+fields.",
+            FIELD_ERROR_URL,
             301,
             200,
             fetch_redirect_response=False,
@@ -46,7 +46,7 @@ class TestCreatePostView(TestCase):
         response = self.client.post(CREATE_POST_URL, {"item-input": "test"})
         self.assertRedirects(
             response,
-            "/items/create/error?error=Please+fill+in+all+fields.",
+            FIELD_ERROR_URL,
             301,
             200,
             fetch_redirect_response=False,
@@ -59,7 +59,7 @@ class TestCreatePostView(TestCase):
         )
         self.assertRedirects(
             response,
-            "/items/create/error?error=Please+fill+in+all+fields.",
+            FIELD_ERROR_URL,
             301,
             200,
             fetch_redirect_response=False,
