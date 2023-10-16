@@ -8,6 +8,7 @@ from ..helpers import TestCase, create_test_user, create_test_user_client
 TEST_STORE = "Test Store"
 TEST_DESCRIPTION = "Test Description"
 
+
 class TestStoreModel(TestCase):
     """Test the ShoppingStore model."""
 

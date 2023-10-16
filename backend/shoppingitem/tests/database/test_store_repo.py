@@ -16,6 +16,7 @@ TEST_DESCRIPTION = "Test Description"
 ALT_TEST_STORE = "Test Store 2"
 ALT_TEST_DESCRIPTION = "Test Description 2"
 
+
 class TestStoreRepo(TestCase):
     """Tests for the store repository."""
 

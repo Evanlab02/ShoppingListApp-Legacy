@@ -8,6 +8,7 @@ from ..helpers import TestCase, DjangoClient, create_test_user
 CREATE_POST_URL = "/items/create/item/action"
 FIELD_ERROR_URL = "/items/create/error?error=Please+fill+in+all+fields."
 
+
 class TestCreatePostView(TestCase):
     """Test the create post view."""
 
