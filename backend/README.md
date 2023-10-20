@@ -1,16 +1,30 @@
 # Backend
 
-Before trying to get the backend running, please make sure you have gotten the postgres database running. You can do this easily by starting the server with `docker-compose up` in the root of the project.
+Before trying to get the backend running, please make sure you have gone through: [Get the server running locally](../server/README.md). You do not need to follow the steps here, just familiarize yourself with the steps.
 
-Here is a step by step guide to get the server running locally: [Get the server running locally](../server/README.md)
-
-Below you will find a step by step guide to get the backend running locally.
+When you have read that, you can follow the steps below to get the backend running locally.
 
 ## Copy .env file
 
-As part of the server setup, you need to create .env file in the root of the project. You can copy that .env file and put it in the root of the backend folder.
+As part of the server setup, you need to create .env file in the `server/production/` folder. You can copy that .env file and put it in the root of the backend folder and the root of the repository.
 
 Make sure the credentials between the two .env files match as this is needed to connect to postgres. Please note that when running locally, you should be using the dev database.
+
+## Start dev resources
+
+To start the dev resources, run the following command in the root of the repository:
+
+```bash
+make dev
+```
+
+or
+
+```bash
+docker compose -f compose.yml watch
+```
+
+When doing this the compose file will try to auto reload files when changes are made. This is very useful when developing. However you can still follow the steps below to get the backend running on your machine and not in docker.
 
 ## Install dependencies
 
@@ -37,13 +51,13 @@ pip install -r dev-requirements.txt
 Once you have the dependencies installed, you can run the backend using the following command:
 
 ```bash
-python manage.py runserver --settings=shoppingapp.settings.local_settings
+python manage.py runserver localhost:7000 --settings=shoppingapp.settings.local_settings
 ```
 
 If you are using pipenv, you can run the backend using the following command:
 
 ```bash
-pipenv run python manage.py runserver --settings=shoppingapp.settings.local_settings
+pipenv run python manage.py runserver localhost:7000 --settings=shoppingapp.settings.local_settings
 ```
 
 ## Accessing the API
@@ -51,5 +65,5 @@ pipenv run python manage.py runserver --settings=shoppingapp.settings.local_sett
 Once you have the backend running, you can access the API by going to the following url:
 
 ```bash
-http://localhost:8000/api/docs#
+http://localhost:7000/api/docs#
 ```

@@ -91,8 +91,8 @@ DATABASES = {
         "NAME": os.environ.get("DEV_DJANGO_DATABASE_NAME"),
         "USER": os.environ.get("DEV_DJANGO_DATABASE_USER"),
         "PASSWORD": os.environ.get("DEV_DJANGO_DATABASE_PASSWORD"),
-        "HOST": properties.get("LOCAL_DEV_DB_HOST").data,
-        "PORT": int(properties.get("LOCAL_DEV_DB_PORT").data),
+        "HOST": properties.get("DEV_DB_HOST").data,
+        "PORT": int(properties.get("DEV_DB_PORT").data),
     }
 }
 

@@ -1,6 +1,7 @@
 FROM python:3.10.0-slim-buster
 
 RUN apt-get update
+RUN apt-get upgrade -y
 RUN apt-get install libpq-dev -y
 
 COPY . /app

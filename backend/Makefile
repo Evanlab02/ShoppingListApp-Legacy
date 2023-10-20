@@ -44,3 +44,10 @@ clean:
 
 super-user:
 	python manage.py createsuperuser --settings=shoppingapp.settings.local_settings
+
+
+IMAGE_NAME = shopping-django-app
+VERSION := $(shell cat version.txt)
+
+build:
+	docker build -t $(IMAGE_NAME):$(VERSION) .
