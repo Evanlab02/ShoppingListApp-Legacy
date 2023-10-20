@@ -69,7 +69,7 @@ class TestItemCreateView(TestCase):
 
         self.assertContains(
             self.response,
-            '<input class="text-input" type="text" name="description-input" id="description-input">',
+            'input class="text-input" type="text" name="description-input" id="description-input">',
         )
 
         self.assertContains(
