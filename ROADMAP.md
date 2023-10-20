@@ -55,7 +55,7 @@ Find below the roadmap for the project. It is subject to change.
 - [x] View all stores
 - [x] View store details
 - [x] View item details
-- [ ] Create stores
+- [x] Create stores
 - [x] Create items
 - [ ] Edit stores
 - [ ] Edit items

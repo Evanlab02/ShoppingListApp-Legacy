@@ -168,6 +168,20 @@ def create_item(request: HttpRequest) -> HttpResponse:
     return HttpResponsePermanentRedirect(f"/items/detail/{item.id}")
 
 @login_required(login_url="/")
+@require_http_methods(["GET"])
+def get_store_create_page(request: HttpRequest) -> HttpResponse:
+    """
+    Render the store create page.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: The rendered store create page.
+    """
+    return RENDER_HELPER.render_store_create_page(request)
+
+@login_required(login_url="/")
 @require_http_methods(["POST"])
 def create_store(request: HttpRequest) -> HttpResponse:
     """
