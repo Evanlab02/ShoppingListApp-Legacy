@@ -46,11 +46,11 @@ class TestLogoutView(TestCase):
     def test_logout_action_redirects_if_not_logged_in(self):
         """Test the logout action redirects if the user is not logged in."""
         response = self.client.post("/logout/action")
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response,
             "/",
-            status_code=301,
+            status_code=302,
             target_status_code=200,
             fetch_redirect_response=False,
         )
@@ -85,11 +85,11 @@ class TestLogoutView(TestCase):
     def test_get_logout_page_redirects_if_not_logged_in(self):
         """Test the logout page redirects if the user is not logged in."""
         response = self.client.get("/logout")
-        self.assertEqual(response.status_code, 301)
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response,
             "/",
-            status_code=301,
+            status_code=302,
             target_status_code=200,
             fetch_redirect_response=False,
         )

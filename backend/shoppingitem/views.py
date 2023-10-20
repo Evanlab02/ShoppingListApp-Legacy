@@ -1,14 +1,17 @@
 """Contains the shoppingitem app views."""
 
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+
 from .database import ItemRepository, StoreRepository
-from .helpers import require_http_methods, RenderHelper
+from .helpers import RenderHelper
 from .types import HttpRequest, HttpResponse, HttpResponsePermanentRedirect
 
 RENDER_HELPER = RenderHelper()
 ITEM_REPO = ItemRepository()
 STORE_REPO = StoreRepository()
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def item_user_overview_page(request: HttpRequest) -> HttpResponse:
     """
@@ -22,7 +25,7 @@ def item_user_overview_page(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_overview_page(request, True)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def item_overview_page(request: HttpRequest) -> HttpResponse:
     """
@@ -36,7 +39,7 @@ def item_overview_page(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_overview_page(request)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_user_store_view(request: HttpRequest) -> HttpRequest:
     """
@@ -50,7 +53,7 @@ def get_user_store_view(request: HttpRequest) -> HttpRequest:
     """
     return RENDER_HELPER.render_store_overview_page(request, True)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_store_view(request: HttpRequest) -> HttpRequest:
     """
@@ -64,7 +67,7 @@ def get_store_view(request: HttpRequest) -> HttpRequest:
     """
     return RENDER_HELPER.render_store_overview_page(request)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
     """
@@ -79,7 +82,7 @@ def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_detail_view(request, item_id)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
     """
@@ -94,7 +97,7 @@ def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
     """
     return RENDER_HELPER.render_store_detail_view(request, store_id)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_item_create_page(request: HttpRequest) -> HttpResponse:
     """
@@ -108,7 +111,7 @@ def get_item_create_page(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_create_page(request)
 
-
+@login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
     """
@@ -122,7 +125,7 @@ def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_create_page(request)
 
-
+@login_required(login_url="/")
 @require_http_methods(["POST"])
 def create_item(request: HttpRequest) -> HttpResponse:
     """
@@ -132,7 +135,7 @@ def create_item(request: HttpRequest) -> HttpResponse:
         request(HttpRequest): The request object.
 
     Returns:
-        HttpResponse: The rendered item create page.
+        HttpResponse: Redirect to the item detail page or the item create page with an error.
     """
     name = request.POST.get("item-input")
     store_name = request.POST.get("store-input")
@@ -163,3 +166,27 @@ def create_item(request: HttpRequest) -> HttpResponse:
 
     item = ITEM_REPO.create_item(name, store, float(price), request.user)
     return HttpResponsePermanentRedirect(f"/items/detail/{item.id}")
+
+@login_required(login_url="/")
+@require_http_methods(["POST"])
+def create_store(request: HttpRequest) -> HttpResponse:
+    """
+    Create a store.
+
+    Args:
+        request(HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: Redirect to the store detail page or the store create page with an error.
+    """
+    user = request.user
+    name = request.POST.get("store-input")
+    store_type = request.POST.get("store-type-input")
+    description = request.POST.get("description-input") or ""
+
+    store = STORE_REPO.create_store(
+        name,
+        store_type,
+        description,
+        user
+    )
