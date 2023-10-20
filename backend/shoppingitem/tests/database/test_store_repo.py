@@ -278,3 +278,23 @@ class TestStoreRepo(TestCase):
                 store_type=1,
                 user=self.user
             )
+
+    def test_create_store_with_invalid_type(self):
+        """Test creating a store with an invalid type."""
+        with self.assertRaises(ValueError):
+            self.repo.create_store(
+                name=TEST_STORE,
+                description=TEST_DESCRIPTION,
+                store_type=4,
+                user=self.user
+            )
+
+    def test_create_store_with_invalid_type_string(self):
+        """Test creating a store with an invalid type string."""
+        with self.assertRaises(TypeError):
+            self.repo.create_store(
+                name=TEST_STORE,
+                description=TEST_DESCRIPTION,
+                store_type="1",
+                user=self.user
+            )

@@ -104,6 +104,10 @@ class StoreRepository:
         """
         if self.does_store_exist(name):
             raise ValueError(f"Store with name '{name}' already exists.")
+        elif not isinstance(store_type, int):
+            raise TypeError(f"Store type '{store_type}' is not an integer.")
+        elif store_type not in [1, 2, 3]:
+            raise ValueError(f"Store type '{store_type}' is invalid.")
 
         store = ShoppingStore(
             name=name, 
