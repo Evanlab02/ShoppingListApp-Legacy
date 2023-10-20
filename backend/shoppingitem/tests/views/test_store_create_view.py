@@ -23,9 +23,7 @@ class TestItemCreateView(TestCase):
 
         self.assertContains(self.response, "<h2>Create Store</h2>")
 
-        self.assertContains(
-            self.response, '<h2 id="form-heading">Create Store</h2>'
-        )
+        self.assertContains(self.response, '<h2 id="form-heading">Create Store</h2>')
 
         self.assertContains(
             self.response,
@@ -41,7 +39,9 @@ class TestItemCreateView(TestCase):
             '<input class="text-input" type="text" name="store-input" id="store-input">',
         )
 
-        self.assertContains(self.response, '<label for="store-type-input">Store Type:</label>')
+        self.assertContains(
+            self.response, '<label for="store-type-input">Store Type:</label>'
+        )
 
         self.assertContains(
             self.response,
@@ -63,7 +63,9 @@ class TestItemCreateView(TestCase):
             '<option value="3">Both</option>',
         )
 
-        self.assertContains(self.response, '<label for="description-input">Description:</label>')
+        self.assertContains(
+            self.response, '<label for="description-input">Description:</label>'
+        )
 
         self.assertContains(
             self.response,

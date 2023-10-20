@@ -11,6 +11,7 @@ RENDER_HELPER = RenderHelper()
 ITEM_REPO = ItemRepository()
 STORE_REPO = StoreRepository()
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def item_user_overview_page(request: HttpRequest) -> HttpResponse:
@@ -24,6 +25,7 @@ def item_user_overview_page(request: HttpRequest) -> HttpResponse:
         HttpResponse: The rendered item user overview page.
     """
     return RENDER_HELPER.render_item_overview_page(request, True)
+
 
 @login_required(login_url="/")
 @require_http_methods(["GET"])
@@ -39,6 +41,7 @@ def item_overview_page(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_overview_page(request)
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_user_store_view(request: HttpRequest) -> HttpRequest:
@@ -53,6 +56,7 @@ def get_user_store_view(request: HttpRequest) -> HttpRequest:
     """
     return RENDER_HELPER.render_store_overview_page(request, True)
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_store_view(request: HttpRequest) -> HttpRequest:
@@ -66,6 +70,7 @@ def get_store_view(request: HttpRequest) -> HttpRequest:
         HttpResponse: The rendered store view.
     """
     return RENDER_HELPER.render_store_overview_page(request)
+
 
 @login_required(login_url="/")
 @require_http_methods(["GET"])
@@ -82,6 +87,7 @@ def get_item_detail_view(request: HttpRequest, item_id: int) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_detail_view(request, item_id)
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
@@ -97,6 +103,7 @@ def get_store_detail_view(request: HttpRequest, store_id: int) -> HttpResponse:
     """
     return RENDER_HELPER.render_store_detail_view(request, store_id)
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_item_create_page(request: HttpRequest) -> HttpResponse:
@@ -111,6 +118,7 @@ def get_item_create_page(request: HttpRequest) -> HttpResponse:
     """
     return RENDER_HELPER.render_item_create_page(request)
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
@@ -124,6 +132,7 @@ def get_item_create_page_with_error(request: HttpRequest) -> HttpResponse:
         HttpResponse: The rendered item create page with an error.
     """
     return RENDER_HELPER.render_item_create_page(request)
+
 
 @login_required(login_url="/")
 @require_http_methods(["POST"])
@@ -167,6 +176,7 @@ def create_item(request: HttpRequest) -> HttpResponse:
     item = ITEM_REPO.create_item(name, store, float(price), request.user)
     return HttpResponsePermanentRedirect(f"/items/detail/{item.id}")
 
+
 @login_required(login_url="/")
 @require_http_methods(["GET"])
 def get_store_create_page(request: HttpRequest) -> HttpResponse:
@@ -180,6 +190,7 @@ def get_store_create_page(request: HttpRequest) -> HttpResponse:
         HttpResponse: The rendered store create page.
     """
     return RENDER_HELPER.render_store_create_page(request)
+
 
 @login_required(login_url="/")
 @require_http_methods(["POST"])
@@ -211,15 +222,8 @@ def create_store(request: HttpRequest) -> HttpResponse:
         )
 
     try:
-        store = STORE_REPO.create_store(
-            name,
-            store_type,
-            description,
-            user
-        )
+        store = STORE_REPO.create_store(name, store_type, description, user)
     except ValueError as error:
-        return HttpResponsePermanentRedirect(
-            f"/items/stores/create?error={error}"
-        )
+        return HttpResponsePermanentRedirect(f"/items/stores/create?error={error}")
 
     return HttpResponsePermanentRedirect(f"/items/stores/detail/{store.id}")

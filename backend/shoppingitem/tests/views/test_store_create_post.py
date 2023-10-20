@@ -9,6 +9,7 @@ CREATE_POST_URL = "/items/create/store/action"
 TEST_STORE_NAME = "test-store-name"
 TEST_DESCRIPTION = "test"
 
+
 class TestStoreCreatePostView(TestCase):
     """Test the create post view."""
 

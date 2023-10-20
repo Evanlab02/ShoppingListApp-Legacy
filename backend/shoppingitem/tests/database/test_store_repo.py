@@ -229,10 +229,7 @@ class TestStoreRepo(TestCase):
     def test_create_store(self):
         """Test creating a store."""
         store = self.repo.create_store(
-            name=TEST_STORE,
-            description=TEST_DESCRIPTION,
-            store_type=1,
-            user=self.user
+            name=TEST_STORE, description=TEST_DESCRIPTION, store_type=1, user=self.user
         )
 
         self.assertEqual(store.name, TEST_STORE)
@@ -259,10 +256,7 @@ class TestStoreRepo(TestCase):
     def test_create_store_should_fail_with_duplicate(self):
         """Test creating a store should fail with duplicate."""
         store = self.repo.create_store(
-            name=TEST_STORE,
-            description=TEST_DESCRIPTION,
-            store_type=1,
-            user=self.user
+            name=TEST_STORE, description=TEST_DESCRIPTION, store_type=1, user=self.user
         )
         store.save()
 
@@ -276,7 +270,7 @@ class TestStoreRepo(TestCase):
                 name=TEST_STORE,
                 description=TEST_DESCRIPTION,
                 store_type=1,
-                user=self.user
+                user=self.user,
             )
 
     def test_create_store_with_invalid_type(self):
@@ -286,7 +280,7 @@ class TestStoreRepo(TestCase):
                 name=TEST_STORE,
                 description=TEST_DESCRIPTION,
                 store_type=4,
-                user=self.user
+                user=self.user,
             )
 
     def test_create_store_with_invalid_type_string(self):
@@ -296,5 +290,5 @@ class TestStoreRepo(TestCase):
                 name=TEST_STORE,
                 description=TEST_DESCRIPTION,
                 store_type="1",
-                user=self.user
+                user=self.user,
             )

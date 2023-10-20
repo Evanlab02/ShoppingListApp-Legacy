@@ -110,10 +110,7 @@ class StoreRepository:
             raise ValueError(f"Store type '{store_type}' is invalid.")
 
         store = ShoppingStore(
-            name=name, 
-            store_type=store_type, 
-            description=description, 
-            user=user
+            name=name, store_type=store_type, description=description, user=user
         )
         store.save()
         return store

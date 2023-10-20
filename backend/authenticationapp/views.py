@@ -74,6 +74,7 @@ def login_action(request: HttpRequest) -> HttpResponsePermanentRedirect:
 
     return HttpResponsePermanentRedirect("/error")
 
+
 @login_required(login_url="/", redirect_field_name=None)
 @require_http_methods(["GET"])
 def logout_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpResponse:
@@ -89,6 +90,7 @@ def logout_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpRes
     return USER_REPOSITORY.render_or_redirect(
         request, "/", "auth/logout.html", auth=False
     )
+
 
 @login_required(login_url="/", redirect_field_name=None)
 @require_http_methods(["POST"])
