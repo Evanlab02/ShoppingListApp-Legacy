@@ -1,6 +1,6 @@
 """Contains the item repository for the shoppingitem app."""
 
-from shoppinglist.helpers.utilities import get_number_of_shopping_lists_linked_to_item
+from shoppinglist.database import ShoppingListRepository
 
 from ..models import ShoppingItem, ShoppingStore
 from ..types import User
@@ -8,6 +8,10 @@ from ..types import User
 
 class ItemRepository:
     """The item repository class."""
+
+    def __init__(self) -> None:
+        """Initialise the item repository."""
+        self.list_repo = ShoppingListRepository()
 
     def get_recent_items(self) -> list[ShoppingItem]:
         """
@@ -63,7 +67,7 @@ class ItemRepository:
         Returns:
             int: The number of shopping lists linked to the item.
         """
-        return get_number_of_shopping_lists_linked_to_item(item)
+        return self.list_repo.get_number_of_shopping_lists_linked_to_item(item)
 
     def count_items_from_store(self, store: ShoppingStore) -> int:
         """

@@ -22,7 +22,7 @@ auth-tests:
 
 list-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v shoppinglist/tests/
+	pytest -v --cov=shoppinglist/ --cov-report term-missing shoppinglist/tests/
 
 item-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings

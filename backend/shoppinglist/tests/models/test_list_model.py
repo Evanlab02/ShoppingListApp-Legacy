@@ -50,15 +50,3 @@ class TestShoppingListModel(TestCase):
             user=user,
         )
         self.assertFalse(shopping_list.is_current())
-
-    def test_get_current(self):
-        """Test that the get_current method returns the correct list"""
-        user = User.objects.create(username="testuser")
-        shopping_list = ShoppingList.objects.create(
-            name=LIST_NAME,
-            description=LIST_DESCRIPTION,
-            start_date=date.today() - timedelta(days=1),
-            end_date=date.today() + timedelta(days=1),
-            user=user,
-        )
-        self.assertEqual(ShoppingList.get_current(user), shopping_list)

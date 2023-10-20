@@ -1,8 +1,8 @@
-"""Contains schemas for the shoppinglist app."""
-
-from ninja import Schema
+"""Contains output schemas for the shopping list app."""
 
 from shoppingitem.schemas import ShoppingItemModelSchema
+from shoppinglist.types import Schema
+from .sub_output import BarChartDataset
 
 
 class DashboardCurrentSchema(Schema):
@@ -18,13 +18,6 @@ class DashboardRecentSchema(Schema):
     """Schema for the recent dashboard route."""
 
     recent_items: list[ShoppingItemModelSchema]
-
-
-class BarChartDataset(Schema):
-    """Schema for the bar chart dataset."""
-
-    label: str
-    data: list[int]
 
 
 class DashboardHistorySchema(Schema):
