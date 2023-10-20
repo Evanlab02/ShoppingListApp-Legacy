@@ -18,15 +18,15 @@ test:
 
 auth-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v authenticationapp/tests/
+	pytest -v --cov=authenticationapp/ --cov-report term-missing authenticationapp/tests/
 
 list-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v shoppinglist/tests/
+	pytest -v --cov=shoppinglist/ --cov-report term-missing shoppinglist/tests/
 
 item-tests:
 	python manage.py makemigrations --settings=shoppingapp.settings.test_settings
-	pytest -v shoppingitem/tests/
+	pytest -v --cov=shoppingitem/ --cov-report term-missing shoppingitem/tests/
 
 static:
 	python manage.py collectstatic --noinput --settings=shoppingapp.settings.local_settings
@@ -41,3 +41,6 @@ migrate:
 clean:
 	rm -rf .coverage coverage.xml .pytest_cache
 	rm -rf **/migrations/0*.py
+
+super-user:
+	python manage.py createsuperuser --settings=shoppingapp.settings.local_settings

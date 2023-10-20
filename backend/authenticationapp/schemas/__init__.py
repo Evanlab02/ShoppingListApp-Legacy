@@ -1,1 +1,1 @@
-"""Contains schemas for the authentication app."""
+"""Contains all schemas for the authentication app."""

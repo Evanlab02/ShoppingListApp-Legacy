@@ -21,8 +21,8 @@ from django.urls import path, include
 
 from ninja import NinjaAPI
 
-from authenticationapp.routes.routes import auth_router
-from shoppinglist.routes.dashboard_router import dashboard_router
+from authenticationapp.routes import auth_router
+from shoppinglist.routes import dashboard_router
 
 api = NinjaAPI()
 

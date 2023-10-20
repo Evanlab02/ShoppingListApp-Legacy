@@ -6,21 +6,20 @@
     <title>Shopping App</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
     <link rel="stylesheet" href="{% static 'auth/base.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
 <body class="body-block">
-    <div class="login-block">
-        <div class="login-top">
-            <h2 id="login-heading">Shopping App Register</h2>
+    <div class="auth-block">
+        <div class="auth-top">
+            <h2 id="auth-heading">Shopping App Register</h2>
         </div>
         {% if error %}
-        <div class="login-middle">
+        <div class="auth-middle">
             <p class="error-message">{{ error }}</p>
         </div>
         {% endif %}
-        <form class="login-bottom" action="{% url 'register_action' %}" method="post">
+        <form class="auth-bottom" action="{% url 'register_action' %}" method="post">
             {% csrf_token %}
             <fieldset>
                 <div class="form-row">

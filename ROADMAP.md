@@ -56,25 +56,32 @@ Find below the roadmap for the project. It is subject to change.
 - [x] View store details
 - [x] View item details
 - [ ] Create stores
-- [ ] Create items
+- [x] Create items
 - [ ] Edit stores
 - [ ] Edit items
 - [ ] Delete stores
 - [ ] Delete items
+- [ ] Change dashboard current endpoint to return total budget amount instead of average item price
+
+### Refactoring and Improvements
+
+- [ ] Add to register endpoint to check for matching passwords
+- [ ] Add tests for database repositories in Shopping List App
+- [x] Change API Key Header to be based on application.properties
+- [x] Add support for different environments (dev, prod)
 
 ## Frontend - V0.7.1
 
 - [x] Link Dashboard to user items page
+- [ ] Change average item price to total budget amount
 
 ## Server - V0.5.0
 
 - [x] PGadmin now gets started with docker-compose
+- [x] Create a dev and production database
+- [ ] Create maintenance page for when the server is down
 
 ## Backend - V1.1.0
 
 - [ ] Add functionality for wishlists
 - [ ] Add functionality for linking to online stores
-
-## Frontend - V1.0.1
-
-- [ ] Change average item price to total budget amount

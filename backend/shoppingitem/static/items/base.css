@@ -10,6 +10,27 @@ header {
     margin: 0;
 }
 
+.content-wrapper {
+    width: 96vw;
+    background-color: #e3f2fd;
+    border-radius: .5rem;
+    border-color: #fff;
+    border-width: 3rem;
+    padding: 1rem;
+    margin: 1rem;
+    display: grid;
+}
+
+.content-wrapper-soft {
+    width: 96vw;
+    background-color: #e3f2fd;
+    border-radius: .5rem;
+    border-color: #fff;
+    border-width: 3rem;
+    padding: 1rem;
+    margin: 1rem;
+}
+
 .navbar {
     background-color: #fff;
     min-height: 80px;

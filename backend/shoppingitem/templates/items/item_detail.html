@@ -12,8 +12,8 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'items/base.css' %}">
-    <link rel="stylesheet" href="{% static 'items/overview.css' %}">
     <link rel="stylesheet" href="{% static 'items/detail.css' %}">
+    <link rel="stylesheet" href="{% static 'items/cards.css' %}">
 </head>
 
 <body class="body-block">
@@ -28,6 +28,9 @@
             </div>
             <div class="menu-list-button">
                 <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="plus-circle" onclick="window.location.href='/items/create'" />
             </div>
         </div>
     </header>
@@ -89,7 +92,7 @@
                 </div>
                 <div class="mini-card-content">
                     <p class="value">Last updated</p>
-                    <p id="last-updated-sub-value" class="sub-value">{{ item.updated_at }}</p>
+                    <p id="last-updated-sub-value" class="sub-value">{{ item.updated_at }} UTC</p>
                 </div>
             </div>
         </div>

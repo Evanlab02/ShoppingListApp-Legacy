@@ -1,26 +1,34 @@
 """Contains the shopping list app's models."""
 
-from django.db import models
-from django.utils import timezone
-
-from django.contrib.auth.models import User
+from .helpers import timezone
+from .types import (
+    User,
+    Model,
+    DecimalField,
+    DateTimeField,
+    CharField,
+    DateField,
+    ForeignKey,
+    IntegerField,
+    ManyToManyField,
+    TextField,
+    CASCADE,
+)
 
 from shoppingitem.models import ShoppingItem
 
 
-class ShoppingList(models.Model):
+class ShoppingList(Model):
     """Represents a shopping list."""
 
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField(
-        ShoppingItem, blank=True, through="ShoppingItemQuantity"
-    )
+    name = CharField(max_length=100)
+    description = TextField(blank=True)
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+    start_date = DateField()
+    end_date = DateField()
+    user = ForeignKey(User, on_delete=CASCADE)
+    items = ManyToManyField(ShoppingItem, blank=True, through="ShoppingItemQuantity")
 
     def __str__(self):
         """Return a string representation of the shopping list."""
@@ -30,28 +38,26 @@ class ShoppingList(models.Model):
         """Return True if the shopping list is current."""
         return self.start_date <= timezone.now().date() <= self.end_date
 
-    @classmethod
-    def get_current(cls, user):
-        """Return the current shopping list."""
-        return (
-            ShoppingList.objects.filter(user=user)
-            .filter(start_date__lte=timezone.now().date())
-            .filter(end_date__gte=timezone.now().date())
-            .first()
-        )
 
-
-class ShoppingItemQuantity(models.Model):
+class ShoppingItemQuantity(Model):
     """Represents a shopping item quantity."""
 
-    quantity = models.IntegerField()
-    shopping_item = models.ForeignKey(ShoppingItem, on_delete=models.CASCADE)
-    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
+    quantity = IntegerField()
+    shopping_item = ForeignKey(ShoppingItem, on_delete=CASCADE)
+    shopping_list = ForeignKey(ShoppingList, on_delete=CASCADE)
+
+    def __str__(self):
+        """Return a string representation of the shopping item quantity."""
+        return f"{self.quantity} {self.shopping_item.name} @ {self.shopping_list.name}"
 
 
-class ShoppingBudget(models.Model):
+class ShoppingBudget(Model):
     """Represents a shopping budget."""
 
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    shopping_list = models.ForeignKey(ShoppingList, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = DecimalField(max_digits=10, decimal_places=2)
+    shopping_list = ForeignKey(ShoppingList, on_delete=CASCADE)
+    user = ForeignKey(User, on_delete=CASCADE)
+
+    def __str__(self):
+        """Return a string representation of the shopping budget."""
+        return f"{self.amount} @ {self.shopping_list.name} for {self.user.username}"

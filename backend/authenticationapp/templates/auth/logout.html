@@ -6,17 +6,16 @@
     <title>Shopping App</title>
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
     <link rel="stylesheet" href="{% static 'auth/base.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body class="body-block">
-    <div class="login-block">
-        <div class="login-top">
-            <h2 id="login-heading">Shopping App Logout</h2>
+    <div class="auth-block">
+        <div class="auth-top">
+            <h2 id="auth-heading">Shopping App Logout</h2>
         </div>
-        <form class="login-bottom" action="{% url 'logout_action' %}" method="post">
+        <form class="auth-bottom" action="{% url 'logout_action' %}" method="post">
             {% csrf_token %}
             <fieldset>
                 <div class="form-row">

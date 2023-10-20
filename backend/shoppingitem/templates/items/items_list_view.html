@@ -13,6 +13,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'items/base.css' %}">
     <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'items/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'items/table.css' %}">
 </head>
 
 <body class="body-block">
@@ -33,6 +35,9 @@
             {% endif %}
             <div class="menu-list-button">
                 <sl-icon-button name="shop-window" onclick="window.location.href='/items/stores/me'" />
+            </div>
+            <div class="menu-list-button">
+                <sl-icon-button name="plus-circle" onclick="window.location.href='/items/create'" />
             </div>
         </div>
     </header>

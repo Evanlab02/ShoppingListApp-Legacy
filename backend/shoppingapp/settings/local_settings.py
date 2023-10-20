@@ -13,8 +13,13 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from jproperties import Properties
 
 load_dotenv(".env")
+
+with open("application.properties", "rb") as app_properties:
+    properties = Properties()
+    properties.load(app_properties)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,12 +29,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_KEY"]
+SECRET_KEY = os.environ["DEV_DJANGO_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "192.168.0.3"]
+ALLOWED_HOSTS = [properties.get("LOCAL_HOST").data]
 
 
 # Application definition
@@ -83,11 +88,11 @@ WSGI_APPLICATION = "shoppingapp.configs.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DJANGO_DATABASE_NAME"),
-        "USER": os.environ.get("DJANGO_DATABASE_USER"),
-        "PASSWORD": os.environ.get("DJANGO_DATABASE_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": os.environ.get("DEV_DJANGO_DATABASE_NAME"),
+        "USER": os.environ.get("DEV_DJANGO_DATABASE_USER"),
+        "PASSWORD": os.environ.get("DEV_DJANGO_DATABASE_PASSWORD"),
+        "HOST": properties.get("DEV_DB_HOST").data,
+        "PORT": int(properties.get("DEV_DB_PORT").data),
     }
 }
 

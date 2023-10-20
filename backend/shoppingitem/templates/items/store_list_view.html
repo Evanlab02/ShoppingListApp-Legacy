@@ -13,6 +13,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'items/base.css' %}">
     <link rel="stylesheet" href="{% static 'items/overview.css' %}">
+    <link rel="stylesheet" href="{% static 'items/cards.css' %}">
+    <link rel="stylesheet" href="{% static 'items/table.css' %}">
 </head>
 
 <body class="body-block">
@@ -47,22 +49,22 @@
                     <p id="total-items-sub-value" class="sub-value">{{ total }}</p>
                 </div>
             </div>
-            <div class="mini-card total-price-card">
-                <div class="mini-card-icon total-price-icon">
+            <div class="mini-card total-in-stores-card">
+                <div class="mini-card-icon total-in-stores-icon">
                     <sl-icon name="cart4" />
                 </div>
                 <div class="mini-card-content">
                     <p class="value">Total in-store stores</p>
-                    <p id="total-price-sub-value" class="sub-value">{{ in_store_stores }}</p>
+                    <p id="total-in-stores-sub-value" class="sub-value">{{ in_store_stores }}</p>
                 </div>
             </div>
-            <div class="mini-card average-price-card">
-                <div class="mini-card-icon average-price-card-icon">
+            <div class="mini-card total-online-stores-card">
+                <div class="mini-card-icon total-online-stores-icon">
                     <sl-icon name="browser-chrome" />
                 </div>
                 <div class="mini-card-content">
                     <p class="value">Total online stores</p>
-                    <p id="average-price-sub-value" class="sub-value">{{ online_stores }}</p>
+                    <p id="total-online-stores-sub-value" class="sub-value">{{ online_stores }}</p>
                 </div>
             </div>
         </div>
