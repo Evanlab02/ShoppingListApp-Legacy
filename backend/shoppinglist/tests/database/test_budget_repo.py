@@ -8,6 +8,7 @@ from shoppingitem.models import ShoppingItem, ShoppingStore
 from shoppinglist.database import BudgetRepository
 from shoppinglist.models import ShoppingList, ShoppingBudget, ShoppingItemQuantity
 
+
 class TestBudgetRepository(TestCase):
     """Contains tests for the budget repository."""
 
@@ -83,4 +84,3 @@ class TestBudgetRepository(TestCase):
         )
 
         self.assertEqual(budget_remaining, 0)
-

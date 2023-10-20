@@ -3,6 +3,7 @@
 from django.test import TestCase
 from shoppinglist.schemas.output.sub_output import BarChartDataset
 
+
 class TestSubOutputSchemas(TestCase):
     """Contains tests for the sub-output schemas."""
 

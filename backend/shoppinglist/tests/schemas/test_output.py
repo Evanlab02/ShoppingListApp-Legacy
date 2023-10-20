@@ -5,8 +5,13 @@ Contains test class for the output schemas.
 from django.test import TestCase
 
 from shoppingitem.schemas.shared import ShoppingItemModelSchema
-from shoppinglist.schemas.output import DashboardCurrentSchema, DashboardRecentSchema, DashboardHistorySchema
+from shoppinglist.schemas.output import (
+    DashboardCurrentSchema,
+    DashboardRecentSchema,
+    DashboardHistorySchema,
+)
 from shoppinglist.schemas.output.sub_output import BarChartDataset
+
 
 class TestOutputSchemas(TestCase):
     """Contains tests for the output schemas."""

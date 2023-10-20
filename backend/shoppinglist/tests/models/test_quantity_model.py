@@ -26,10 +26,17 @@ class TestShoppingItemQuantityModel(TestCase):
         )
         self.user.save()
 
-        self.store = ShoppingStore.objects.create(name="Test Store", description="Test Description", store_type=1, user=self.user)
+        self.store = ShoppingStore.objects.create(
+            name="Test Store",
+            description="Test Description",
+            store_type=1,
+            user=self.user,
+        )
         self.store.save()
 
-        self.item = ShoppingItem.objects.create(name="Test Item", price=1.00, store=self.store, user=self.user)
+        self.item = ShoppingItem.objects.create(
+            name="Test Item", price=1.00, store=self.store, user=self.user
+        )
         self.item.save()
 
         self.shopping_list = ShoppingList.objects.create(
