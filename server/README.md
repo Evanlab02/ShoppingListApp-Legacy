@@ -38,20 +38,29 @@ DEV_DJANGO_KEY="django-admin-secret-key"
 
 PGADMIN_DEFAULT_EMAIL="example@gmail.com"
 PGADMIN_DEFAULT_PASSWORD="example-password"
+
+BACKEND_VERSION="0.9.1" # Make sure to change this to the latest version
+SERVER_VERSION="0.4.0" # Make sure to change this to the latest version
 ```
 
 Please do not copy the above, make your credentials unique and secure.
 
 ### Starting the server
 
-You will need your port 80 to be available to start the server. If you have any other services running on port 80, please stop them before continuing or change the port in the `docker-compose.yml` file.
+You will first need to build the images for the server. To do this, run the following command in the root of the repository:
 
-You will also need port 5432, 8000 and 5050 to be available. If you have any other services running on these ports, please stop them before continuing or change the ports in the `docker-compose.yml` file.
+```bash
+make build
+```
+
+You will need your port 80 to be available to start the server. If you have any other services running on port 80, please stop them before continuing or change the port in the `server/production/docker-compose.yml` file.
+
+You will also need port 5432, 8000 and 5050 to be available. If you have any other services running on these ports, please stop them before continuing or change the ports in the `server/production/docker-compose.yml` file.
 
 To start the server, run the following command in the root of the repository:
 
 ```bash
-docker-compose up -d
+docker compose -f server/production/docker-compose.yml up -d
 ```
 
 ### Doing migrations
@@ -90,16 +99,25 @@ Here are a few links to get you started:
 To stop the server, run the following command in the root of the repository:
 
 ```bash
-docker-compose down
+docker-compose -f server/production/docker-compose.yml down
 ```
 
 This will still keep the database and the data in the database. If you want to remove the database and the data in the database, run the following command in the root of the repository:
 
 ```bash
-docker-compose down -v
+docker-compose -f server/production/docker-compose.yml down -v
 ```
+
+### Updating your release?
+
+To update your release, you will need to do the following:
+
+1. Stop the server
+2. Update .env file with the new versions in the new release
+3. Run make build in the new release directory
+4. Run docker-compose up -d (start the server) in the new release directory
+5. You are done!
 
 ### Developer documentation
 
 For more information about the server itself, please refer to the [developer documentation](docs/README.md).
-
