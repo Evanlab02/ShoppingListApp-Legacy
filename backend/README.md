@@ -6,7 +6,7 @@ When you have read that, you can follow the steps below to get the backend runni
 
 ## Copy .env file
 
-As part of the server setup, you need to create .env file in the root of the project. You can copy that .env file and put it in the root of the backend folder.
+As part of the server setup, you need to create .env file in the `server/production/` folder. You can copy that .env file and put it in the root of the backend folder and the root of the repository.
 
 Make sure the credentials between the two .env files match as this is needed to connect to postgres. Please note that when running locally, you should be using the dev database.
 

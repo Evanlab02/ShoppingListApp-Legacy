@@ -70,7 +70,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-data:
-    external: false
   dev-postgres-data:
     external: false

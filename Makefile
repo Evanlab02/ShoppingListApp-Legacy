@@ -7,17 +7,17 @@ BE_VERSION := $(shell cat backend/version.txt)
 up:
 	docker compose -f server/production/docker-compose.yml up -d --build
 
-dev:
-	docker compose -f compose.yml watch
-
 down:
+	docker compose -f server/production/docker-compose.yml down
+
+dev:
+	docker compose watch
+
+dev-down:
 	docker compose down
 
-clear:
+dev-clear:
 	docker compose down -v
-
-fresh: clear up
-	@echo "Fresh done!"
 
 build:
 	docker build -t $(BE_NAME):$(BE_VERSION) ./backend

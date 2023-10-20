@@ -21,7 +21,7 @@ Also note that while alot of measures have been taken to make this server as sec
 
 ### Creating a .env file
 
-Before you can start the server, you need to create a `.env` file in the root of the repository. This file will contain all the environment variables that the server needs to run.
+Before you can start the server, you need to create a `.env` in the `server/production/` folder. This file will contain all the environment variables that the server needs to run.
 
 It should look something like this:
 
