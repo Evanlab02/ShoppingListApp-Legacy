@@ -184,9 +184,28 @@ def create_store(request: HttpRequest) -> HttpResponse:
     store_type = request.POST.get("store-type-input")
     description = request.POST.get("description-input") or ""
 
-    store = STORE_REPO.create_store(
-        name,
-        store_type,
-        description,
-        user
-    )
+    try:
+        store_type = int(store_type)
+    except ValueError:
+        return HttpResponsePermanentRedirect(
+            "/items/stores/create?error=Store type must be a number."
+        )
+
+    if store_type not in [1, 2, 3]:
+        return HttpResponsePermanentRedirect(
+            "/items/stores/create?error=Invalid store type."
+        )
+
+    try:
+        store = STORE_REPO.create_store(
+            name,
+            store_type,
+            description,
+            user
+        )
+    except ValueError as error:
+        return HttpResponsePermanentRedirect(
+            f"/items/stores/create?error={error}"
+        )
+
+    return HttpResponsePermanentRedirect(f"/items/stores/detail/{store.id}")

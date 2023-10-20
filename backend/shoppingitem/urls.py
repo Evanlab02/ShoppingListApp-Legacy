@@ -20,4 +20,5 @@ urlpatterns = [
         "create/error", views.get_item_create_page_with_error, name="create_item_error"
     ),
     path("create/item/action", views.create_item, name="create_item_action"),
+    path("create/store/action", views.create_store, name="create_store_action"),
 ]
