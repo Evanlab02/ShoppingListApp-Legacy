@@ -76,3 +76,41 @@ class StoreRepository:
             ShoppingStore: The store with the name.
         """
         return ShoppingStore.objects.get(name=name)
+
+    def does_store_exist(self, name: str):
+        """
+        Check if a store exists.
+
+        Args:
+            name (str): The name of the store to check.
+
+        Returns:
+            bool: True if the store exists, False otherwise.
+        """
+        return ShoppingStore.objects.filter(name=name).exists()
+
+    def create_store(self, name: str, store_type: int, description: str, user: User):
+        """
+        Create a store.
+
+        Args:
+            name (str): The name of the store to create.
+            store_type (int): The type of store to create.
+            description (str): The description of the store to create.
+            user (User): The user to create the store for.
+
+        Returns:
+            ShoppingStore: The created store.
+        """
+        if self.does_store_exist(name):
+            raise ValueError(f"Store with name '{name}' already exists.")
+        elif not isinstance(store_type, int):
+            raise TypeError(f"Store type '{store_type}' is not an integer.")
+        elif store_type not in [1, 2, 3]:
+            raise ValueError(f"Store type '{store_type}' is invalid.")
+
+        store = ShoppingStore(
+            name=name, store_type=store_type, description=description, user=user
+        )
+        store.save()
+        return store

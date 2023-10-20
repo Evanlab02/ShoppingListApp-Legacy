@@ -225,3 +225,70 @@ class TestStoreRepo(TestCase):
         self.assertEqual(store.user, self.secondary_user)
         self.assertEqual(store.description, ALT_TEST_DESCRIPTION)
         self.assertEqual(store.store_type, 2)
+
+    def test_create_store(self):
+        """Test creating a store."""
+        store = self.repo.create_store(
+            name=TEST_STORE, description=TEST_DESCRIPTION, store_type=1, user=self.user
+        )
+
+        self.assertEqual(store.name, TEST_STORE)
+        self.assertEqual(store.user, self.user)
+        self.assertEqual(store.description, TEST_DESCRIPTION)
+        self.assertEqual(store.store_type, 1)
+
+    def test_does_store_exist_should_return_true(self):
+        """Test does store exist should return true."""
+        store = ShoppingStore.objects.create(
+            name=TEST_STORE,
+            user=self.user,
+            description=TEST_DESCRIPTION,
+            store_type=1,
+        )
+        store.save()
+
+        self.assertTrue(self.repo.does_store_exist(TEST_STORE))
+
+    def test_does_store_exist_should_return_false(self):
+        """Test does store exist should return false."""
+        self.assertFalse(self.repo.does_store_exist(TEST_STORE))
+
+    def test_create_store_should_fail_with_duplicate(self):
+        """Test creating a store should fail with duplicate."""
+        store = self.repo.create_store(
+            name=TEST_STORE, description=TEST_DESCRIPTION, store_type=1, user=self.user
+        )
+        store.save()
+
+        self.assertEqual(store.name, TEST_STORE)
+        self.assertEqual(store.user, self.user)
+        self.assertEqual(store.description, TEST_DESCRIPTION)
+        self.assertEqual(store.store_type, 1)
+
+        with self.assertRaises(ValueError):
+            self.repo.create_store(
+                name=TEST_STORE,
+                description=TEST_DESCRIPTION,
+                store_type=1,
+                user=self.user,
+            )
+
+    def test_create_store_with_invalid_type(self):
+        """Test creating a store with an invalid type."""
+        with self.assertRaises(ValueError):
+            self.repo.create_store(
+                name=TEST_STORE,
+                description=TEST_DESCRIPTION,
+                store_type=4,
+                user=self.user,
+            )
+
+    def test_create_store_with_invalid_type_string(self):
+        """Test creating a store with an invalid type string."""
+        with self.assertRaises(TypeError):
+            self.repo.create_store(
+                name=TEST_STORE,
+                description=TEST_DESCRIPTION,
+                store_type="1",
+                user=self.user,
+            )

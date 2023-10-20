@@ -220,3 +220,22 @@ class RenderHelper:
                 "error": error,
             },
         )
+
+    def render_store_create_page(self, req: HttpRequest) -> HttpResponse:
+        """
+        Render the store create page.
+
+        Args:
+            req(HttpRequest): The request object.
+
+        Returns:
+            HttpResponse: The rendered store create page.
+        """
+        error = req.GET.get("error")
+        return render(
+            req,
+            "items/store_create.html",
+            context={
+                "error": error,
+            },
+        )

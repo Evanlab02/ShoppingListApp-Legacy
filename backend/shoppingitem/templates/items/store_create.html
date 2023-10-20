@@ -18,7 +18,7 @@
 <body class="body-block">
     <header class="navbar">
         <div class="navbar-item">
-            <h2>Create Item</h2>
+            <h2>Create Store</h2>
             <div class="menu-list-button">
                 <sl-icon-button name="speedometer" onclick="window.location.href='/shopping/dashboard/'" />
             </div>
@@ -33,41 +33,41 @@
     <div class="content-wrapper">
         <div class="form-wrapper">
             <div class="form-top create-top">
-                <h2 id="form-heading">Create Shopping Item</h2>
+                <h2 id="form-heading">Create Store</h2>
             </div>
             {% if error %}
             <div class="form-middle">
                 <p class="error-message">{{ error }}</p>
             </div>
             {% endif %}
-            <form class="form-bottom" action="{% url 'create_item_action' %}" method="post">
+            <form class="form-bottom" action="{% url 'create_store_action' %}" method="post">
                 {% csrf_token %}
                 <fieldset>
                     <div class="form-row">
-                        <legend>Shopping Item Details</legend>
-                    </div>
-                    <div class="form-row">
-                        <label for="item-input">Item:</label>
-                        <input class="text-input" type="text" name="item-input" id="item-input">
+                        <legend>Store Details</legend>
                     </div>
                     <div class="form-row">
                         <label for="store-input">Store:</label>
-                        <select class="text-input" name="store-input" id="store-input">
-                            {% for store in stores %}
-                            <option value="{{store.name}}">{{store.name}}</option>
-                            {% endfor %}
+                        <input class="text-input" type="text" name="store-input" id="store-input">
+                    </div>
+                    <div class="form-row">
+                        <label for="store-type-input">Store Type:</label>
+                        <select class="text-input" name="store-type-input" id="store-type-input">
+                            <option value="1">Online</option>
+                            <option value="2">In-Store</option>
+                            <option value="3">Both</option>
                         </select>
                     </div>
                     <div class="form-row">
-                        <label for="price-input">Price:</label>
-                        <input class="text-input" type="number" name="price-input" id="price-input">
+                        <label for="description-input">Description:</label>
+                        <input class="text-input" type="text" name="description-input" id="description-input">
                     </div>
                     <div class="form-row submit-row">
-                        <input class="submit-input" type="submit" value="Create Item">
+                        <input class="submit-input" type="submit" value="Create Store">
                     </div>
                     <div class="form-row submit-row">
                         <input class="cancel-input" type="button" value="Cancel"
-                            onclick="window.location.href='/items/me'">
+                            onclick="window.location.href='/items/stores/me'">
                     </div>
                 </fieldset>
             </form>

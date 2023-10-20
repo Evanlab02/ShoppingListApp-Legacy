@@ -1,7 +1,10 @@
 """Contains views for the authentication app."""
 
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+
 from .database import UserRepository
-from .helpers import authenticate, login, logout, render, require_http_methods
+from .helpers import authenticate, login, logout, render
 from .types import User, HttpRequest, HttpResponsePermanentRedirect, HttpResponse
 
 USER_REPOSITORY = UserRepository()
@@ -72,6 +75,7 @@ def login_action(request: HttpRequest) -> HttpResponsePermanentRedirect:
     return HttpResponsePermanentRedirect("/error")
 
 
+@login_required(login_url="/", redirect_field_name=None)
 @require_http_methods(["GET"])
 def logout_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpResponse:
     """
@@ -88,6 +92,7 @@ def logout_page(request: HttpRequest) -> HttpResponsePermanentRedirect | HttpRes
     )
 
 
+@login_required(login_url="/", redirect_field_name=None)
 @require_http_methods(["POST"])
 def logout_action(request: HttpRequest):
     """
