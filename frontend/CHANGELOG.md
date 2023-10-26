@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.7.0...shopping-app-frontend-v0.7.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* **Items:** Items links now link to the correct page ([8804d07](https://github.com/Evanlab02/ShoppingListApp/commit/8804d071859cf74dcd1d443d941c228c89962c75))
+
 ## [0.7.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-frontend-v0.6.0...shopping-app-frontend-v0.7.0) (2023-10-03)
 
 

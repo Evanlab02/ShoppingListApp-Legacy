@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.4.0...shopping-app-server-v0.5.0) (2023-10-26)
+
+
+### Features
+
+* **Environments:** Added further support for dev and prod environments ([acee799](https://github.com/Evanlab02/ShoppingListApp/commit/acee799375db18100d3f30215be07e753ee91a15))
+* **Environments:** Cleanup ([87e5e2f](https://github.com/Evanlab02/ShoppingListApp/commit/87e5e2f26535671f0d0d3d999426e13cfb804f79))
+* **Environments:** Implemented dev and prod environments ([5238539](https://github.com/Evanlab02/ShoppingListApp/commit/52385394df6053df8c937dc1303a6acd4a86c4eb))
+* **PGAdmin:** Added pgadmin to docker compose ([df83021](https://github.com/Evanlab02/ShoppingListApp/commit/df830214c9bcb28f269804c58bcf47231d133103))
+* **Test-DB:** Can now start test-db with docker compose file in test directory ([0ec2d5b](https://github.com/Evanlab02/ShoppingListApp/commit/0ec2d5b07ebd73af96379e6cfd140fab91a8f50d))
+
 ## [0.4.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-server-v0.3.0...shopping-app-server-v0.4.0) (2023-09-21)
 
 

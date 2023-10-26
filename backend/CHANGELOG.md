@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.10.0](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.9.1...shopping-app-backend-v0.10.0) (2023-10-26)
+
+
+### Features
+
+* **Auth-App:** Major refactor and cleanup of the auth app ([a8da8d0](https://github.com/Evanlab02/ShoppingListApp/commit/a8da8d094f6b71aab05102c69cad7d7219cc7d0c))
+* **Detail-Pages:** Can now access store and item detail page ([b70500e](https://github.com/Evanlab02/ShoppingListApp/commit/b70500e8ae6551e158c23cf1a366b8bbce7188e3))
+* **Environments:** Added further support for dev and prod environments ([acee799](https://github.com/Evanlab02/ShoppingListApp/commit/acee799375db18100d3f30215be07e753ee91a15))
+* **Environments:** Cleanup ([87e5e2f](https://github.com/Evanlab02/ShoppingListApp/commit/87e5e2f26535671f0d0d3d999426e13cfb804f79))
+* **Environments:** Implemented dev and prod environments ([5238539](https://github.com/Evanlab02/ShoppingListApp/commit/52385394df6053df8c937dc1303a6acd4a86c4eb))
+* **Item-Store-App:** Major refactor and clean up of the app ([b43dcf2](https://github.com/Evanlab02/ShoppingListApp/commit/b43dcf2fca5ec2a7aa73e0821aa3aa1baf8d107a))
+* **Items:** Added edit button to items list views ([b24e6ea](https://github.com/Evanlab02/ShoppingListApp/commit/b24e6eabbbac74bb3cb11c0024f97ee11a13031d))
+* **Items:** Can now acccess item creation page ([587a944](https://github.com/Evanlab02/ShoppingListApp/commit/587a9449d120bd21984dba027f3f351eee465199))
+* **Items:** Can now access page to view all items ([31178d4](https://github.com/Evanlab02/ShoppingListApp/commit/31178d44a5f9acfbefcd1cbe3bafd8038d9ea0b0))
+* **Items:** Can now access user items page ([c47f62b](https://github.com/Evanlab02/ShoppingListApp/commit/c47f62bcf368a44ac05656dc6db96a9976428ea0))
+* **List-App:** Major refactor and clean up of the app ([d4cb16e](https://github.com/Evanlab02/ShoppingListApp/commit/d4cb16e6e3bb19ed0b3b6d3a4e0ef97e91173b6f))
+* **Store-Repo:** Can now create items ([87ea653](https://github.com/Evanlab02/ShoppingListApp/commit/87ea6532f4479dc4cab44bb9e6b6eb4c9bee7309))
+* **Stores:** Can now access a store creation view ([4a1a21f](https://github.com/Evanlab02/ShoppingListApp/commit/4a1a21fa1b5ae71e939ede68e0421eefa5032aec))
+* **Stores:** Can now access store overview pages ([647a94b](https://github.com/Evanlab02/ShoppingListApp/commit/647a94b1656494e1d93de77fdb36eb21817e704c))
+* **Stores:** Store creation post endpoint ([b15745c](https://github.com/Evanlab02/ShoppingListApp/commit/b15745c90ba10293f21bb0f40ca69ccd2cd96562))
+
+
+### Bug Fixes
+
+* **Api-Key:** Api key header is now based off the value in application.properties file ([44b6a34](https://github.com/Evanlab02/ShoppingListApp/commit/44b6a344f8b4f7c0a16f9e00a272cc5ff2567cf7))
+* **Auth:** Fixed issue where users could access pages that they require to be logged in for ([3640385](https://github.com/Evanlab02/ShoppingListApp/commit/3640385bf087698dda39b30465ff1b916ddd82c3))
+* **Settings:** Test and local settings now use correct django-key ([3323ae5](https://github.com/Evanlab02/ShoppingListApp/commit/3323ae5ea08a1e196b34622e2acee5543936417e))
+* **ShoppingLists:** Shopping lists can now contain multiples of the same item ([4fb6fcf](https://github.com/Evanlab02/ShoppingListApp/commit/4fb6fcf0c9100cd6f76033e4c1f5d65945e5c541))
+
 ## [0.9.1](https://github.com/Evanlab02/ShoppingListApp/compare/shopping-app-backend-v0.9.0...shopping-app-backend-v0.9.1) (2023-10-03)
 
 
