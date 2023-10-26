@@ -57,6 +57,29 @@ Find below the roadmap for the project. It is subject to change.
 - [x] View item details
 - [x] Create stores
 - [x] Create items
+- [x] Change API Key Header to be based on application.properties
+- [x] Add support for different environments (dev, prod)
+
+## Frontend - V0.7.1
+
+- [x] Link Dashboard to user items page
+
+## Server - V0.5.0
+
+- [x] PGadmin now gets started with docker-compose
+- [x] Create a dev and production database
+
+## Backend - V0.11.0
+- [ ] Migration to Single Repository
+
+## Frontend - V0.8.0
+- [ ] Migration to Single Repository
+
+## Server - V0.6.0
+- [ ] Migration to Single Repo
+- [ ] Create maintenance page for when the server is down
+
+## Backend - V0.12.0
 - [ ] Edit stores
 - [ ] Edit items
 - [ ] Delete stores
@@ -67,19 +90,9 @@ Find below the roadmap for the project. It is subject to change.
 
 - [ ] Add to register endpoint to check for matching passwords
 - [ ] Add tests for database repositories in Shopping List App
-- [x] Change API Key Header to be based on application.properties
-- [x] Add support for different environments (dev, prod)
 
-## Frontend - V0.7.1
-
-- [x] Link Dashboard to user items page
+## Frontend - V0.8.1
 - [ ] Change average item price to total budget amount
-
-## Server - V0.5.0
-
-- [x] PGadmin now gets started with docker-compose
-- [x] Create a dev and production database
-- [ ] Create maintenance page for when the server is down
 
 ## Backend - V1.1.0
 

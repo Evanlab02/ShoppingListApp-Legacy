@@ -2,6 +2,10 @@
 
 A shopping list app that you can run at home on your own server.
 
+## Note
+
+This repo is being archived soon but the project does not end here. I am currently working on moving away from a monorepo structure. Please keep an eye here for links to the new repos.
+
 ## Why was this project created?
 
 This project was created as a way to deal with a problem that I have. I have tried many different apps and websites to keep track of my shopping list, but I have never found one that I really like. So I decided to create my own. With shared items and stores between users but personal shopping lists.
