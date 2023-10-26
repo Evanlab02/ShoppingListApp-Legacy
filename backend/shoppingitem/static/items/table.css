@@ -14,7 +14,6 @@ th {
 td {
     height: 40px;
     border: 1px solid;
-    border-radius: 0.5rem;
     padding-left: 1rem;
 }
 
@@ -39,4 +38,25 @@ a {
 .pagination {
     display: flex;
     justify-content: center;
+}
+
+.options-header {
+    width: 50px;
+}
+
+.alt-menu-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 0rem !important;
+    margin: 0rem !important;
+}
+
+.alt-menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 0rem !important;
+    margin: 6px 8px !important;
+    border-radius: 20px;
 }

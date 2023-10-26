@@ -76,6 +76,9 @@
                 <caption>{{ table_caption }}</caption>
                 <thead>
                     <tr>
+                        {% if not add_user_col %}
+                        <th class="options-header">Options</th>
+                        {% endif %}
                         <th>Name</th>
                         <th>Store</th>
                         <th>Price</th>
@@ -87,6 +90,18 @@
                 <tbody>
                     {% for item in items %}
                     <tr>
+                        {% if not add_user_col %}
+                        <td class="alt-menu-wrapper">
+                            <div class="menu-list-button alt-menu-button">
+                                <sl-icon-button name="pencil"
+                                    onclick="window.location.href='/items/edit?item={{ item.id }}'" />
+                            </div>
+                            <div class="menu-list-button alt-menu-button">
+                                <sl-icon-button name="trash"
+                                    onclick="window.location.href='/items/delete?item={{ item.id }}'" />
+                            </div>
+                        </td>
+                        {% endif %}
                         <td><a href="/items/detail/{{ item.id }}">{{ item.name }}</a></td>
                         <td><a href="/items/stores/detail/{{ item.store.id }}">{{ item.store }}</a></td>
                         <td>{{ item.price }}</td>

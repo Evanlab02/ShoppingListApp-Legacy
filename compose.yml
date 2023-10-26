@@ -30,11 +30,11 @@ services:
       DEV_DJANGO_DATABASE_NAME: ${DEV_DJANGO_DATABASE_NAME}
       DEV_DJANGO_KEY: ${DEV_DJANGO_KEY}
     command:
-      python manage.py runserver 0.0.0.0:7000 --settings=shoppingapp.settings.dev_settings
+      python manage.py runserver 0.0.0.0:7001 --settings=shoppingapp.settings.dev_settings
     expose:
-      - "7000"
+      - "7001"
     ports:
-      - "7000:7000"
+      - "7001:7001"
     depends_on:
       shopping-app-django-postgres-db-dev:
         condition: service_healthy
@@ -44,7 +44,7 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./backend/**
+          path: ./backend/*
         - action: rebuild
           path: ./backend/requirements.txt
 
