@@ -1,3 +1,7 @@
+# Disclaimer
+
+This app has been moved to https://github.com/Evanlab02/ShoppingListApp, please feel free to look through here however to see how the app was developed before in a monorepo.
+
 # ShoppingListApp
 
 A shopping list app that you can run at home on your own server.
